@@ -85,26 +85,26 @@ Cenith <- function(chm,a=1,b=1,h=10,f=1,ntx=0,nty=0,buf=0) {
 ###example
 
 ### first load envrmt
-require(ForestTools)
-require(uavRst)
-require(mapview)
-source(file.path(root_folder, file.path(pathdir,"Cenith_V2/cenith_tiles.R")))
-source(file.path(root_folder, file.path(pathdir,"Cenith_V2/cenith_tp_v2.R")))
-source(file.path(root_folder, file.path(pathdir,"Cenith_V2/cenith_seg_tiles.R")))
-source(file.path(root_folder, file.path(pathdir,"Cenith_V2/cenith_merge.R")))
-source(file.path(root_folder, file.path(pathdir,"Cenith_V2/cenith_seg_v1.R")))
+#require(ForestTools)
+#require(uavRst)
+#require(mapview)
+#source(file.path(root_folder, file.path(pathdir,"Cenith_V2/cenith_tiles.R")))
+#source(file.path(root_folder, file.path(pathdir,"Cenith_V2/cenith_tp_v2.R")))
+#source(file.path(root_folder, file.path(pathdir,"Cenith_V2/cenith_seg_tiles.R")))
+#source(file.path(root_folder, file.path(pathdir,"Cenith_V2/cenith_merge.R")))
+#source(file.path(root_folder, file.path(pathdir,"Cenith_V2/cenith_seg_v1.R")))
 ##load data 
-chm <- raster::raster(file.path(root_folder, file.path(pathdir,"Cenith_V2/exmpl_chm.tif")))
+#chm <- raster::raster(file.path(root_folder, file.path(pathdir,"Cenith_V2/exmpl_chm.tif")))
 
 ###run Cenith
-segm <- Cenith(chm=chm,a=0.05,b=0.6,h=8,f=3,ntx=2,nty = 2,buf = 30) 
-plot(segm)
-mapview(chm)+segm
+#segm <- Cenith(chm=chm,a=0.05,b=0.6,h=8,f=3,ntx=2,nty = 2,buf = 30) 
+#plot(segm)
+#mapview(chm)+segm
 ### test for tiles=0
-seg0 <- Cenith(chm=chm,a =0.05, b= 0.6,h=8,f=1,ntx=0,nty = 0,buf = 30)
-plot(seg0$polygon)
+#seg0 <- Cenith(chm=chm,a =0.05, b= 0.6,h=8,f=1,ntx=0,nty = 0,buf = 30)
+#plot(seg0$polygon)
 ###test for tiles default(1 shuld be same as "seg0")
-segnull <- Cenith(chm=chm,a= 0.05, b=0.6,h=8)
-plot(segnull$polygon)
+#segnull <- Cenith(chm=chm,a= 0.05, b=0.6,h=8)
+#plot(segnull$polygon)
 
-plot(seg0$tp)
+#plot(seg0$tp)
