@@ -10,7 +10,10 @@ project_folders = c("data/",
                     
                     "repo/src/",   #for scripts
                     "repo/doc/",   #for docs
-                    "repo/lit/"    #for literature
+                    "repo/lit/",    #for literature
+                    
+                    "repo/src/Cenith_V2"
+                   
                     
 )
 
