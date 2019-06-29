@@ -14,7 +14,8 @@ project_folders = c("data/",
                     "repo/lit/",   #for literature
                       
                     
-                    "repo/src/Cenith_V2/"
+                    "repo/src/Cenith_V2/",
+                    "repo/src/000_dev/"
                    
                     
 )
