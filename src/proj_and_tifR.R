@@ -54,16 +54,21 @@ raster::writeRaster(filled_saga,filename=paste0(file.path(envrmt$path_002_proces
 filled_tif <-raster::raster(file.path(envrmt$path_002_processed,"filled.tif"))
 
 filled_saga
-filled_tif
+crs(filled_tif)
 
+utm <- CRS(pr4)
+filled_saga_utm <- CRS(pr4)
+filled_tif_utm <- projectRaster(filled_tif, crs=utm)
 
-filled_saga_utm <- projectRaster(filled_saga, crs=pr4)
-filled_tif_utm <- projectRaster(filled_tif, crs=pr4)
-
-filled_saga_utm
+plot(filled_saga_utm)
 filled_tif_utm
 ###################################
 
+proj4string(filled_saga) <- utm
+filled_saga_utm <-proj4string(filled_saga) <- utm
+filled_saga_utm
+
+crs(filled_saga)
 raster::writeRaster(filled_saga_utm,filename=paste0(file.path(envrmt$path_002_processed),"/filled_utmfromsaga.tif"),overwrite = TRUE,NAflag = 0)
 raster::writeRaster(filled_tif_utm,filename=paste0(file.path(envrmt$path_002_processed),"/filled_utm.tif"),overwrite = TRUE,NAflag = 0)
 
@@ -74,3 +79,6 @@ utm <-raster::raster(file.path(envrmt$path_002_processed,"filled_utm.tif"))
 
 utmsaga
 utm
+
+###
+
