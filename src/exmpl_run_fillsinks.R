@@ -25,6 +25,10 @@ dem <- raster::raster(file.path(envrmt$path_Cenith_V2, "exampl_dem.tif"))
 utm <- "+proj=utm +zone=32 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs"
 
 source(file.path(root_folder, paste0(pathdir,"000_dev/cenith_fillsinks.R"))) 
-cenith_fillsinks(dem=dem,output=envrmt$path_002_processed,tmp=envrmt$path_tmp,0,proj=utm)
+cenith_fillsinks(dem      =dem,
+                 output   =envrmt$path_002_processed,
+                 tmp      =envrmt$path_tmp,
+                 minslope =0,
+                 proj     =utm)
 
 som <- raster::raster(file.path(envrmt$path_002_processed, "som.tif"))
