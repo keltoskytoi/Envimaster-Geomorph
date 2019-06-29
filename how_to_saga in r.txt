@@ -13,3 +13,7 @@ identifie installed versions and re/uninstall
 
 - now RSAGA wrapper can be used OR soon coming R Wrapper function by me :)
 
+WICHTIG: wenn ihr mit der OSgeo4shell nachscheut welche installationen ihr habt und da etwas
+ uninstallieren wollt, guck alle möglichen "kästchen" durch, bei mir aktualisiert der dann 
+direkt vieles und installiert u.a. auch wieder en neuerer Version von saga
+

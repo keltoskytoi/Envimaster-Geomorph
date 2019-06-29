@@ -1,3 +1,11 @@
 for fully use of the envrionment plz relocate the hided git. folder in our "repo" folder
 
 data tmp and gis will not be updated by github commits, data will be shared with drive or dorpbox
+
+damit das repo richtig funktioniert müsst ihr den versteckten .git im Ordner 
+"Geomorph" in den Ordern "repo" verschieben. 
+
+Dann nochmal pull. kann aber auch sein, dass ihr das ganze neu clonen müsst :(
+Ber jetzt läuft alles, auch SAGA.
+Wie immer die Ordner ausserhalb von Repro können über das Envrmt angesteuert werden, 
+jedoch nicht über github aktualisiert werden
