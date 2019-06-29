@@ -1,0 +1,3 @@
+for fully use of the envrionment plz relocate the hided git. folder in our "repo" folder
+
+data tmp and gis will not be updated by github commits, data will be shared with drive or dorpbox
