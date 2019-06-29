@@ -35,7 +35,8 @@ cenith_fillsinks <- function(dem,output,tmp,minslope,proj) {
                             env = env)
   
   
- 
+ # zum testen namen ändern.
+  # alle raster die produziert werden zusammenfassen und projezieren? stack?
   pr4 <- utm
   filled_dem <- raster::raster(file.path(envrmt$path_tmp, "distance.sdat"))
   proj4string(filled_dem) <- pr4
