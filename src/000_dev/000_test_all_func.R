@@ -34,6 +34,7 @@ cenith_fillsinks(dem      =dem,
 som <- raster::raster(file.path(envrmt$path_002_processed, "som.tif"))
 plot(som)
 
+source(file.path(root_folder, paste0(pathdir,"000_dev/indev_lightning.R"))) 
 skyview(dem      =dem,
         output   =envrmt$path_002_processed,
         tmp      =envrmt$path_tmp,
@@ -42,3 +43,24 @@ skyview(dem      =dem,
 
 svf <- raster::raster(file.path(envrmt$path_002_processed, "svf.tif"))
 plot(svf)
+
+source(file.path(root_folder, paste0(pathdir,"000_dev/morphmetric.R"))) 
+morphmetric(dem      =dem,
+        output   =envrmt$path_002_processed,
+        tmp      =envrmt$path_tmp,
+        proj     =utm,
+        method   =6)
+
+cov_max <-raster::raster(file.path(envrmt$path_002_processed, "cov_max.tif"))
+plot(cov_max)
+
+# tpi doesnt work inhered nr for module
+#source(file.path(root_folder, paste0(pathdir,"000_dev/tpi.R"))) 
+#tpi        (dem      =dem,
+#            output   =envrmt$path_002_processed,
+#            tmp      =envrmt$path_tmp,
+#            proj     =utm
+#            )
+#
+#tpi <-raster::raster(file.path(envrmt$path_002_processed, "tpi.tif"))
+#plot(tpi)
