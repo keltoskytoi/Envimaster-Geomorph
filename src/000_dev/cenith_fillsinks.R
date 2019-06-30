@@ -14,16 +14,19 @@
 #' @param Mandatory if function: proj - desired projection for output data, predefinition in var is recommended
 
 cenith_fillsinks <- function(dem,output,tmp,minslope,proj) {
+  cat(" ",sep = "\n")
+  cat("### Cenith fill sinks starts ###")
   raster::writeRaster(dem,filename=paste0(file.path(tmp),"/dem.sdat"),overwrite = TRUE,NAflag = 0)
   RSAGA::rsaga.geoprocessor(lib = "ta_preprocessor", module = 4,
-                            param = list(ELEV = paste(tmp,"/dem.sgrd", sep = ""), 
-                                         MINSLOPE = minslope,
-                                         WSHED = paste(tmp,"/wshed.sgrd", sep = ""),
-                                         FDIR = paste(tmp,"/fdir.sgrd", sep = ""),
-                                         FILLED = paste(tmp,"/filled_dem.sgrd", sep = "")
+                            param = list(ELEV =    paste(tmp,"/dem.sgrd", sep = ""), 
+                                         WSHED =   paste(tmp,"/wshed.sgrd", sep = ""),
+                                         FDIR =    paste(tmp,"/fdir.sgrd", sep = ""),
+                                         FILLED =  paste(tmp,"/filled_dem.sgrd", sep = ""),
+                                         MINSLOPE = minslope
                             ),
                             show.output.on.console = TRUE, invisible = TRUE,
                             env = env)
+
   pr4 <- proj
   filled_dem <- raster::raster(file.path(tmp, "filled_dem.sdat"))
   proj4string(filled_dem) <- pr4
@@ -32,7 +35,8 @@ cenith_fillsinks <- function(dem,output,tmp,minslope,proj) {
   
   som <- fem - dem
   raster::writeRaster(som,filename=paste0(file.path(output),"/som.tif"),overwrite = TRUE,NAflag = 0)
-  
+  cat(" ",sep = "\n")
+  cat("### Cenith finished ###")
 }
   
 # exmpl (only in loaded environment)
