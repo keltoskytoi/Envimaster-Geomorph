@@ -14,7 +14,7 @@
 #' @param Mandatory if function: proj - desired projection for output data, predefinition in var is recommended
 #' @param Mandatory if function: radius - 	The maximum search radius [map units]
 
-skyview <- function(dem,output,tmp,proj,radius) {
+skyview <- function(dem,output,tmp,proj,radius=100) {
   raster::writeRaster(dem,filename=paste0(file.path(tmp),"/dem.sdat"),overwrite = TRUE,NAflag = 0)
   RSAGA::rsaga.geoprocessor(lib = "ta_lighting", module = 3,
                             param = list(DEM =     paste(tmp,"/dem.sgrd", sep = ""), 
@@ -24,9 +24,9 @@ skyview <- function(dem,output,tmp,proj,radius) {
                                          TERRAIN = paste(tmp,"/ter.sgrd", sep = ""),
                                          DISTANCE= paste(tmp,"/dis.sgrd", sep = ""),
                                          RADIUS=radius,
-                                         NDIRS =8,
-                                         METHOD=0,
-                                         DLEVEL=3
+                                         NDIRS =8, #default setting
+                                         METHOD=0, #default setting
+                                         DLEVEL=3  #default setting
                                         
                                          
                             ),
