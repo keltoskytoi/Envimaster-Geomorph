@@ -33,8 +33,8 @@ source(file.path(root_folder, file.path(pathdir,"Cenith_V2/cenith_seg_v1.R")))
 demex <- raster::raster(file.path(envrmt$path_Cenith_V2, "exampl_dem.tif"))
 
 dem <- raster::raster(file.path(envrmt$path_001_org, "DEM_mof.tif"))
+rgb <- raster::raster(file.path(envrmt$path_001_org, "RGB_mof.tif"))
 
-plot(dem)
 
 # invert dem for positiv values inverted
 dem2 <- spatialEco::raster.invert(dem)
@@ -52,7 +52,7 @@ cl =  makeCluster(detectCores()-1)
 registerDoParallel(cl)
 
 #run Cenith
-test2 <- Cenith(chm=dem2,h=2,a=0.05,b=0.5, ntx = 4, nty = 4)
+test1 <- Cenith(chm=dem2,h=2,a=0.05,b=0.5, ntx = 4, nty = 4)
 
 #stop cluster
 stopCluster(cl)
@@ -61,14 +61,15 @@ stopCluster(cl)
 mapview(test1$tp)+dem2
 mapview(test1$polygon)+dem2
 
-#run with sinks
+#run with filled sinks raster
 sinksex <- raster::raster(file.path(envrmt$path_002_processed, "fill_sink_test.tif"))
 sinks <- raster::raster(file.path(envrmt$path_002_processed, "som.tif"))
 plot(sinks)
 
-test2 <- Cenith(chm=sinks,h=0.5,a=0.05,b=0.5)
+test2 <- Cenith(chm=sinks,h=0.01,a=0.05,b=0.5, ntx = 6, nty = 6)
 
-mapview(test2$tp)+sinks
+mapview(test2$tp)+rgb
+mapview(test2$tp)+dem
 mapview(test2$polygon)+sinks
 
 
