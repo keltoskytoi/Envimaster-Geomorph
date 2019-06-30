@@ -65,7 +65,7 @@ registerDoParallel(cl)
 
 #run Cenith
 
-test1 <- Cenith(chm=dem2,h=1,a=0.05,b=0.5, ntx = 6, nty = 6)
+test1 <- Cenith(chm=dem2,h=0.5,a=0.01,b=0.8, ntx = 4, nty = 4)
 
 #stop cluster
 
@@ -87,7 +87,7 @@ plot(sinks)
 cl =  makeCluster(detectCores()-1)
 registerDoParallel(cl)
 
-test2 <- Cenith(chm=sinks,h=0.5,a=0.05,b=0.5)
+test2 <- Cenith(chm=sinks,h=0.5,a=0.01,b=0.8)
 
 #stop cluster
 
@@ -96,10 +96,11 @@ stopCluster(cl)
 #view
 mapview(test2$tp)+rgb
 mapview(test2$tp)+dem
+mapview(test2$tp)+hill
 mapview(test2$polygon)+sinks
 
 #write data
-writeOGR(obj=test1$polygon,dsn= file.path(envrmt$path_002_processed, "seg_mof_poly.shp"),layer="testShape",driver="ESRI Shapefile")
+writeOGR(obj=test1,dsn= file.path(envrmt$path_002_processed, "seg_mof_poly.shp"),layer="testShape",driver="ESRI Shapefile")
 writeOGR(obj=test1$tp,dsn= file.path(envrmt$path_002_processed, "seg_mof_tp.shp"),layer="testShape",driver="ESRI Shapefile")
 
 writeOGR(obj=test2$polygon,dsn= file.path(envrmt$path_002_processed, "seg_sinks_mof_poly.shp"),layer="testShape",driver="ESRI Shapefile")
