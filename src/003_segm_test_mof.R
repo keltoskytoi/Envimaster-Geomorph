@@ -29,6 +29,7 @@ source(file.path(root_folder, file.path(pathdir,"Cenith_V2/cenith_seg_tiles.R"))
 source(file.path(root_folder, file.path(pathdir,"Cenith_V2/cenith_merge.R")))
 source(file.path(root_folder, file.path(pathdir,"Cenith_V2/cenith_seg_v1.R"))) 
 
+#load data
 
 demex <- raster::raster(file.path(envrmt$path_Cenith_V2, "exampl_dem.tif"))
 
@@ -36,10 +37,20 @@ dem <- raster::raster(file.path(envrmt$path_001_org, "DEM_mof.tif"))
 rgb <- raster::raster(file.path(envrmt$path_001_org, "RGB_mof.tif"))
 
 
+#create hillshade
+
+slope <- terrain(dem, opt='slope')
+aspect <- terrain(dem, opt='aspect')
+
+hill <- hillShade(slope, aspect, 
+                      angle=40, 
+                      direction=270)
+
+plot(hill,col=grey.colors(100, start=0, end=1),legend=F)
+
 # invert dem for positiv values inverted
+
 dem2 <- spatialEco::raster.invert(dem)
-
-
 
 #check differenz and projection
 
@@ -48,29 +59,48 @@ plot(dem2)
 crs(dem2)
 
 #run cluster
+
 cl =  makeCluster(detectCores()-1)
 registerDoParallel(cl)
 
 #run Cenith
-test1 <- Cenith(chm=dem2,h=2,a=0.05,b=0.5, ntx = 4, nty = 4)
+
+test1 <- Cenith(chm=dem2,h=1,a=0.05,b=0.5, ntx = 6, nty = 6)
 
 #stop cluster
+
 stopCluster(cl)
 
 #view
+
 mapview(test1$tp)+dem2
 mapview(test1$polygon)+dem2
 
 #run with filled sinks raster
+
 sinksex <- raster::raster(file.path(envrmt$path_002_processed, "fill_sink_test.tif"))
 sinks <- raster::raster(file.path(envrmt$path_002_processed, "som.tif"))
 plot(sinks)
 
-test2 <- Cenith(chm=sinks,h=0.01,a=0.05,b=0.5, ntx = 6, nty = 6)
+#run cluster
 
+cl =  makeCluster(detectCores()-1)
+registerDoParallel(cl)
+
+test2 <- Cenith(chm=sinks,h=0.5,a=0.05,b=0.5)
+
+#stop cluster
+
+stopCluster(cl)
+
+#view
 mapview(test2$tp)+rgb
 mapview(test2$tp)+dem
 mapview(test2$polygon)+sinks
 
+#write data
+writeOGR(obj=test1$polygon,dsn= file.path(envrmt$path_002_processed, "seg_mof_poly.shp"),layer="testShape",driver="ESRI Shapefile")
+writeOGR(obj=test1$tp,dsn= file.path(envrmt$path_002_processed, "seg_mof_tp.shp"),layer="testShape",driver="ESRI Shapefile")
 
-writeOGR(obj=test1,dsn="D:/seg_mof.shp",layer="testShape",driver="ESRI Shapefile")
+writeOGR(obj=test2$polygon,dsn= file.path(envrmt$path_002_processed, "seg_sinks_mof_poly.shp"),layer="testShape",driver="ESRI Shapefile")
+writeOGR(obj=test2$tp,dsn= file.path(envrmt$path_002_processed, "seg_sinks_mof_tp.shp"),layer="testShape",driver="ESRI Shapefile")        
