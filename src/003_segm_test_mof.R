@@ -52,7 +52,7 @@ cl =  makeCluster(detectCores()-1)
 registerDoParallel(cl)
 
 #run Cenith
-test2 <- Cenith(chm=dem2,h=2,a=0.05,b=0.5)
+test2 <- Cenith(chm=dem2,h=2,a=0.05,b=0.5, ntx = 4, nty = 4)
 
 #stop cluster
 stopCluster(cl)
