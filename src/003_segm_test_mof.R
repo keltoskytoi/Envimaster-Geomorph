@@ -37,17 +37,6 @@ dem <- raster::raster(file.path(envrmt$path_001_org, "DEM_mof.tif"))
 rgb <- raster::raster(file.path(envrmt$path_001_org, "RGB_mof.tif"))
 
 
-#create hillshade
-
-slope <- terrain(dem, opt='slope')
-aspect <- terrain(dem, opt='aspect')
-
-hill <- hillShade(slope, aspect, 
-                      angle=40, 
-                      direction=270)
-
-plot(hill,col=grey.colors(100, start=0, end=1),legend=F)
-
 # invert dem for positiv values inverted
 
 dem2 <- spatialEco::raster.invert(dem)
@@ -65,7 +54,7 @@ registerDoParallel(cl)
 
 #run Cenith
 
-test1 <- Cenith(chm=dem2,h=0.5,a=0.01,b=0.8, ntx = 4, nty = 4)
+test1 <- Cenith(chm=dem2,h=2,a=0.01,b=0.8, ntx = 2, nty = 2)
 
 #stop cluster
 
