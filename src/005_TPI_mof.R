@@ -22,6 +22,11 @@ source(file.path(root_folder, paste0(pathdir,"001_setup_geomorph_v1.R")))
 ###---------------------------------------------------------------------------------------###
 #############################################################################################
 
+#load data
+
+dem <- raster::raster(file.path(envrmt$path_001_org, "DEM_mof.tif"))
+
+
 #create hillshade , slope etc
 
 slope <- terrain(dem, opt="slope")
@@ -34,7 +39,7 @@ flow <- terrain(dem, opt = 'flowdir')
 
 hill <- hillShade(slope, aspect, 
                   angle=40, 
-                  direction=270)
+                  direction=170)
 
 plot(hill,col=grey.colors(100, start=0, end=1),legend=F)
 
