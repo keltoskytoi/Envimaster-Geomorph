@@ -12,7 +12,7 @@
 
 
 #parameters refering to descrption of function as error (and as shoen in command line in SAGA Doku too)
-tpi2 <- function(dem,output,tmp,proj) {
+tpi <- function(dem,output,tmp,proj) {
   raster::writeRaster(dem,filename=paste0(file.path(tmp),"/dem.sdat"),overwrite = TRUE,NAflag = 0)
   RSAGA::rsaga.geoprocessor(lib = "ta_morphometry", module = 18, # unable to find inhered module nr
                             param = list(DEM =    paste(tmp,"/dem.sgrd", sep = ""), 
