@@ -54,13 +54,13 @@ morphmetric(dem      =dem,
 cov_max <-raster::raster(file.path(envrmt$path_002_processed, "cov_max.tif"))
 plot(cov_max)
 
-# tpi doesnt work inhered nr for module
-#source(file.path(root_folder, paste0(pathdir,"000_dev/tpi.R"))) 
-#tpi        (dem      =dem,
-#            output   =envrmt$path_002_processed,
-#            tmp      =envrmt$path_tmp,
-#            proj     =utm
-#            )
-#
-#tpi <-raster::raster(file.path(envrmt$path_002_processed, "tpi.tif"))
-#plot(tpi)
+# mtpi need specific SAGA version
+source(file.path(root_folder, paste0(pathdir,"000_dev/tpi2.R"))) 
+tpi2        (dem      =dem,
+            output   =envrmt$path_002_processed,
+            tmp      =envrmt$path_tmp,
+            proj     =utm
+            )
+
+tpi <-raster::raster(file.path(envrmt$path_002_processed, "tpi.tif"))
+plot(tpi)
