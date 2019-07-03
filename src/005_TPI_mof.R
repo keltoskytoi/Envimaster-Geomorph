@@ -38,7 +38,7 @@ flow <- terrain(dem, opt = 'flowdir')
 
 
 hill <- hillShade(slope, aspect, 
-                  angle=40, 
+                  angle=60, 
                   direction=170)
 
 plot(hill,col=grey.colors(100, start=0, end=1),legend=F)

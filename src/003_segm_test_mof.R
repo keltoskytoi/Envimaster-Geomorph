@@ -35,16 +35,17 @@ demex <- raster::raster(file.path(envrmt$path_Cenith_V2, "exampl_dem.tif"))
 
 dem <- raster::raster(file.path(envrmt$path_001_org, "DEM_mof.tif"))
 rgb <- raster::raster(file.path(envrmt$path_001_org, "RGB_mof.tif"))
-
+tpi <- raster::raster(file.path(envrmt$path_001_org, "TPI_ex.tif"))
 
 # invert dem for positiv values inverted
 
 dem2 <- spatialEco::raster.invert(dem)
+tpi <- spatialEco::raster.invert(tpi)
 
 #check differenz and projection
 
 plot(dem)
-plot(dem2)
+plot(tpi)
 crs(dem2)
 
 #run cluster
@@ -54,7 +55,8 @@ registerDoParallel(cl)
 
 #run Cenith
 
-test1 <- Cenith(chm=dem2,h=2,a=0.01,b=0.8, ntx = 2, nty = 2)
+test1 <- Cenith(chm=tpi,h=1.2,a=0.01,b=0.8, ntx = 4, nty = 4)
+testtpi <- Cenith(chm=tpi,h=1.2,a=0.01,b=0.8)
 
 #stop cluster
 
