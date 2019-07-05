@@ -38,7 +38,7 @@ flow <- terrain(dem, opt = 'flowdir')
 
 
 hill <- hillShade(slope, aspect, 
-                  angle=60, 
+                  angle=40, 
                   direction=170)
 
 plot(hill,col=grey.colors(100, start=0, end=1),legend=F)
@@ -63,14 +63,17 @@ tpiw <- function(x, w=5) {
 
 #run TPI for different matrix sizes
 
+tpi3 <- tpiw(dem, w=3)
 tpi5 <- tpiw(dem, w=5)
 tpi9 <- tpiw(dem, w=9)
+tpi15 <- tpiw(dem, w=15)
 tpi31 <- tpiw(dem, w=31)
 tpi61 <- tpiw(dem, w=61)
 tpi91 <- tpiw(dem, w=91)
 tpi131 <- tpiw(dem, w=131)
 tpi177 <- tpiw(dem, w=177)
 tpi331 <- tpiw(dem, w=331)
+tpi541 <- tpiw(dem, w=541)
 
 #plot tpi's
 plot(tpi5,col=grey.colors(100, start=0, end=1),legend=F)
@@ -81,6 +84,7 @@ plot(tpi91,col=grey.colors(100, start=0, end=1),legend=F)
 plot(tpi131,col=grey.colors(100, start=0, end=1),legend=F)
 plot(tpi177,col=grey.colors(100, start=0, end=1),legend=F)
 plot(tpi331,col=grey.colors(100, start=0, end=1),legend=F)
+plot(tpi541,col=grey.colors(100, start=0, end=1),legend=F)
 
 #write raster
 writeRaster(tpi5, filename= file.path(envrmt$path_002_processed, "tpi5.tif"), format="GTiff", overwrite=TRUE)
@@ -90,3 +94,5 @@ writeRaster(tpi61, filename= file.path(envrmt$path_002_processed, "tpi61.tif"), 
 writeRaster(tpi91, filename= file.path(envrmt$path_002_processed, "tpi91.tif"), format="GTiff", overwrite=TRUE)
 writeRaster(tpi131, filename= file.path(envrmt$path_002_processed, "tpi131.tif"), format="GTiff", overwrite=TRUE)
 writeRaster(tpi177, filename= file.path(envrmt$path_002_processed, "tpi177.tif"), format="GTiff", overwrite=TRUE)
+writeRaster(tpi331, filename= file.path(envrmt$path_002_processed, "tpi331.tif"), format="GTiff", overwrite=TRUE)
+writeRaster(tpi541, filename= file.path(envrmt$path_002_processed, "tpi541.tif"), format="GTiff", overwrite=TRUE)
