@@ -84,6 +84,7 @@ dev.off()
 anotherbrick <-raster::brick(slope,aspect)
 anotherbrick
 names(anotherbrick)
+
 #add id
 poly$ID=seq(1,2,1)
 
@@ -108,3 +109,22 @@ values_clean<- as.data.frame(values)
 values_clean
 
 names(values_clean)
+
+#create expl brick for funtion
+#NOTE the saved grd file will not work if loaded and used in the Reaver funtion
+cov_min<-raster::raster(file.path(envrmt$path_Reaver, "cov_min.tif"))
+cov_max<-raster::raster(file.path(envrmt$path_Reaver, "cov_max.tif"))
+
+brck <- raster::brick(slope,aspect,cov_min,cov_max)
+brck
+crs(brck)
+names(brck)
+raster::writeRaster(brck,filename=paste0(file.path(envrmt$path_Reaver),"/expl_brick.grd"),overwrite = TRUE,NAflag = 0)
+ writeRaster(stk,"myStack.grd", format="raster")
+brck2 <- raster::stack(file.path(envrmt$path_Reaver, "expl_brick.grd"))
+class(test)
+test[[2]]
+names(test)
+brck
+brck2
+
