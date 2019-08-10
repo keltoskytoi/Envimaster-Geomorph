@@ -88,6 +88,7 @@ Cenith <- function(chm,a=1,b=1,h=10,f=1,ntx=0,nty=0,buf=0) {
 #require(ForestTools)
 #require(uavRst)
 #require(mapview)
+#require(TileManager)
 #source(file.path(root_folder, file.path(pathdir,"Cenith_V2/cenith_tiles.R")))
 #source(file.path(root_folder, file.path(pathdir,"Cenith_V2/cenith_tp_v2.R")))
 #source(file.path(root_folder, file.path(pathdir,"Cenith_V2/cenith_seg_tiles.R")))
