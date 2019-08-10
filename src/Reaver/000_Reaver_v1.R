@@ -6,11 +6,12 @@
 
 #' @param Mandatory if function: poly - a shp with polygones
 #' @param Mandatory if function: multilayer - a rasterbrick, needs same CRS and extensions like the shp
-#' @param Mandatory if function: set_ID - bolean, if TRUE an ID is added to the polygones
-#' @param Mandatory if function: spell - bolean, if TRUE the function will call the workflow position
+#' @param Mandatory if function: set_ID - bolean, if TRUE an ID is added to the polygones, default is TRUE
+#' @param Mandatory if function: stats - bolean, if TRUE returns a list with sd,mean,sum,min and max values for each polygone, default ist TRUE
+#' @param Mandatory if function: spell - bolean, if TRUE the function will call the workflow position, default is TRUE
 
 
-Reaver <- function(poly,multilayer,set_ID=TRUE,spell=TRUE) {
+Reaver <- function(poly,multilayer,set_ID=TRUE,stats=TRUE,spell=TRUE) {
   if (spell==TRUE){
   cat(" ",sep = "\n")
   cat("### Reaver starts Extraction of Values ###")
@@ -29,12 +30,32 @@ Reaver <- function(poly,multilayer,set_ID=TRUE,spell=TRUE) {
   getval <- raster::getValues(masked_ID)
   clean <- na.omit(getval)
   df_clean <- as.data.frame(clean)
-  cat(" ",sep = "\n")
-  cat(" ",sep = "\n")
-  cat("### Reaver has finished ###")
-  cat(" ",sep = "\n")
-  return(df_clean)
+  if (stats==TRUE){
+    cat(" ",sep = "\n")
+    cat("### Reaver calculates statistic values ###")
+    df_sd   <-ddply(df_clean,.(layer),colwise(sd))
+    df_mean <-ddply(df_clean,.(layer),colwise(mean))
+    df_sum <-ddply(df_clean,.(layer),colwise(sum))
+    df_min <-ddply(df_clean,.(layer),colwise(min))
+    df_max <-ddply(df_clean,.(layer),colwise(max))
+    cat(" ",sep = "\n")
+    cat(" ",sep = "\n")
+    cat("### Reaver has finished ###")
+    cat(" ",sep = "\n")
+    return(list(df_clean=df_clean,
+                df_sd=df_sd,
+                df_mean=df_mean,
+                df_sum=df_sum,
+                df_min=df_min,
+                df_max=df_max))
   }else{
+    cat(" ",sep = "\n")
+    cat(" ",sep = "\n")
+    cat("### Reaver has finished ###")
+    cat(" ",sep = "\n")
+    return(df_clean)
+
+  }}else{
     if (spell==FALSE){
       if (set_ID==TRUE){
         poly@data$ID=seq(1,length(poly),1)
@@ -46,10 +67,24 @@ Reaver <- function(poly,multilayer,set_ID=TRUE,spell=TRUE) {
       getval <- raster::getValues(masked_ID)
       clean <- na.omit(getval)
       df_clean <- as.data.frame(clean)
+      
+      if (stats==TRUE){
+        df_sd   <-ddply(df_clean,.(layer),colwise(sd))
+        df_mean <-ddply(df_clean,.(layer),colwise(mean))
+        df_sum <-ddply(df_clean,.(layer),colwise(sum))
+        df_min <-ddply(df_clean,.(layer),colwise(min))
+        df_max <-ddply(df_clean,.(layer),colwise(max))
+        return(list(df_clean=df_clean,
+                    df_sd=df_sd,
+                    df_mean=df_mean,
+                    df_sum=df_sum,
+                    df_min=df_min,
+                    df_max=df_max))
+        }else{
       return(df_clean)
   }
 }
-}
+}}
 #'@examples
 #'\dontrun{
 #'#load data 
@@ -66,11 +101,8 @@ cov_max<-raster::raster(file.path(envrmt$path_Reaver, "cov_max.tif"))
 brck <- raster::brick(slope,aspect,cov_min,cov_max)
 brck
 ###run Reaver
-df<- Reaver(poly=poly,multilayer=brck,set_ID = TRUE,spell=TRUE)
+df<- Reaver(poly=poly,multilayer=brck,set_ID = TRUE,spell=F,stats = T)
 df
-brck@data
 }
-
-
 
 
