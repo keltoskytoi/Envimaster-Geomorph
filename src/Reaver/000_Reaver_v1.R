@@ -102,7 +102,7 @@ brck <- raster::brick(slope,aspect,cov_min,cov_max)
 brck
 ###run Reaver
 df<- Reaver(poly=poly,multilayer=brck,set_ID = TRUE,spell=F,stats = T)
-df
+df$df_sd
 }
 
 
