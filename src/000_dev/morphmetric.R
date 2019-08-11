@@ -32,8 +32,8 @@ morphmetric <- function(dem,output,tmp,proj,method=6) {
                                          C_TOTA= paste(tmp,"/tol.sgrd", sep = ""),
                                          C_ROTO= paste(tmp,"/rot.sgrd", sep = ""),
                                          METHOD= method,
-                                         UNIT_SLOPE= 0,
-                                         UNIT_ASPECT=0
+                                         UNIT_SLOPE= 0, #0=radians,1=degree
+                                         UNIT_ASPECT=0  #0=radians,1=degree
                                         
                                          
                             ),
