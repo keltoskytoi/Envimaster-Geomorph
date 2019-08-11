@@ -47,3 +47,22 @@ poly<-spTransform(poly,utm)
 #run
 df<- Reaver(poly=poly,multilayer=test,set_ID = TRUE,spell=T,stats = T)
 df$df_mean
+
+#test with other filtered dem
+f=3
+dem2 <- raster::focal(dem,w=matrix(1/(f),nrow=f,ncol=f))
+test2 <- LEGION_dem(dem      =dem2,
+                   tmp      =envrmt$path_tmp,
+                   proj     =utm)
+
+df2<- Reaver(poly=poly,multilayer=test2,set_ID = TRUE,spell=T,stats = T)
+df2$df_mean
+
+f=5
+dem3 <- raster::focal(dem,w=matrix(1/(f),nrow=f,ncol=f))
+test3 <- LEGION_dem(dem      =dem3,
+                    tmp      =envrmt$path_tmp,
+                    proj     =utm)
+
+df3<- Reaver(poly=poly,multilayer=test3,set_ID = TRUE,spell=T,stats = T)
+df3$df_mean
