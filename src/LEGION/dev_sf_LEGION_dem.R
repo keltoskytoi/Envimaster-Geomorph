@@ -1,6 +1,6 @@
-#' Mandatory: Legion DEM
+#' Mandatory: Subfunction for Legion DEM
 #' 
-#' @description Optional: Computes several artificially raster layers from a single DEM.
+#' @description Optional: Computes several artificially raster layers from a single DEM. returns a list.
 #' @name Mandatory LEGION  
 #' @export Mandatory LEGION
 
@@ -11,6 +11,7 @@
 #' @param Mandatory if function: proj - desired projection for output data, predefinition in var is recommended
 #' @param Mandatory if function: radius - The maximum search radius for skyview [map units]
 #' @param Mandatory if function: units - the unit for slope and aspect,0=radians 1=degree, default is 0
+#' @param Mandatory if function: filter - a vector of at least 2 values for sum filter in f*f for the input dem.
 #' @param Mandatory if function: method - default 9 parameter 2nd order polynom (Zevenbergen & Thorne 1987) 
 #' for others see http://www.saga-gis.org/saga_tool_doc/6.4.0/ta_morphometry_0.html
 

@@ -1,6 +1,7 @@
 #' Mandatory: Legion DEM
 #' 
 #' @description Optional: Computes several artificially raster layers from a single DEM.
+#' Returns a Brick and uses a Filter
 #' @name Mandatory LEGION  
 #' @export Mandatory LEGION
 
@@ -12,10 +13,11 @@
 #' @param Mandatory if function: radius - The maximum search radius for skyview [map units]
 #' @param Mandatory if function: units - the unit for slope and aspect,0=radians 1=degree, default is 0
 #' @param Mandatory if function: method - default 9 parameter 2nd order polynom (Zevenbergen & Thorne 1987) 
+#' @param Mandatory if function: f - optional: single value, a sum filter for the input dem in f*f, must be odd. Default =1(no filtering)
 #' for others see http://www.saga-gis.org/saga_tool_doc/6.4.0/ta_morphometry_0.html
 
 #Note v1_2: add simpl filter function and names with filtersize
-LEGION_dem2 <- function(dem,tmp,method=6,units=0,radius=100,proj,f){
+LEGION_dem <- function(dem,tmp,method=6,units=0,radius=100,proj,f=1){
   
 ### compute Atrifically layers with SAGA alorithm, rastes will be saved as .sgrd in a tmp folder
   

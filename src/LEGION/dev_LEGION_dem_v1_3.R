@@ -1,6 +1,7 @@
 #' Mandatory: Legion DEM
 #' 
-#' @description Optional: Computes several artificially raster layers from a single DEM.
+#' @description Optional: Computes several artificially raster layers from a single DEM and uses
+#' several sum filters. Returns a list 
 #' @name Mandatory LEGION  
 #' @export Mandatory LEGION
 
@@ -13,6 +14,7 @@
 #' @param Mandatory if function: units - the unit for slope and aspect,0=radians 1=degree, default is 0
 #' @param Mandatory if function: method - default 9 parameter 2nd order polynom (Zevenbergen & Thorne 1987) 
 #' for others see http://www.saga-gis.org/saga_tool_doc/6.4.0/ta_morphometry_0.html
+#' @param Mandatory if function: filter - a vector of at least 2 values for sum filter in f*f for the input dem.
 
 #Note v1_2: add simpl filter function and names with filtersize
 #BUT: returns a list

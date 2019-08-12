@@ -1,6 +1,6 @@
 #' Mandatory: Legion DEM
 #' 
-#' @description Optional: Computes several artificially raster layers from a single DEM.
+#' @description Optional: Computes several artificially raster layers from a single DEM. Returns a Brick.
 #' @name Mandatory LEGION  
 #' @export Mandatory LEGION
 
