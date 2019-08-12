@@ -15,28 +15,30 @@
 #' for others see http://www.saga-gis.org/saga_tool_doc/6.4.0/ta_morphometry_0.html
 
 #Note v1_2: add simpl filter function and names with filtersize
-LEGION_dem <- function(dem,tmp,method=6,units=0,radius=100,proj,f){
+LEGION_dem2 <- function(dem,tmp,method=6,units=0,radius=100,proj,f){
   
-### compute Atrifically layers with SAGA alorithm, rastes will be saved as .sgrd in a mp folder
+### compute Atrifically layers with SAGA alorithm, rastes will be saved as .sgrd in a tmp folder
+  
+  # chnage dem
+  dem <- raster::focal(dem,w=matrix(1/(f*f),nrow=f,ncol=f),fun=sum)
+  raster::writeRaster(dem,filename=paste0(file.path(paste0(tmp,"/dem_f",as.factor(f),".sdat"))),overwrite = TRUE,NAflag = 0)
   
 #compute SAGA morphometrics, save to tmp folder as .sgrd
-  #first write the dem to sgrd (cannot be used as a variable)
   #parameters are taken from the website saga-gis
-    raster::writeRaster(dem,filename=paste0(file.path(tmp),"/dem.sdat"),overwrite = TRUE,NAflag = 0)
-    RSAGA::rsaga.geoprocessor(lib = "ta_morphometry", module = 0,
-                              param = list(ELEVATION =     paste(tmp,"/dem.sgrd", sep = ""), 
-                                           SLOPE = paste(tmp,"/slo",as.factor(f),".sgrd", sep = ""),
-                                           ASPECT= paste(tmp,"/asp.sgrd", sep = ""),
-                                           C_GENE= paste(tmp,"/gen.sgrd", sep = ""),
-                                           C_PROF= paste(tmp,"/pro.sgrd", sep = ""),
-                                           C_PLAN= paste(tmp,"/pla.sgrd", sep = ""),
-                                           C_TANG= paste(tmp,"/tan.sgrd", sep = ""),
-                                           C_LONG= paste(tmp,"/lon.sgrd", sep = ""),
-                                           C_CROS= paste(tmp,"/cro.sgrd", sep = ""),
-                                           C_MINI= paste(tmp,"/min.sgrd", sep = ""),
-                                           C_MAXI= paste(tmp,"/max.sgrd", sep = ""),
-                                           C_TOTA= paste(tmp,"/tol.sgrd", sep = ""),
-                                           C_ROTO= paste(tmp,"/rot.sgrd", sep = ""),
+        RSAGA::rsaga.geoprocessor(lib = "ta_morphometry", module = 0,
+                              param = list(ELEVATION =     paste(tmp,"/dem_f",as.factor(f),".sgrd", sep = ""), 
+                                           SLOPE = paste(tmp,"/slope_f",as.factor(f),".sgrd", sep = ""),
+                                           ASPECT= paste(tmp,"/asp_f",as.factor(f),".sgrd", sep = ""),
+                                           C_GENE= paste(tmp,"/gen_f",as.factor(f),".sgrd", sep = ""),
+                                           C_PROF= paste(tmp,"/pro_f",as.factor(f),".sgrd", sep = ""),
+                                           C_PLAN= paste(tmp,"/pla_f",as.factor(f),".sgrd", sep = ""),
+                                           C_TANG= paste(tmp,"/tan_f",as.factor(f),".sgrd", sep = ""),
+                                           C_LONG= paste(tmp,"/lon_f",as.factor(f),".sgrd", sep = ""),
+                                           C_CROS= paste(tmp,"/cro_f",as.factor(f),".sgrd", sep = ""),
+                                           C_MINI= paste(tmp,"/min_f",as.factor(f),".sgrd", sep = ""),
+                                           C_MAXI= paste(tmp,"/max_f",as.factor(f),".sgrd", sep = ""),
+                                           C_TOTA= paste(tmp,"/tol_f",as.factor(f),".sgrd", sep = ""),
+                                           C_ROTO= paste(tmp,"/rot_f",as.factor(f),".sgrd", sep = ""),
                                            METHOD= method,
                                            UNIT_SLOPE= 0,#0=radians,1=degree
                                            UNIT_ASPECT=0 #0=radians,1=degree
@@ -46,16 +48,14 @@ LEGION_dem <- function(dem,tmp,method=6,units=0,radius=100,proj,f){
                               show.output.on.console = TRUE, invisible = TRUE,
                               env = env)
 #compute SAGA skyview, save to tmp folder as .sgrd
-    #first write the dem to sgrd (cannot be used as a variable)
     #parameters are taken from the website saga-gis
-    raster::writeRaster(dem,filename=paste0(file.path(tmp),"/dem.sdat"),overwrite = TRUE,NAflag = 0)
     RSAGA::rsaga.geoprocessor(lib = "ta_lighting", module = 3,
-                              param = list(DEM =     paste(tmp,"/dem.sgrd", sep = ""), 
-                                           VISIBLE = paste(tmp,"/vis.sgrd", sep = ""),
-                                           SVF =     paste(tmp,"/svf.sgrd", sep = ""),
-                                           SIMPLE=   paste(tmp,"/sim.sgrd", sep = ""),
-                                           TERRAIN = paste(tmp,"/ter.sgrd", sep = ""),
-                                           DISTANCE= paste(tmp,"/dis.sgrd", sep = ""),
+                              param = list(DEM =     paste(tmp,"/dem_f",as.factor(f),".sgrd", sep = ""),
+                                           VISIBLE = paste(tmp,"/vis_f",as.factor(f),".sgrd", sep = ""),
+                                           SVF =     paste(tmp,"/svf_f",as.factor(f),".sgrd", sep = ""),
+                                           SIMPLE=   paste(tmp,"/sim_f",as.factor(f),".sgrd", sep = ""),
+                                           TERRAIN = paste(tmp,"/ter_f",as.factor(f),".sgrd", sep = ""),
+                                           DISTANCE= paste(tmp,"/dis_f",as.factor(f),".sgrd", sep = ""),
                                            RADIUS=radius,
                                            NDIRS =8, #default setting
                                            METHOD=0, #default setting
@@ -68,23 +68,23 @@ LEGION_dem <- function(dem,tmp,method=6,units=0,radius=100,proj,f){
     
 ### load sgrd and change projection
 #load sdat from tmp folder by name, now they are saved in variable, names will still be the names from the sdat
-    slo <- raster::raster(file.path(tmp, "slo.sdat"))
-    asp <- raster::raster(file.path(tmp, "asp.sdat"))
-    gen <- raster::raster(file.path(tmp, "gen.sdat"))
-    pro <- raster::raster(file.path(tmp, "pro.sdat"))
-    pla <- raster::raster(file.path(tmp, "pla.sdat"))
-    tan <- raster::raster(file.path(tmp, "tan.sdat"))
-    lon <- raster::raster(file.path(tmp, "lon.sdat"))
-    cro <- raster::raster(file.path(tmp, "cro.sdat"))
-    min <- raster::raster(file.path(tmp, "min.sdat"))
-    max <- raster::raster(file.path(tmp, "max.sdat"))
-    tol <- raster::raster(file.path(tmp, "tol.sdat"))
-    rot <- raster::raster(file.path(tmp, "rot.sdat"))
-    vis <- raster::raster(file.path(tmp, "vis.sdat"))
-    svf <- raster::raster(file.path(tmp, "svf.sdat"))
-    sim <- raster::raster(file.path(tmp, "sim.sdat"))
-    ter <- raster::raster(file.path(tmp, "ter.sdat"))
-    dis <- raster::raster(file.path(tmp, "dis.sdat"))
+    slo <- raster::raster(file.path(paste0(tmp,"/slope_f",as.factor(f),".sdat")))
+    asp <- raster::raster(file.path(paste0(tmp, "/asp_f",as.factor(f),".sdat")))
+    gen <- raster::raster(file.path(paste0(tmp, "/gen_f",as.factor(f),".sdat")))
+    pro <- raster::raster(file.path(paste0(tmp, "/pro_f",as.factor(f),".sdat")))
+    pla <- raster::raster(file.path(paste0(tmp, "/pla_f",as.factor(f),".sdat")))
+    tan <- raster::raster(file.path(paste0(tmp, "/tan_f",as.factor(f),".sdat")))
+    lon <- raster::raster(file.path(paste0(tmp, "/lon_f",as.factor(f),".sdat")))
+    cro <- raster::raster(file.path(paste0(tmp, "/cro_f",as.factor(f),".sdat")))
+    min <- raster::raster(file.path(paste0(tmp, "/min_f",as.factor(f),".sdat")))
+    max <- raster::raster(file.path(paste0(tmp, "/max_f",as.factor(f),".sdat")))
+    tol <- raster::raster(file.path(paste0(tmp, "/tol_f",as.factor(f),".sdat")))
+    rot <- raster::raster(file.path(paste0(tmp, "/rot_f",as.factor(f),".sdat")))
+    vis <- raster::raster(file.path(paste0(tmp, "/vis_f",as.factor(f),".sdat")))
+    svf <- raster::raster(file.path(paste0(tmp, "/svf_f",as.factor(f),".sdat")))
+    sim <- raster::raster(file.path(paste0(tmp, "/sim_f",as.factor(f),".sdat")))
+    ter <- raster::raster(file.path(paste0(tmp, "/ter_f",as.factor(f),".sdat")))
+    dis <- raster::raster(file.path(paste0(tmp, "/dis_f",as.factor(f),".sdat")))
     
 # set projection, predefined in proj
     pr4 <- proj
@@ -112,7 +112,7 @@ LEGION_dem <- function(dem,tmp,method=6,units=0,radius=100,proj,f){
     sk <- raster::brick(slo,asp,gen,pro,pla,tan,lon,cro,min,max,tol,rot,vis,svf,sim,ter,dis)
     return(sk)
 } #end of main function
-
+#############################################################
 #need if wanna write out all data
     raster::writeRaster(slo,filename=paste0(file.path(output,"/slope.tif")),overwrite = TRUE,NAflag = 0)
     raster::writeRaster(asp,filename=paste0(file.path(output,"/aspect.tif")),overwrite = TRUE,NAflag = 0)
