@@ -34,18 +34,25 @@ source(file.path(root_folder, file.path(pathdir,"Cenith_V2/cenith_seg_v1.R")))
 demex <- raster::raster(file.path(envrmt$path_Cenith_V2, "exampl_dem.tif"))
 
 dem <- raster::raster(file.path(envrmt$path_001_org, "DEM_mof.tif"))
+
+demmof <- raster::raster(file.path(envrmt$path_001_org, "dem_mof_ex.tif"))
+demval <- raster::raster(file.path(envrmt$path_001_org, "dem_val_ex.tif"))
+
 rgb <- raster::raster(file.path(envrmt$path_001_org, "RGB_mof.tif"))
-tpi <- raster::raster(file.path(envrmt$path_001_org, "TPI_ex.tif"))
+tpi <- raster::raster(file.path(envrmt$path_002_processed, "tpi15.tif"))
 
 # invert dem for positiv values inverted
 
 dem2 <- spatialEco::raster.invert(dem)
-tpi <- spatialEco::raster.invert(tpi)
+
+demmof2 <- spatialEco::raster.invert(demmof)
+demval2 <- spatialEco::raster.invert(demval)
+##tpi2 <- spatialEco::raster.invert(tpi)
 
 #check differenz and projection
 
 plot(dem2)
-plot(tpi)
+plot(tpi2)
 crs(dem2)
 
 #run cluster
@@ -55,8 +62,11 @@ registerDoParallel(cl)
 
 #run Cenith
 
-test1 <- Cenith(chm=tpi,h=1.2,a=0.01,b=0.8, ntx = 4, nty = 4)
-testtpi <- Cenith(chm=tpi,h=1.2,a=0.01,b=0.8)
+test1 <- Cenith(chm=dem2,h=0.5,a=0.01,b=0.8, ntx = 4, nty = 4)
+
+testmof <- Cenith(chm=demmof2,h=0.5,a=0.01,b=0.8, ntx = 2, nty = 2)
+testval <- Cenith(chm=demval2,h=0.5,a=0.01,b=0.8, ntx = 2, nty = 2)
+##testtpi <- Cenith(chm=tpi2,h=1.2,a=0.01,b=0.8)
 
 #stop cluster
 
@@ -64,8 +74,10 @@ stopCluster(cl)
 
 #view
 
+
 mapview(test1$tp)+dem2
 mapview(test1$polygon)+dem2
+
 
 #run with filled sinks raster
 
@@ -78,7 +90,7 @@ plot(sinks)
 cl =  makeCluster(detectCores()-1)
 registerDoParallel(cl)
 
-test2 <- Cenith(chm=sinks,h=0.5,a=0.01,b=0.8)
+test2 <- Cenith(chm=sinks,h=0.5,a=0.01,b=0.8, ntx = 6, nty = 6)
 
 #stop cluster
 

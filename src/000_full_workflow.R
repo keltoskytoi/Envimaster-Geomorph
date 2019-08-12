@@ -30,7 +30,7 @@ source(file.path(root_folder, paste0(pathdir,"001_setup_geomorph_withSAGA_v1.R")
 
 
 #load data
-dem <- raster::raster(file.path(envrmt$, ".tif")) # use dem of aoi
+dem <- raster::raster(file.path(envrmt$path_001_org, "dem_mof_ex.tif")) # use dem of aoi
 #set desired CRS
 utm <- "+proj=utm +zone=32 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs"
 
@@ -38,7 +38,7 @@ utm <- "+proj=utm +zone=32 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs
 
 #source LEGION 
 source(file.path(root_folder, paste0(pathdir,"LEGION/dev_LEGION_dem_v2.R"))) 
-source(file.path(root_folder, paste0(pathdir,"dev_sf_LEGION_dem"))) 
+source(file.path(root_folder, paste0(pathdir,"LEGION/dev_sf_LEGION_dem.R"))) 
 
 #set filter sizes
 fs <- c(1,3,5,9)
@@ -78,7 +78,7 @@ source(file.path(root_folder, file.path(pathdir,"Cenith_V2/cenith_merge.R")))
 source(file.path(root_folder, file.path(pathdir,"Cenith_V2/cenith_seg_v1.R")))
 
 # run CENITH V2 (the moving window must not be perfect for the test of the full workflow, just need some polygons)
-seg <- Cenith(chm=chm,a=2, b=1,h=1)
+seg <- Cenith(chm=som,a=2, b=1,h=1)
 
 # view result polygone
 mapview::mapview(som)+seg$polygon
