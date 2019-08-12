@@ -25,25 +25,102 @@ source(file.path(root_folder, paste0(pathdir,"001_setup_geomorph_withSAGA_v1.R")
 # script to test and develop the LEGION_dem funcion
 
 #load dem
-dem <- raster::raster(file.path(envrmt$path_Reaver, "expl_dem.tif"))
-utm <- "+proj=utm +zone=32 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs"
+demx <- raster::raster(file.path(envrmt$path_Reaver, "expl_dem.tif"))
+xutm <- "+proj=utm +zone=32 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs"
 
-test2 <- LEGION_dem2(dem      =dem,
+# test legion dem version 2
+source(file.path(root_folder, paste0(pathdir,"LEGION/dev_sf_LEGION_dem.R"))) 
+
+lvx <- LEGION_dem_v2(dem     =dem_x,
+                     tmp      =envrmt$path_tmp,
+                     proj     =xutm,
+                     filter=c(1)
+)
+
+lvx[[18]]
+lv2[[18]]
+
+test1
+test1 <- LEGION_dem2(dem     =dem,
                    tmp      =envrmt$path_tmp,
-                   proj     =utm)
+                   proj     =utm,
+                   f=1)
 
-test[[1]] # check names
-test2[[1]]
+testorg <-LEGION_dem(dem     =dem,
+                    tmp      =envrmt$path_tmp,
+                    proj     =utm
+                    )
 
-identical(test,test2)
+
+test1
+testorg
+test1[[1]] # check names
+testorg[[1]]
+
+
+
+#check idetical, calls false but substracted there is zero so they are the same values in it
+identical(test1$slope_f1,testorg$slo)
+ni <-test1$slope_f1-testorg$slo
+plot(ni)
+
+test3 <- LEGION_dem2(dem     =dem,
+                     tmp      =envrmt$path_tmp,
+                     proj     =utm,
+                     f=9)
+
+test3
+
 
 par(mfrow=c(2,2))
-plot(test$slo)
-plot(test$pla)
-plot(test$svf)
+plot(test1$slope_f1)
+plot(lv2$slope_f1)
+plot(test$svf_f1)
+plot(test3$svf_f9)
+
 plot(test$tol)
 dev.off()
+# combine 2 bricks
+test1[[1]]
+test3
+tb <-stack(test1,test3)
+tb[[1]]
 
+ts <-stack(test1)
+ts
+ts <-stack(tb,test3)
+ts
+#test reaver with stack
+df<- Reaver(poly=poly,multilayer=tb,set_ID = TRUE,spell=T,stats = T)
+df[2]
+df2<- Reaver(poly=poly,multilayer=test1,set_ID = TRUE,spell=T,stats = T)
+df2[2]
+
+#test lapply
+
+testfun <-function(filter){
+  lapply(filter, function(i){
+    test <-LEGION_dem2(dem      =dem,
+                       tmp      =envrmt$path_tmp,
+                       proj     =utm,
+                       f=i)
+  })
+}
+filter=c(1,3,5)
+test <- testfun(filter=filter)
+test[[1]]
+identical(test[[1]],test1)
+
+# test demv1_3 filter fun
+tf5 <- LEGION_dem3(dem     =dem,
+                     tmp      =envrmt$path_tmp,
+                     proj     =utm,
+                     filter=c(1,3,5))
+tf5
+identical(tfs[[1]],test1)
+
+class(tfs)
+class(tfs[[1]])
 #filter dev, what ist the typical filter/ diffenreces betwenn sum and mean, what is default. use a dem/raster where differences can be seen
 val_chm_dgl
 dem <- raster::raster(file.path(envrmt$path_Reaver, "expl_aspect.tif")) #aspect was just used to not put in another dem example to the Reaver folder
