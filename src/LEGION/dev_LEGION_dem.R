@@ -21,9 +21,10 @@ LEGION_dem <- function(dem,tmp,method=6,units=0,radius=100,proj){
   
 #compute SAGA morphometrics, save to tmp folder as .sgrd
   #first write the dem to sgrd (cannot be used as a variable)
-  #parameters are taken from the website saga-gis
     raster::writeRaster(dem,filename=paste0(file.path(tmp),"/dem.sdat"),overwrite = TRUE,NAflag = 0)
-    RSAGA::rsaga.geoprocessor(lib = "ta_morphometry", module = 0,
+    
+  #parameters are taken from the website saga-gis
+  RSAGA::rsaga.geoprocessor(lib = "ta_morphometry", module = 0,
                               param = list(ELEVATION =     paste(tmp,"/dem.sgrd", sep = ""), 
                                            SLOPE = paste(tmp,"/slo.sgrd", sep = ""),
                                            ASPECT= paste(tmp,"/asp.sgrd", sep = ""),
@@ -46,9 +47,7 @@ LEGION_dem <- function(dem,tmp,method=6,units=0,radius=100,proj){
                               show.output.on.console = TRUE, invisible = TRUE,
                               env = env)
 #compute SAGA skyview, save to tmp folder as .sgrd
-    #first write the dem to sgrd (cannot be used as a variable)
     #parameters are taken from the website saga-gis
-    raster::writeRaster(dem,filename=paste0(file.path(tmp),"/dem.sdat"),overwrite = TRUE,NAflag = 0)
     RSAGA::rsaga.geoprocessor(lib = "ta_lighting", module = 3,
                               param = list(DEM =     paste(tmp,"/dem.sgrd", sep = ""), 
                                            VISIBLE = paste(tmp,"/vis.sgrd", sep = ""),
