@@ -19,7 +19,7 @@ root_folder = alternativeEnvi(root_folder = "~/edu/Envimaster-Geomorph",        
                               alt_env_root_folder = "F:/edu/Envimaster-Geomorph")           #
 #source environment script                                                                  #
 source(file.path(root_folder, paste0(pathdir,"001_setup_geomorph_withSAGA_v1.R")))                                                              
-1###---------------------------------------------------------------------------------------###
+###---------------------------------------------------------------------------------------###
 #############################################################################################
 dem <- raster::raster(file.path(envrmt$path_001_org, "DEM_mof.tif"))
 utm <- "+proj=utm +zone=32 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs"

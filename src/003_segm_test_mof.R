@@ -44,7 +44,7 @@ tpi <- spatialEco::raster.invert(tpi)
 
 #check differenz and projection
 
-plot(dem)
+plot(dem2)
 plot(tpi)
 crs(dem2)
 

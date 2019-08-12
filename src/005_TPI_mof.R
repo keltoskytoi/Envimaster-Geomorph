@@ -25,6 +25,10 @@ source(file.path(root_folder, paste0(pathdir,"001_setup_geomorph_v1.R")))
 #load data
 
 dem <- raster::raster(file.path(envrmt$path_001_org, "DEM_mof.tif"))
+dem <- raster::raster(file.path(envrmt$path_001_org, "tile_464_55631.tif"))
+dem <- raster::raster(file.path(envrmt$path_001_org, "tile_458_55711.tif"))
+dem <- raster::raster(file.path(envrmt$path_001_org, "tile_462_55711.tif"))
+dem <- raster::raster(file.path(envrmt$path_001_org, "tile_461_55611.tif"))
 
 
 #create hillshade , slope etc
@@ -76,8 +80,10 @@ tpi331 <- tpiw(dem, w=331)
 tpi541 <- tpiw(dem, w=541)
 
 #plot tpi's
+plot(tpi3,col=grey.colors(100, start=0, end=1),legend=F)
 plot(tpi5,col=grey.colors(100, start=0, end=1),legend=F)
 plot(tpi9,col=grey.colors(100, start=0, end=1),legend=F)
+plot(tpi15,col=grey.colors(100, start=0, end=1),legend=F)
 plot(tpi31,col=grey.colors(100, start=0, end=1),legend=F)
 plot(tpi61,col=grey.colors(100, start=0, end=1),legend=F)
 plot(tpi91,col=grey.colors(100, start=0, end=1),legend=F)
@@ -87,8 +93,10 @@ plot(tpi331,col=grey.colors(100, start=0, end=1),legend=F)
 plot(tpi541,col=grey.colors(100, start=0, end=1),legend=F)
 
 #write raster
+writeRaster(tpi3, filename= file.path(envrmt$path_002_processed, "tpi3.tif"), format="GTiff", overwrite=TRUE)
 writeRaster(tpi5, filename= file.path(envrmt$path_002_processed, "tpi5.tif"), format="GTiff", overwrite=TRUE)
 writeRaster(tpi9, filename= file.path(envrmt$path_002_processed, "tpi9.tif"), format="GTiff", overwrite=TRUE)
+writeRaster(tpi15, filename= file.path(envrmt$path_002_processed, "tpi15.tif"), format="GTiff", overwrite=TRUE)
 writeRaster(tpi31, filename= file.path(envrmt$path_002_processed, "tpi31.tif"), format="GTiff", overwrite=TRUE)
 writeRaster(tpi61, filename= file.path(envrmt$path_002_processed, "tpi61.tif"), format="GTiff", overwrite=TRUE)
 writeRaster(tpi91, filename= file.path(envrmt$path_002_processed, "tpi91.tif"), format="GTiff", overwrite=TRUE)
