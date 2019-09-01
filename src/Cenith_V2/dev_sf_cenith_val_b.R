@@ -1,3 +1,13 @@
+#' Mandatory: Cenith V2 Validation Subfunction validation for value b
+#'
+#' @description Optional: used to test optimal moving window for the Cenith Segmentation
+#' @name Mandatory Cenith  
+#' @export Mandatory Cenith
+
+#' @param Mandatory if function: chm - a canopy height model
+#' @param Mandatory if function: a, b - parameters for moving window
+#' @param Mandatory if function: h - minimum height to detect trees
+#' @param Mandatory if function: optional vp - a pointlayer (shp) with positions of Trees
 
 
 cenith_val4b <- function(chm,a,b,h,vp){
