@@ -14,7 +14,7 @@
 
 #note: v1 uses x*a+b window, runs over a and b
 
-cenith_val_v2 <-function(chm,f=1,a,b,h,vp){
+cenith_val <-function(chm,f=1,a,b,h,vp){
   result <- data.frame(matrix(nrow = 3, ncol = 5))
   if (f>1){
     cat(paste0("### Cenith computes chm with mean filter ",as.factor(f)," ###",sep = "\n"))
@@ -67,7 +67,7 @@ vp <- spTransform(vp,"+proj=utm +zone=32 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +un
 compareCRS(chm,vp)  
 
 ###run Cenith Validation
-cval <- cenith_val_v2(chm,f=1,c(0.04,0.08),c(0.1),8,vp=vp)
+cval <- cenith_val(chm,f=1,c(0.04,0.08),c(0.1),8,vp=vp)
 cval
 cval[which.max(cval$hitrate),]
 }
