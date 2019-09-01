@@ -58,7 +58,7 @@ for (i in seq(1:length(a))){
 ### first load envrmt
 require(ForestTools)
 require(uavRst)
-source(file.path(root_folder, file.path(pathdir,"Cenith_V2/cenith_val4b.R")))
+source(file.path(root_folder, file.path(pathdir,"Cenith_V2/cenith_val_b.R")))
 
 ##load data 
 chm <- raster::raster(file.path(root_folder, file.path(pathdir,"Cenith_V2/exmpl_chm.tif")))
@@ -70,5 +70,5 @@ compareCRS(chm,vp)
 cval <- cenith_val(chm,f=1,c(0.04,0.08),c(0.1),8,vp=vp)
 cval
 cval[which.max(cval$hitrate),]
-}
+
   
