@@ -23,6 +23,7 @@ source(file.path(root_folder, paste0(pathdir,"001_setup_geomorph_withSAGA_v1.R")
 #############################################################################################
 
 # script to compute several layers for example data and reproduce the workflow
+# expl dem no longer avaible change path or use another
 
 #load dem and compute sink only dem (som)
 dem <- raster::raster(file.path(envrmt$path_Reaver, "expl_dem.tif"))
