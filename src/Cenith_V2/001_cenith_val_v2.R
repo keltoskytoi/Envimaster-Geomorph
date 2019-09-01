@@ -1,6 +1,6 @@
 #' Mandatory: Cenith V2 Validation 
 #'
-#' @description Optional: used to test parameters for the Cenith Segmentation
+#' @description Optional: used to test optimal moving window for the Cenith Segmentation
 #' @name Mandatory Cenith  
 #' @export Mandatory Cenith
 
@@ -11,6 +11,8 @@
 #' @param Mandatory if function: optional f - numeric, must be odd, chm fxf filter,
 #' uses a spatial mean filter
 #' @param Mandatory if function: optional vp - a pointlayer (shp) with positions of Trees
+
+#note: v1 uses x*a+b window, runs over a and b
 
 cenith_val_v2 <-function(chm,f=1,a,b,h,vp){
   result <- data.frame(matrix(nrow = 3, ncol = 5))
@@ -39,10 +41,19 @@ for (i in seq(1:length(a))){
   
 }
   names(res)<- c("a","b","hitrate","empty","fail","height")
+  cat       ("################################",sep="\n")
+  cat       ("   CC EEEE N   N  I TTTTT H   H ",sep="\n")
+  cat(paste0("  C   E    NN  N  I   T   H   H ",sep = "\n"))
+  cat       (" C    EE   N N N  I   T   HHHHH ",sep="\n")
+  cat       ("  C   E    N  NN  I   T   H   H ",sep="\n")
+  cat       ("   CC EEEE N   N  I   T   H   H ",sep="\n")
+  cat       ("                                ",sep="\n")
+  cat       ("Finished validation ",sep="\n")
   return(res)
 }
 
-###example
+#'@examples
+#'\dontrun{
 
 ### first load envrmt
 require(ForestTools)
@@ -51,13 +62,13 @@ source(file.path(root_folder, file.path(pathdir,"Cenith_V2/cenith_val4b.R")))
 
 ##load data 
 chm <- raster::raster(file.path(root_folder, file.path(pathdir,"Cenith_V2/exmpl_chm.tif")))
-vp <-  rgdal::readOGR(file.path(root_folder, file.path(pathdir,"vp_wrongproj.shp")))
+vp <-  rgdal::readOGR(file.path(root_folder, file.path(pathdir,"Cenith_V2/vp_wrongproj.shp")))
 vp <- spTransform(vp,"+proj=utm +zone=32 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
 compareCRS(chm,vp)  
 
 ###run Cenith Validation
 cval <- cenith_val_v2(chm,f=1,c(0.04,0.08),c(0.1),8,vp=vp)
 cval
-cval[which.max(val$hitrate),]
-
+cval[which.max(cval$hitrate),]
+}
   
