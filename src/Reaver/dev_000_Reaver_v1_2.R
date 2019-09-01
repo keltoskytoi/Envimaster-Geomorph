@@ -124,7 +124,7 @@ Reaver <- function(poly,multilayer,set_ID=TRUE,stats=TRUE,spell=TRUE) {
 }}
 #'@examples
 #'\dontrun{
-#'#load data 
+###load data 
 poly <-readOGR(file.path(envrmt$path_Reaver,"expl_poly.shp"))
 poly
 crs(poly)
