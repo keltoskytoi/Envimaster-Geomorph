@@ -9,7 +9,7 @@ require(link2GI)                  #E    n  nn    v v    r  r  m   m m   m   t   
                                   ###############################################           #
                                                                                             #
 # define needed libs and src folder                                                         #
-libs = c("link2GI") 
+libs = c("link2GI","ForestTools","uavRst") 
 pathdir = "repo/src/"
 
 #set root folder for uniPC or laptop                                                        #
@@ -31,14 +31,34 @@ source(file.path(root_folder, paste0(pathdir,"Cenith_V2/dev_sf_cenith_val_a.R"))
 source(file.path(root_folder, paste0(pathdir,"Cenith_V2/dev_sf_cenith_val_b.R")))
 
 # load data
-
-chm <- raster::raster(file.path(root_folder, file.path(pathdir,".tif")))
+dem <- raster::raster(file.path(root_folder, file.path(pathdir,".tif")))
+som <- raster::raster(file.path(root_folder, file.path(pathdir,".tif")))
 vp <-  rgdal::readOGR(file.path(root_folder, file.path(pathdir,".shp")))
 vp <- spTransform(vp,"+proj=utm +zone=32 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
-compareCRS(chm,vp) #check if projection is correct
+compareCRS(som,vp) #check if projection is correct
 
-# run several tests
+# invert dem
+dem_inv <- spatialEco::raster.invert(dem)
 
-var <- cenith_val_v2(chm,f=1,a=c(),b=c(),h=c(),vp=vp)
+# run several tests on som
+var <- cenith_val_v2(chm=som,f=1,a=c(),b=c(),h=c(),vp=vp)
+
+# run several tests on inverted dem
+var <- cenith_val_v2(chm=dem_inv,f=1,a=c(),b=c(),h=c(),vp=vp)
+
+### run Segmentation with CENITH V2
+
+#source CENITH V2
+source(file.path(root_folder, file.path(pathdir,"Cenith_V2/000_cenith_v2.R")))
+source(file.path(root_folder, file.path(pathdir,"Cenith_V2/cenith_tiles.R")))
+source(file.path(root_folder, file.path(pathdir,"Cenith_V2/cenith_tp_v2.R")))
+source(file.path(root_folder, file.path(pathdir,"Cenith_V2/cenith_seg_tiles.R")))
+source(file.path(root_folder, file.path(pathdir,"Cenith_V2/cenith_merge.R")))
+source(file.path(root_folder, file.path(pathdir,"Cenith_V2/cenith_seg_v1.R"))) 
+
+# run Cenith on som
+test <- Cenith(chm=,h=,a=,b=)
+mapview(test2$tp)+som
+mapview(test2$polygon)+som
 
 #end of script
