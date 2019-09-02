@@ -22,7 +22,7 @@ cenith_val_v2 <-function(chm,f=1,a,b,h,vp){
   } else {chm = chm}   ### filter function seperate
   
   
-for (c in seq(1:length(a))){
+for (c in seq(1:length(h))){
   cat       ("#############################",sep="\n")
   cat       ("#############################",sep="\n")
   cat(paste0("### Cenith starts with loop h ",as.factor(c)," / ",as.factor(length(h))," ###",sep = "\n"))
