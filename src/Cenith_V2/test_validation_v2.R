@@ -39,23 +39,23 @@ vp <- spTransform(vp,"+proj=utm +zone=32 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +un
 compareCRS(chm,vp)  
 
 ## run Centih val_v2
-v2 <- cenith_val_v2(chm,f=1,a=c(0.04,0.08),b=c(0.2,0.4),h=c(8,13),vp=vp)
+v3 <- cenith_val_v2(chm,f=1,a=c(0.04,0.08),b=c(0.2,0.4),h=c(9,10,11),vp=vp)
 
 
 ## check if v1 goves same results
-v1_8 <- cenith_val(chm,f=1,a=c(0.04,0.08),b=c(0.2,0.4),h=8,vp=vp)
-v1_13 <- cenith_val(chm,f=1,a=c(0.04,0.08),b=c(0.2,0.4),h=13,vp=vp)
-
+v1_9 <- cenith_val(chm,f=1,a=c(0.04,0.08),b=c(0.2,0.4),h=9,vp=vp)
+v1_10 <- cenith_val(chm,f=1,a=c(0.04,0.08),b=c(0.2,0.4),h=10,vp=vp)
+v1_11 <- cenith_val(chm,f=1,a=c(0.04,0.08),b=c(0.2,0.4),h=11,vp=vp)
 ## compare df supervised
-v2
-v1_8
-v1_13
+#v2
+#v1_8
+#v1_13
 
 #compare automatic
 # merge v1 df
-v1 <- rbind(v1_8,v1_13)
+v1 <- rbind(v1_9,v1_10,v1_11)
 v1
 #check if v1 and v2 are identical
-identical(v2,v1)
+identical(v3,v1)
 
 ### result Validation v2 works fine :D
