@@ -10,7 +10,7 @@
 #' @param Mandatory if function: optional vp - a pointlayer (shp) with positions of Trees
 
 #Note V1: basic hit and miss rates for result
-cenith_val4b <- function(chm,a,b,h,vp){
+cenith_val4b_v1 <- function(chm,a,b,h,vp){
   result <- data.frame(matrix(nrow = length(b), ncol = 6)) # ncol = n information stored
   for (j in seq(1:length(b))){
     cat       (" ",sep="\n")

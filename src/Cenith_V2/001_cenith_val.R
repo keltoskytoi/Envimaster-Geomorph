@@ -28,9 +28,9 @@ for (i in seq(1:length(a))){
   cat       ("#############################",sep="\n")
   cat       ("#############################",sep="\n")
   if(i==1){
-    res <-cenith_val4b(chm,a[i],b,h,vp)
+    res <-cenith_val4b_v1(chm,a[i],b,h,vp)
   }    else {
-    res2 <-cenith_val4b(chm,a[i],b,h,vp)
+    res2 <-cenith_val4b_v1(chm,a[i],b,h,vp)
     res= rbind(res,res2)}
   cat       ("#############################",sep="\n")
   cat       ("#############################",sep="\n")
