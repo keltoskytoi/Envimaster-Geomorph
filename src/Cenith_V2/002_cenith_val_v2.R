@@ -12,7 +12,7 @@
 #' uses a spatial mean filter
 #' @param Mandatory if function: optional vp - a pointlayer (shp) with positions of Trees
 
-#note: v2 can now test height values. uses x*a+b window, runs over a and b
+#note: v2 can now test height values and improved results. uses x*a+b window, runs over a and b
 
 cenith_val_v2 <-function(chm,f=1,a,b,h,vp){
   result <- data.frame(matrix(nrow = 3, ncol = 5))

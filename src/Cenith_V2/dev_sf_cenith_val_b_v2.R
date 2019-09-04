@@ -11,7 +11,7 @@
 
 #Note V2.0 : adds area and amount of detected obj/vp
 
-cenith_val4b <- function(chm,a,b,h,vp){
+cenith_val4b_v2 <- function(chm,a,b,h,vp){
   result <- data.frame(matrix(nrow = length(b), ncol = 8)) # ncol = n information stored
   for (j in seq(1:length(b))){
     cat       (" ",sep="\n")
