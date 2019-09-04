@@ -71,11 +71,11 @@ som # should be a raster with small clusters of cell
 
 #source full CENITH package
 source(file.path(root_folder, file.path(pathdir,"Cenith_V2/000_cenith_v2.R")))
-source(file.path(root_folder, file.path(pathdir,"Cenith_V2/cenith_tiles.R")))
-source(file.path(root_folder, file.path(pathdir,"Cenith_V2/cenith_tp_v2.R")))
-source(file.path(root_folder, file.path(pathdir,"Cenith_V2/cenith_seg_tiles.R")))
-source(file.path(root_folder, file.path(pathdir,"Cenith_V2/cenith_merge.R")))
-source(file.path(root_folder, file.path(pathdir,"Cenith_V2/cenith_seg_v1.R")))
+source(file.path(root_folder, file.path(pathdir,"Cenith_V2/sf_cenith_tiles.R")))
+source(file.path(root_folder, file.path(pathdir,"Cenith_V2/sf_cenith_tp_v2.R")))
+source(file.path(root_folder, file.path(pathdir,"Cenith_V2/sf_cenith_seg_tiles.R")))
+source(file.path(root_folder, file.path(pathdir,"Cenith_V2/sf_cenith_merge.R")))
+source(file.path(root_folder, file.path(pathdir,"Cenith_V2/sf_cenith_seg_v1.R")))
 
 # run CENITH V2 (the moving window must not be perfect for the test of the full workflow, just need some polygons)
 seg <- Cenith(chm=som,a=2, b=1,h=1)
