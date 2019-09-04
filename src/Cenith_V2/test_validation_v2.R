@@ -24,11 +24,14 @@ source(file.path(root_folder, file.path(pathdir,"001_setup_geomorph_v1.R")))
 
 
 # test script to check if functions work
+#source Cenith Validation V1
+source(file.path(root_folder, paste0(pathdir,"Cenith_V2/001_cenith_val.R")))
+source(file.path(root_folder, paste0(pathdir,"Cenith_V2/dev_sf_cenith_val_b_v1.R")))
 
 #source Cenith Validation V2
 source(file.path(root_folder, paste0(pathdir,"Cenith_V2/002_cenith_val_v2.R")))
 source(file.path(root_folder, paste0(pathdir,"Cenith_V2/dev_sf_cenith_val_a.R")))
-source(file.path(root_folder, paste0(pathdir,"Cenith_V2/dev_sf_cenith_val_b.R")))
+source(file.path(root_folder, paste0(pathdir,"Cenith_V2/dev_sf_cenith_val_b_v2.R")))
 
 #source CENITH V2
 source(file.path(root_folder, file.path(pathdir,"Cenith_V2/000_cenith_v2.R")))
@@ -40,16 +43,16 @@ source(file.path(root_folder, file.path(pathdir,"Cenith_V2/sf_cenith_seg_v1.R"))
 
 
 # load data
-dem <- raster::raster(file.path(envrmt$path_Cenith_V2,"exmpl_dem.tif"))
+chm <- raster::raster(file.path(envrmt$path_Cenith_V2,"exmpl_chm.tif"))
 som <- raster::raster(file.path(envrmt$path_Cenith_V2,"exmpl_som.tif"))
-vp <-  rgdal::readOGR(file.path(envrmt$path_Cenith_V2,"exmpl_vp.shp"))
+vp <-  rgdal::readOGR(file.path(envrmt$path_Cenith_V2,"vp_wrongproj.shp"))
 vp <- spTransform(vp,"+proj=utm +zone=32 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
 compareCRS(som,vp) #check if projection is correct
 
 ### check if v1 goves same results / detect logical issues ############################################
 
 ## run Centih val_v2
-v3 <- cenith_val_v2(chm,f=1,a=c(0.04,0.08),b=c(0.2,0.4),h=c(9,10,11),vp=vp)
+v2 <- cenith_val_v2(chm,f=1,a=c(0.04,0.08),b=c(0.2,0.4),h=c(9,10,11),vp=vp)
 
 
 ## check if v1 goves same results
@@ -61,8 +64,8 @@ v1_11 <- cenith_val(chm,f=1,a=c(0.04,0.08),b=c(0.2,0.4),h=11,vp=vp)
 # merge v1 df
 v1 <- rbind(v1_9,v1_10,v1_11)
 v1
-#check if v1 and v2 are identical
-identical(v3,v1)
+#check if v1 and v2 hitrate are identical
+identical(v2[,4],v1[,4])
 
 ### result Validation v2 works fine :D
 
