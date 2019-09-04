@@ -11,7 +11,7 @@
 
 
 cenith_val4b <- function(chm,a,b,h,vp){
-  result <- data.frame(matrix(nrow = length(b), ncol = 6)) # ncol = n information stored
+  result <- data.frame(matrix(nrow = length(b), ncol = 8)) # ncol = n information stored
   for (j in seq(1:length(b))){
     cat       (" ",sep="\n")
     
@@ -30,9 +30,11 @@ cenith_val4b <- function(chm,a,b,h,vp){
                      format = "polygons",
                      minTreeAlt = h,
                      verbose = TRUE)
+    
     cat(paste0("### Cenith calculates precision ratios for b ",as.factor(j)," / ",as.factor(length(b))," ###",sep = "\n"))
     stat <- ForestTools::sp_summarise(vp, seg) # compute data points in polygons
     stat[is.na(stat$TreeCount)] <- 0 # na to 0
+    
     
     pkb <- sum(stat$TreeCount<1) # amount polygon without tree (miss)
     pb <- sum(stat$TreeCount==1) # amount polygon with exact 1 tree (hit)
@@ -41,14 +43,19 @@ cenith_val4b <- function(chm,a,b,h,vp){
     hit = pb/length(stat$TreeCount) # calc hit ration in percent (amount of exact trees
     over = pkb/length(stat$TreeCount) #calc empty ration in percent (amount of polygon without trees)
     under = pmb/length(stat$TreeCount) # mis.rati (or jan error) miss rate in percent (amount of polygons with more than 1 Tree)
+    ntree_vp = length(tpos)/length(vp)
+    cat("gArea")
+    area =  sum(seg$crownArea)
     
     
     result[j, 1] <- a
     result[j, 2] <- b[j]
-    result[j, 3] <- hit
-    result[j, 4] <- over
-    result[j, 5] <- under
-    result[j, 6] <- h
+    result[j, 3] <- h
+    result[j, 4] <- hit
+    result[j, 5] <- ntree_vp
+    result[j, 6] <- over
+    result[j, 7] <- area
+    result[j, 8] <- under
     cat       (" ",sep="\n")
     cat(paste0("### Cenith rdy with b ",as.factor(j)," / ",as.factor(length(b))," ###",sep = "\n"))
     cat       ("#############################",sep="\n")
