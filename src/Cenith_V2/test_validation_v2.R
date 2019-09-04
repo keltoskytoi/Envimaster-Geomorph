@@ -23,8 +23,7 @@ source(file.path(root_folder, file.path(pathdir,"001_setup_geomorph_v1.R")))
 #############################################################################################
 
 
-# script to test the Validation V2
-# test if the height values are used correcty
+# test script to check if functions work
 
 #source Cenith Validation V2
 source(file.path(root_folder, paste0(pathdir,"Cenith_V2/002_cenith_val_v2.R")))
@@ -33,15 +32,15 @@ source(file.path(root_folder, paste0(pathdir,"Cenith_V2/dev_sf_cenith_val_b.R"))
 
 #source CENITH V2
 source(file.path(root_folder, file.path(pathdir,"Cenith_V2/000_cenith_v2.R")))
-source(file.path(root_folder, file.path(pathdir,"Cenith_V2/cenith_tiles.R")))
-source(file.path(root_folder, file.path(pathdir,"Cenith_V2/cenith_tp_v2.R")))
-source(file.path(root_folder, file.path(pathdir,"Cenith_V2/cenith_seg_tiles.R")))
-source(file.path(root_folder, file.path(pathdir,"Cenith_V2/cenith_merge.R")))
-source(file.path(root_folder, file.path(pathdir,"Cenith_V2/cenith_seg_v1.R"))) 
+source(file.path(root_folder, file.path(pathdir,"Cenith_V2/sf_cenith_tiles.R")))
+source(file.path(root_folder, file.path(pathdir,"Cenith_V2/sf_cenith_tp_v2.R")))
+source(file.path(root_folder, file.path(pathdir,"Cenith_V2/sf_cenith_seg_tiles.R")))
+source(file.path(root_folder, file.path(pathdir,"Cenith_V2/sf_cenith_merge.R")))
+source(file.path(root_folder, file.path(pathdir,"Cenith_V2/sf_cenith_seg_v1.R"))) 
 
 
 # load data
-dem <- raster::raster(file.path(envrmt$path_Cenith_V2,"exampl_dem.tif"))
+dem <- raster::raster(file.path(envrmt$path_Cenith_V2,"exmpl_dem.tif"))
 som <- raster::raster(file.path(envrmt$path_Cenith_V2,"exmpl_som.tif"))
 vp <-  rgdal::readOGR(file.path(envrmt$path_Cenith_V2,"exmpl_vp.shp"))
 vp <- spTransform(vp,"+proj=utm +zone=32 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
