@@ -26,7 +26,7 @@ source(file.path(root_folder, file.path(pathdir,"001_setup_geomorph_v1.R")))
 # test script to check if functions work
 #source Cenith Validation V1
 source(file.path(root_folder, paste0(pathdir,"Cenith_V2/001_cenith_val.R")))
-source(file.path(root_folder, paste0(pathdir,"Cenith_V2/dev_sf_cenith_val_b_v1.R")))
+source(file.path(root_folder, paste0(pathdir,"Cenith_V2/sf_cenith_val_b_v1.R")))
 
 #source Cenith Validation V2
 source(file.path(root_folder, paste0(pathdir,"Cenith_V2/002_cenith_val_v2.R")))
