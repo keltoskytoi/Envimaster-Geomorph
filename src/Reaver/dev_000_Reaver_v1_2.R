@@ -125,21 +125,21 @@ Reaver <- function(poly,multilayer,set_ID=TRUE,stats=TRUE,spell=TRUE) {
 #'@examples
 #'\dontrun{
 ###load data 
-poly <-readOGR(file.path(envrmt$path_Reaver,"expl_poly.shp"))
-poly
-crs(poly)
-poly<-spTransform(poly,utm)
-# load artificially layers
-slope <-raster::raster(file.path(envrmt$path_Reaver, "expl_slope.tif"))
-aspect<-raster::raster(file.path(envrmt$path_Reaver, "expl_aspect.tif"))
-cov_min<-raster::raster(file.path(envrmt$path_Reaver, "expl_cov_min.tif"))
-cov_max<-raster::raster(file.path(envrmt$path_Reaver, "expl_cov_max.tif"))
-# create brick
-brck <- raster::brick(slope,aspect,cov_min,cov_max)
-brck
-###run Reaver
-df<- Reaver(poly=poly,multilayer=brck,set_ID = TRUE,spell=F,stats = T)
-df
-}
+#'poly <-readOGR(file.path(envrmt$path_Reaver,"expl_poly.shp"))
+#'poly
+#'crs(poly)
+#'poly<-spTransform(poly,utm)
+#'# load artificially layers
+#'slope <-raster::raster(file.path(envrmt$path_Reaver, "expl_slope.tif"))
+#'aspect<-raster::raster(file.path(envrmt$path_Reaver, "expl_aspect.tif"))
+#'cov_min<-raster::raster(file.path(envrmt$path_Reaver, "expl_cov_min.tif"))
+#'cov_max<-raster::raster(file.path(envrmt$path_Reaver, "expl_cov_max.tif"))
+#'# create brick
+#'brck <- raster::brick(slope,aspect,cov_min,cov_max)
+#'brck
+#'###run Reaver
+#'df<- Reaver(poly=poly,multilayer=brck,set_ID = TRUE,spell=F,stats = T)
+#'df
+#'}
 
 
