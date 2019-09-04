@@ -1,6 +1,6 @@
-#' Mandatory: Cenith V2 Validation Subfunction validation for value a
+#' Mandatory: Cenith Validation Subfunction validation for value a
 #'
-#' @description Optional: used to test optimal moving window for the Cenith Segmentation
+#' @description Optional: subfunction for running val4b over a
 #' @name Mandatory Cenith  
 #' @export Mandatory Cenith
 
