@@ -9,7 +9,7 @@
 #' @param Mandatory if function: h - minimum height to detect trees
 #' @param Mandatory if function: optional vp - a pointlayer (shp) with positions of Trees
 
-#Note V2.0 : adds area and amount of detected obj/vp
+#Note sf_v2: adds area and amount of detected obj/vp
 
 cenith_val4b_v2 <- function(chm,a,b,h,vp){
   result <- data.frame(matrix(nrow = length(b), ncol = 8)) # ncol = n information stored
