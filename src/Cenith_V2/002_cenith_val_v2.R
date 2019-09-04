@@ -1,4 +1,4 @@
-#' Mandatory: Cenith V2 Validation 
+#' Mandatory: Cenith Validation V2
 #'
 #' @description Optional: used to test optimal moving window for the Cenith Segmentation
 #' @name Mandatory Cenith  
@@ -59,7 +59,7 @@ for (c in seq(1:length(h))){
 #'### first load envrmt
 #'require(ForestTools)
 #'require(uavRst)
-#'source(file.path(root_folder, file.path(pathdir,"Cenith_V2/cenith_val4b.R")))
+#'source(file.path(root_folder, file.path(pathdir,"Cenith_V2/cenith_val4b_v2.R")))
 #'source(file.path(root_folder, file.path(pathdir,"Cenith_V2/dev_sf_cenith_val_a.R")))
 #'
 #'##load data 
