@@ -26,17 +26,28 @@ source(file.path(root_folder, file.path(pathdir,"001_setup_geomorph_v1.R")))
 # script to test the Validation V2
 # test if the height values are used correcty
 
-#source functions
-source(file.path(root_folder, paste0(pathdir,"Cenith_V2/001_cenith_val.R")))
+#source Cenith Validation V2
 source(file.path(root_folder, paste0(pathdir,"Cenith_V2/002_cenith_val_v2.R")))
 source(file.path(root_folder, paste0(pathdir,"Cenith_V2/dev_sf_cenith_val_a.R")))
 source(file.path(root_folder, paste0(pathdir,"Cenith_V2/dev_sf_cenith_val_b.R")))
 
-##load data 
-chm <- raster::raster(file.path(root_folder, file.path(pathdir,"Cenith_V2/exmpl_chm.tif")))
-vp <-  rgdal::readOGR(file.path(root_folder, file.path(pathdir,"Cenith_V2/vp_wrongproj.shp")))
+#source CENITH V2
+source(file.path(root_folder, file.path(pathdir,"Cenith_V2/000_cenith_v2.R")))
+source(file.path(root_folder, file.path(pathdir,"Cenith_V2/cenith_tiles.R")))
+source(file.path(root_folder, file.path(pathdir,"Cenith_V2/cenith_tp_v2.R")))
+source(file.path(root_folder, file.path(pathdir,"Cenith_V2/cenith_seg_tiles.R")))
+source(file.path(root_folder, file.path(pathdir,"Cenith_V2/cenith_merge.R")))
+source(file.path(root_folder, file.path(pathdir,"Cenith_V2/cenith_seg_v1.R"))) 
+
+
+# load data
+dem <- raster::raster(file.path(envrmt$path_Cenith_V2,"exampl_dem.tif"))
+som <- raster::raster(file.path(envrmt$path_Cenith_V2,"exmpl_som.tif"))
+vp <-  rgdal::readOGR(file.path(envrmt$path_Cenith_V2,"exmpl_vp.shp"))
 vp <- spTransform(vp,"+proj=utm +zone=32 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
-compareCRS(chm,vp)  
+compareCRS(som,vp) #check if projection is correct
+
+### check if v1 goves same results / detect logical issues ############################################
 
 ## run Centih val_v2
 v3 <- cenith_val_v2(chm,f=1,a=c(0.04,0.08),b=c(0.2,0.4),h=c(9,10,11),vp=vp)
@@ -46,10 +57,6 @@ v3 <- cenith_val_v2(chm,f=1,a=c(0.04,0.08),b=c(0.2,0.4),h=c(9,10,11),vp=vp)
 v1_9 <- cenith_val(chm,f=1,a=c(0.04,0.08),b=c(0.2,0.4),h=9,vp=vp)
 v1_10 <- cenith_val(chm,f=1,a=c(0.04,0.08),b=c(0.2,0.4),h=10,vp=vp)
 v1_11 <- cenith_val(chm,f=1,a=c(0.04,0.08),b=c(0.2,0.4),h=11,vp=vp)
-## compare df supervised
-#v2
-#v1_8
-#v1_13
 
 #compare automatic
 # merge v1 df
@@ -59,3 +66,33 @@ v1
 identical(v3,v1)
 
 ### result Validation v2 works fine :D
+
+### check how the results can be used to find best moving window #######################################
+# run several tests on som
+var <- cenith_val_v2(chm=som,f=1,a=c(0.5,0.9),b=c(0.5,0.9),h=c(0.5,0.7),vp=vp)
+
+# plot best hit rate
+maxrow <- var[which.max(var$hit),] # search max vale but rturn only 1 value
+maxhit <- maxrow$hit
+var[which(var$hit==maxhit),] 
+
+
+### run Segmentation with CENITH V2
+# var returns the result that with same height the a and b window returns the same area
+# test is to check if the result for CENITH have identical areas
+# run Cenith on som
+test1 <- Cenith(chm=som,h=0.7,a=0.9,b=0.1)
+test2 <- Cenith(chm=som,h=0.7,a=0.5,b=0.5)
+test3 <- Cenith(chm=som,h=0.7,a=0.1,b=0.9)
+
+# visual check for overlapping
+mapview(test1$polygon)+test2$polygon+test3$polygon
+mapview(test3$polygon)+som
+#result all 3 test polygons overlap each other so the area is exactly the same
+
+identical(sum(test1$polygon$crownArea),
+          sum(test2$polygon$crownArea),
+          sum(test3$polygon$crownArea))
+
+
+#end of script
