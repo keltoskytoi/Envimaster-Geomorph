@@ -1,6 +1,6 @@
-#' Mandatory: Cenith V2 Validation Subfunction validation for value b
+#' Mandatory: Cenith Validation Subfunction validation for value b
 #'
-#' @description Optional: used to test optimal moving window for the Cenith Segmentation
+#' @description Optional: primary subfunction for segmentation over b and calculate statistc results
 #' @name Mandatory Cenith  
 #' @export Mandatory Cenith
 
@@ -9,9 +9,9 @@
 #' @param Mandatory if function: h - minimum height to detect trees
 #' @param Mandatory if function: optional vp - a pointlayer (shp) with positions of Trees
 
-
+#Note V1: basic hit and miss rates for result
 cenith_val4b <- function(chm,a,b,h,vp){
-  result <- data.frame(matrix(nrow = length(b), ncol = 8)) # ncol = n information stored
+  result <- data.frame(matrix(nrow = length(b), ncol = 6)) # ncol = n information stored
   for (j in seq(1:length(b))){
     cat       (" ",sep="\n")
     
@@ -42,20 +42,16 @@ cenith_val4b <- function(chm,a,b,h,vp){
     
     hit = pb/length(stat$TreeCount) # calc hit ration in percent (amount of exact trees
     over = pkb/length(stat$TreeCount) #calc empty ration in percent (amount of polygon without trees)
-    under = pmb/length(stat$TreeCount) # mis.rati (or jan error) miss rate in percent (amount of polygons with more than 1 Tree)
-    ntree_vp = length(tpos)/length(vp)
-    cat("gArea")
-    area =  sum(seg$crownArea)
+    under = pmb/length(stat$TreeCount) # mis.rati miss rate in percent (amount of polygons with more than 1 Tree)
+
     
     
     result[j, 1] <- a
     result[j, 2] <- b[j]
     result[j, 3] <- h
     result[j, 4] <- hit
-    result[j, 5] <- ntree_vp
-    result[j, 6] <- over
-    result[j, 7] <- area
-    result[j, 8] <- under
+    result[j, 5] <- over
+    result[j, 6] <- under
     cat       (" ",sep="\n")
     cat(paste0("### Cenith rdy with b ",as.factor(j)," / ",as.factor(length(b))," ###",sep = "\n"))
     cat       ("#############################",sep="\n")
@@ -63,7 +59,3 @@ cenith_val4b <- function(chm,a,b,h,vp){
   } 
   return(result)
 }
-
-#cenith_val4b(chm,a=0.03,b=c(0.2,0.3,0.4),h=8,vp)
-
-###exampl
