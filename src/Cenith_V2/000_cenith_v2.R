@@ -1,11 +1,10 @@
 #' Mandatory: Cenith V2
 #'
-#' @description Optional: high-precision tree Segmentation for
-#' "forstlich genutzte Wälder der hessischen Mittelgebirge"
+#' @description Optional: Segmentation Alogrithm for a elevation modell 
 #' @name Mandatory Cenith  
 #' @export Mandatory Cenith
 
-#' @param Mandatory if function: chm - a canopy height model
+#' @param Mandatory if function: chm - a canopy height model or aother raster with elevation values
 #' @param Mandatory if function: winfun - function for Searchwindow in float values a*b, 
 #' predefinition in var is recommended
 #' @param Mandatory if function: h - minimum height to detect trees
@@ -14,6 +13,8 @@
 #' @param Mandatory if function: optional ntx - the n count of desired tiles in x axis
 #' @param Mandatory if function: optional nty - the n count of desired tiles in y axis
 #' @param Mandatory if function: optional buf - buffer in cells for each tile
+
+#note V2.0: added tieling and buffering options.
 
 Cenith <- function(chm,a=1,b=1,h=10,f=1,ntx=0,nty=0,buf=0) {
   cat(" ",sep = "\n")
@@ -33,6 +34,7 @@ Cenith <- function(chm,a=1,b=1,h=10,f=1,ntx=0,nty=0,buf=0) {
     cat(" ",sep = "\n")
     tp <- cenith_tp_v2(chm,a,b,h)
     cat("### Cenith computes Treepos Layer for the Area ###",sep = "\n")
+    cat("### This could take a while on big data use tiles and buffers ###",sep = "\n")
     
     cat(" ",sep = "\n")
     tiles <- cenith_tiles(chm,ntx=ntx,nty=nty,buf=buf)
@@ -52,7 +54,7 @@ Cenith <- function(chm,a=1,b=1,h=10,f=1,ntx=0,nty=0,buf=0) {
 
     #cat(" ",sep = "\n")
     cat("#######################################",sep = "\n")
-    cat("### Cenith identified ",length(merged)," Trees ###") # doesnt work to spell amount of polygons
+    cat("### Cenith identified ",length(merged)," Objects ###") # doesnt work to spell amount of polygons
     cat(" ",sep = "\n")
     cat("#######################################",sep = "\n")
     cat(" ",sep = "\n")
@@ -76,7 +78,14 @@ Cenith <- function(chm,a=1,b=1,h=10,f=1,ntx=0,nty=0,buf=0) {
   cat("### tp =   treepos layer ###",sep = "\n")
   cat("#######################################",sep = "\n")
   cat(" ",sep = "\n")
-  cat("### Cenith finished ")
+  cat       ("################################",sep="\n")
+  cat       ("   CC EEEE N   N  I TTTTT H   H ",sep="\n")
+  cat       ("  C   E    NN  N  I   T   H   H ",sep="\n")
+  cat       (" C    EE   N N N  I   T   HHHHH ",sep="\n")
+  cat       ("  C   E    N  NN  I   T   H   H ",sep="\n")
+  cat       ("   CC EEEE N   N  I   T   H   H ",sep="\n")
+  cat       ("                            V2  ",sep="\n")
+  cat       ("Finished segmentation           ",sep="\n")
   return(list(tp=tp, polygon=polygon))}
 }
   
