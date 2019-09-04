@@ -9,7 +9,7 @@ require(link2GI)                  #E    n  nn    v v    r  r  m   m m   m   t   
                                   ###############################################           #
                                                                                             #
 # define needed libs and src folder                                                         #
-libs = c("link2GI","ForestTools","uavRst") 
+libs = c("link2GI","ForestTools","uavRst","mapview") 
 pathdir = "repo/src/"
 
 #set root folder for uniPC or laptop                                                        #
@@ -23,7 +23,8 @@ source(file.path(root_folder, paste0(pathdir,"001_setup_geomorph_v1.R")))
 #############################################################################################
 
 
-# script to test optimal moving window using CENITH Validation V2
+# script to test optimal moving window with CENITH Validation V2
+
 
 #source Cenith Validation V2
 source(file.path(root_folder, paste0(pathdir,"Cenith_V2/002_cenith_val_v2.R")))
@@ -39,22 +40,27 @@ source(file.path(root_folder, file.path(pathdir,"Cenith_V2/cenith_merge.R")))
 source(file.path(root_folder, file.path(pathdir,"Cenith_V2/cenith_seg_v1.R"))) 
 
 # load data
-dem <- raster::raster(file.path(envrmt$path_Cenith_V2,"exampl_dem.tif"))
 som <- raster::raster(file.path(envrmt$path_Cenith_V2,"exmpl_som.tif"))
 vp <-  rgdal::readOGR(file.path(envrmt$path_Cenith_V2,"exmpl_vp.shp"))
 vp <- spTransform(vp,"+proj=utm +zone=32 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
 compareCRS(som,vp) #check if projection is correct
 
 # run several tests on som
-var <- cenith_val_v2(chm=som,f=1,a=c(1,2),b=c(0.1,0.9),h=c(0.1,0.5,0.9),vp=vp)
+# (start with checking for min an max cause worng values will lead to an abort)
+var <- cenith_val_v2(chm=som,f=1,a=c(0.5,0.9),b=c(0.5,0.9),h=c(0.5,0.7),vp=vp)
 
-var
+# plot best hit rate
+maxrow <- var[which.max(var$hit),] # search max vale but rturn only 1 value
+maxhit <- maxrow$hit
+var[which(var$hit==maxhit),] 
+
+
 ### run Segmentation with CENITH V2
-mapview(vp)+som
-# run Cenith on som
-test <- Cenith(chm=som,h=0.9,a=1,b=0.1)
-mapview(test$tp)+som
-mapview(test$polygon)+som
 
-test
+seg <- Cenith(chm=som,h=0.7,a=0.9,b=0.1)
+
+#plot result for visual check
+
+mapview::mapview(seg$polygons)+som
+
 #end of script
