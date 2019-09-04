@@ -1,4 +1,4 @@
-#' Mandatory: Cenith V2 Validation 
+#' Mandatory: Cenith Validation 
 #'
 #' @description Optional: used to test optimal moving window for the Cenith Segmentation
 #' @name Mandatory Cenith  
@@ -58,7 +58,7 @@ for (i in seq(1:length(a))){
 #'### first load envrmt
 #'require(ForestTools)
 #'require(uavRst)
-#'source(file.path(root_folder, file.path(pathdir,"Cenith_V2/dev_sf_cenith_val_b.R")))
+#'source(file.path(root_folder, file.path(pathdir,"Cenith_V2/dev_sf_cenith_val_b_v1.R")))
 #'
 #'##load data 
 #'chm <- raster::raster(file.path(root_folder, file.path(pathdir,"Cenith_V2/exmpl_chm.tif")))
