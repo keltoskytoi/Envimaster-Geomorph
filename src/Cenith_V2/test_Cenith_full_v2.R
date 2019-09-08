@@ -56,8 +56,13 @@ compareCRS(som,vp) #check if projection is correct
 
 ## run Centih val_v2
 v2 <- cenith_val_v2(chm,f=1,a=c(0.04,0.08),b=c(0.2,0.4),h=c(9,10,11),vp=vp)
+f3 <- cenith_val_v2(chm,f=3,a=c(0.04,0.08),b=c(0.2,0.4),h=c(9,10,11),vp=vp)
+f5 <- cenith_val_v2(chm,f=5,a=c(0.04,0.08),b=c(0.2,0.4),h=c(9,10,11),vp=vp)
 
-
+f3
+maxrow <- var[which.max(var$hit),] # search max vale but rturn only 1 value
+maxhit <- maxrow$hit
+var[which(var$hit==maxhit),] 
 ## check if v1 goves same results
 v1_9 <- cenith_val(chm,f=1,a=c(0.04,0.08),b=c(0.2,0.4),h=9,vp=vp)
 v1_10 <- cenith_val(chm,f=1,a=c(0.04,0.08),b=c(0.2,0.4),h=10,vp=vp)
