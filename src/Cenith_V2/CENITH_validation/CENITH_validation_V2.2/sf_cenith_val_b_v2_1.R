@@ -17,7 +17,11 @@
 #a=0.1
 #b=0.5
 #h=0.5
-#vp=vp
+#vp=vp_som
+#j=1
+#min=0
+#max=100
+#result <- data.frame(matrix(nrow = 3, ncol = 11))
 
 cenith_val4b_v2_1 <- function(chm,a,b,h,vp,min,max){
   result <- data.frame(matrix(nrow = length(b), ncol = 8)) # ncol = n information stored
@@ -62,12 +66,12 @@ cenith_val4b_v2_1 <- function(chm,a,b,h,vp,min,max){
     merc_seg_sf <- clusterSF(poly_sf)
     #convert sf to sp
     merc_sp <- sf:::as_Spatial(merc_seg_sf)
-    cat("loop")
+    
     ########################
     for (s in 1:length(merc_sp)){
     merc_sp[s,2] <- gArea(merc_sp[s,])
     }
-    cat("min")
+    
     names(merc_sp) <- c("group","area")
     
     merc_sp
@@ -108,7 +112,7 @@ cenith_val4b_v2_1 <- function(chm,a,b,h,vp,min,max){
     result[j, 6] <- over
     result[j, 5] <- area
     result[j, 8] <- under
-    result[j, 9] <- nobj
+    result[j, 9] <- paste(nobj,"/",length(vp))
     result[j,10] <- org_obj
     result[j,11] <- org_seg
   } 
