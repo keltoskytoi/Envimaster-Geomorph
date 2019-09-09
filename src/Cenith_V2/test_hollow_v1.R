@@ -57,5 +57,10 @@ maxrow <- valh[which.max(valh$hit),] # search max vale but rturn only 1 value
 maxhit <- maxrow$hit
 valh[which(valh$hit==maxhit),] 
 ################################################################################
+# view polygons with validation values
+hol <- cenith_hollow(som=som,a=0.04,b=0.01,h=0.5,min=0,max=100,f=1)
+hol
+plot(hol)
+mapview(hol)+som
 #end of script
  
