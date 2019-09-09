@@ -8,10 +8,10 @@
 #' @param Mandatory if function: poly - a shp with polygones
 #' @param Mandatory if function: multilayer - a rasterbrick, needs same CRS and extensions like the shp
 #' @param Mandatory if function: set_ID - bolean, if TRUE an ID is added to the polygones, default is TRUE
-#' @param Mandatory if function: stats - bolean, if TRUE returns a list with sd,mean,sum,min and max values for each polygone, default is TRUE
+#' @param Mandatory if function: stats - bolean, if TRUE returns a data frame with sd,mean,sum,min and max values for each polygone, default is TRUE
 #' @param Mandatory if function: spell - bolean, if TRUE the function will call the workflow position, default is TRUE
 
-#note: v1_1 added statisical calculations
+#note: v1 added statisical calculations
 Reaver_extraction <- function(poly,multilayer,set_ID=TRUE,stats=TRUE,spell=TRUE) {
   
   #workflow with "spelling" (cat orders)
@@ -68,14 +68,6 @@ Reaver_extraction <- function(poly,multilayer,set_ID=TRUE,stats=TRUE,spell=TRUE)
     cat("### Reaver has finished ###")
     cat(" ",sep = "\n")
     return(df)
-    
-    # this is return list with all single df
-    #return(list(df_clean=df_clean,
-    #            df_sd=df_sd,
-    #            df_mean=df_mean,
-    #            df_sum=df_sum,
-    #            df_min=df_min,
-    #            df_max=df_max))
     
   }else{
     # return df only path
