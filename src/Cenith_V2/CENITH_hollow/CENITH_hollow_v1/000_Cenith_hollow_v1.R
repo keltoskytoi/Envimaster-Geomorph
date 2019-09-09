@@ -66,7 +66,7 @@ cenith_hollow <- function(som,a,b,h,min,max,f=1){
     merc_sp[s,2] <- gArea(merc_sp[s,])
     }
     
-    names(merc_sp) <- c("group","area")
+    names(merc_sp) <- c("ID","area")
     
     merc_sp
     merc_min <- merc_sp[merc_sp$area>min,]
