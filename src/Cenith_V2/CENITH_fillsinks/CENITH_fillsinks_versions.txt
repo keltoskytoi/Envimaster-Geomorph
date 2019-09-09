@@ -1,0 +1,6 @@
+### CENITH fill sinks
+
+preprocessing tool to compute a sink only elevation modell (som) from a dem 
+for CENITH hollow segmentation
+
+## V1 computes a som from a dem
