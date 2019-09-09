@@ -44,6 +44,18 @@ source(file.path(root_folder, file.path(pathdir,"Cenith_V2/CENITH_hollow/CENITH_
 hollow <- cenith_hollow(som=som,a=0.5,b=0.5,h=0.5,min=15,max=35,f=1)
 hollow
 mapview(hollow)+som
+
+################################################################################
+#source CENITH hollow validation v1 
+source(file.path(root_folder, file.path(pathdir,"Cenith_V2/CENITH_hollow_val/CENITH_hollow_val_V1/000_cenith_hollow_val_v1.R")))
+source(file.path(root_folder, file.path(pathdir,"Cenith_V2/CENITH_hollow_val/CENITH_hollow_val_V1/sf_cenith_hollow_val_a_v1.R")))
+source(file.path(root_folder, file.path(pathdir,"Cenith_V2/CENITH_hollow_val/CENITH_hollow_val_V1/sf_cenith_hollow_val_b_v1.R")))
+
+valh <- cenith_hollow_val(chm=som,f=1,a=c(0.04,0.08),b=c(0.01,0.09),h=c(0.1,0.5,0.9),vp=vp_som,min=0,max=100)
+valh
+maxrow <- valh[which.max(valh$hit),] # search max vale but rturn only 1 value
+maxhit <- maxrow$hit
+valh[which(valh$hit==maxhit),] 
 ################################################################################
 #end of script
  
