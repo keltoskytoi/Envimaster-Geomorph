@@ -23,38 +23,55 @@ source(file.path(root_folder, paste0(pathdir,"001_setup_geomorph_v1.R")))
 #############################################################################################
 
 # CENITH DEVELOPMENT script to develop and test CENITH functions
+# to ensure that no wrong subfunctions are loaded: clean workspace for every test
 
-#source new sf
-source(file.path(root_folder, file.path(pathdir,"Cenith_V2/sf_chmseg_clean.R")))
-source(file.path(root_folder, file.path(pathdir,"Cenith_V2/sf_ft_mcws_clean.R")))
-source(file.path(root_folder, file.path(pathdir,"Cenith_V2/sf_ft_vwf_clean.R"))) 
-
-#source Cenith Validation V2
-source(file.path(root_folder, paste0(pathdir,"Cenith_V2/development/002_cenith_val_v2_1.R")))
-source(file.path(root_folder, paste0(pathdir,"Cenith_V2/development/002_cenith_val_v2_2.R")))
-source(file.path(root_folder, paste0(pathdir,"Cenith_V2/development/dev_sf_cenith_val_a_v2_2.R")))
-source(file.path(root_folder, paste0(pathdir,"Cenith_V2/development/dev_sf_cenith_val_b_v2_1.R")))
-
-# load data
+# load example data
 chm <- raster::raster(file.path(envrmt$path_Cenith_V2,"exmpl_chm.tif"))
 som <- raster::raster(file.path(envrmt$path_Cenith_V2,"exmpl_som.tif"))
-vp <-  rgdal::readOGR(file.path(envrmt$path_Cenith_V2,"exmpl_vp.shp"))
+vp_chm <-  rgdal::readOGR(file.path(envrmt$path_Cenith_V2,"exmpl_vp_chm.shp"))
+vp_som <-  rgdal::readOGR(file.path(envrmt$path_Cenith_V2,"exmpl_vp_som.shp"))
 crs(chm)
 crs(som)
-crs(vp)
-vp <- spTransform(vp,"+proj=utm +zone=32 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
-compareCRS(som,vp) #check if projection is correct
-
+crs(vp_chm)
+crs(vp_som)
+vp_chm <- spTransform(vp_chm,"+proj=utm +zone=32 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
+vp_som <- spTransform(vp_som,"+proj=utm +zone=32 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
+compareCRS(som,vp_som) #check if projection is correct
+compareCRS(chm,vp_chm) #check if projection is correct
 ########################################################################################
+#source CENITH validation V1 basic validation a,b
+source(file.path(root_folder, file.path(pathdir,"Cenith_V2/CENITH_validation/CENITH_validation_V1/001_cenith_val_v1.R")))
+source(file.path(root_folder, file.path(pathdir,"Cenith_V2/CENITH_validation/CENITH_validation_V1/sf_cenith_val_b_v1.R")))
 
-#test polygon merging ability for validation v2.1
+#test CENITH validation V1
+val1 <- cenith_val(chm=chm,f=1,a=c(0.04,0.08),b=c(0.01,0.09),13,vp=vp_chm)
+val1
+val1[which.max(val1$hitrate),]
 
+################################################################################
+#source CENITH validation V2.0 validation a,b and h
+source(file.path(root_folder, file.path(pathdir,"Cenith_V2/CENITH_validation/CENITH_validation_V2/002_cenith_val_v2.R")))
+source(file.path(root_folder, file.path(pathdir,"Cenith_V2/CENITH_validation/CENITH_validation_V2/sf_cenith_val_a.R")))
+source(file.path(root_folder, file.path(pathdir,"Cenith_V2/CENITH_validation/CENITH_validation_V2/sf_cenith_val_b_v1.R")))
 
-var <- cenith_val_v2_1(chm=som,f=1,a=c(0.5,0.9),b=(0.5),h=c(0.3,0.4,0.5,0.7,0.8,0.9),vp=vp)
-var2 <-cenith_val_v2_2(chm=som,f=1,a=c(0.1,0.9),b=(0.5),h=c(0.1,0.4,0.5,0.7,0.9),vp=vp,min=10,max=50)
-var3 <-cenith_val_v2_2(chm=som,f=1,a=c(0.1,0.9),b=(0.5),h=c(0.1,0.4,0.5,0.7,0.9),vp=vp,min=25,max=35)
-var3
-var2
-maxrow <- var3[which.max(var3$hit),] # search max vale but rturn only 1 value
+#test CENITH validation V2.0
+val2 <- cenith_val_v2(chm=chm,f=1,a=c(0.04,0.08),b=c(0.01,0.09),h=c(8,13),vp=vp_chm)
+val2
+val2[which.max(val2$hit),]
+
+################################################################################
+
+#source CENITH validation V2.1 validation a,b and h with more results
+source(file.path(root_folder, file.path(pathdir,"Cenith_V2/CENITH_validation/CENITH_validation_V2.1/002_cenith_val_v2_1.R")))
+source(file.path(root_folder, file.path(pathdir,"Cenith_V2/CENITH_validation/CENITH_validation_V2.1/sf_cenith_val_a_v2.R")))
+source(file.path(root_folder, file.path(pathdir,"Cenith_V2/CENITH_validation/CENITH_validation_V2.1/sf_cenith_val_b_v2.R")))
+
+#test CENITH validation V2.1
+val21 <- cenith_val_v2_1(chm=chm,f=1,a=c(0.04,0.08),b=c(0.01,0.09),h=c(8,13),vp=vp_chm)
+val21
+maxrow <- val21[which.max(val21$hit),] # search max vale but rturn only 1 value
 maxhit <- maxrow$hit
-var3[which(var3$hit==maxhit),] 
+val21[which(val21$hit==maxhit),] 
+
+################################################################################
+
