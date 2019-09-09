@@ -95,6 +95,9 @@ cenith_val4b_v2_1 <- function(chm,a,b,h,vp,min,max){
     under = pmb/length(stat$TreeCount) # mis.rati (or jan error) miss rate in percent (amount of polygons with more than 1 Tree)
     nobj_vp = length(merc_seg)/length(vp)
     area =  sum(merc_seg$area)
+    nobj = length(merc_seg)    # n polygons after clipping min and max
+    org_obj = length(merc_sp)  # n polygons after merging
+    org_seg = length(seg)      # seg the polygons computed by segmentation
     
     
     result[j, 1] <- a
@@ -105,6 +108,9 @@ cenith_val4b_v2_1 <- function(chm,a,b,h,vp,min,max){
     result[j, 6] <- over
     result[j, 5] <- area
     result[j, 8] <- under
+    result[j, 9] <- nobj
+    result[j,10] <- org_obj
+    result[j,11] <- org_seg
   } 
   return(result)
 }

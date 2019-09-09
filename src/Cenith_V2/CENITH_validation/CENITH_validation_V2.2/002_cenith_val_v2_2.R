@@ -34,7 +34,7 @@ for (c in seq(1:length(h))){
 
   
 }   
-  names(res)<- c("a","b","height","hit","area","miss","obj/vp","empty")
+  names(res)<- c("a","b","height","hit","area","miss","obj/vp","empty","nobj_final","poly_after_merge","poly_seg")
   
   cat       ("################################",sep="\n")
   cat       ("   CC EEEE N   N  I TTTTT H   H ",sep="\n")
