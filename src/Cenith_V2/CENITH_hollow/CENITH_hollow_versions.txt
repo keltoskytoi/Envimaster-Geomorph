@@ -1,0 +1,5 @@
+### CENITH hollow 
+
+used for hollow segmentation on a som
+
+## V1 merges intersection polygons and clips to min and max values

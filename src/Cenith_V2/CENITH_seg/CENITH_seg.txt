@@ -1,0 +1,5 @@
+### CENITH segmentation
+
+used fo tree segmentation on a chm
+
+
