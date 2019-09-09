@@ -16,7 +16,7 @@
 
 #note: v1 merging polygons and clipping of min and max area
 
-cenith_hollow_val_v1 <-function(chm,f=1,a,b,h,vp,min,max){
+cenith_hollow_val <-function(chm,f=1,a,b,h,vp,min,max){
   result <- data.frame(matrix(nrow = 3, ncol = 5))
   if (f>1){
     cat(paste0("### Cenith computes som with mean filter ",as.factor(f)," ###",sep = "\n"))
