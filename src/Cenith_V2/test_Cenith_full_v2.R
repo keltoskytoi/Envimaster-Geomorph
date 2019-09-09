@@ -93,20 +93,9 @@ var[which(var$hit==maxhit),]
 # test is to check if the result for CENITH have identical areas
 # run Cenith on som
 test1 <- Cenith(chm=som,h=0.7,a=0.9,b=0.1)
-test2 <- Cenith(chm=som,h=0.7,a=0.5,b=0.5)
-test3 <- Cenith(chm=som,h=0.7,a=0.1,b=0.9)
+
 
 require(mapview)
-mapview(test1$polygon)+som
-# visual check for overlapping
-mapview(test1$polygon)+test2$polygon+test3$polygon
-mapview(test3$polygon)+som
-
-inter <-intersect(test1$polygon,test1$polygon)
-class(inter)
-mapview(inter)
-mapview(test1$polygon)
-identical(inter,test1$polygon)
 
 ### test to merge
 library(sf)
@@ -130,36 +119,10 @@ clusterSF <- function(sfpolys){
 #perape polygons
 polys <- test1$polygon
 poly_sf <- st_as_sf(polys)
-#poly_sf <- poly_sf_col[,5]
-class(poly_sf)
-poly_sf
 
-distancematrix <- st_distance(poly_sf)
-thresh <-grid::unit(1,"cm")
-hc = hclust(as.dist(distancematrix), method="single")
-
-hctests <- clusterSF(poly_sf,1)
-###
-set.seed(123)
-pols  = st_as_sf(
-  gBuffer(SpatialPoints(cbind(100*runif(20),100*runif(20))), width=12, byid=TRUE)
-)
-
-
-pc= clusterSF(poly_sf)
-plot(pols)
-plot(polscluster)
-mapview(pc)
-
-pc
-class(pols)
-class(poly_sf)
-
-class(polscluster)
-
+hctests <- clusterSF(poly_sf)
 sp_cluster <- sf:::as_Spatial(pc)
 
-sp_cluster
 
 # test fall: es werden 2 polygone in einem crater gezeigt, die aneinander liegen.
 # Function läuft und merge beide, rdy to implenetate to validation algo.
