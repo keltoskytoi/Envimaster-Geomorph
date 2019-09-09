@@ -13,15 +13,16 @@
 
 #Note sf_v2_1: uses cleaned sf and added merging intersection polygons, clipping min and max polygons
 
-#chm=som
-#a=0.1
-#b=0.5
-#h=0.5
-#vp=vp_som
+# for development to test if error occurs##########
+#chm=chm
+#a=0.4
+#b=0.01
+#h=8
+#vp=vp_chm
 #j=1
 #min=0
 #max=100
-#result <- data.frame(matrix(nrow = 3, ncol = 11))
+#result <- data.frame(matrix(nrow = 3, ncol = 11))####
 
 cenith_val4b_v2_1 <- function(chm,a,b,h,vp,min,max){
   result <- data.frame(matrix(nrow = length(b), ncol = 8)) # ncol = n information stored
@@ -75,7 +76,6 @@ cenith_val4b_v2_1 <- function(chm,a,b,h,vp,min,max){
     names(merc_sp) <- c("group","area")
     
     merc_sp
-    
     merc_min <- merc_sp[merc_sp$area>min,]
     merc_min
     

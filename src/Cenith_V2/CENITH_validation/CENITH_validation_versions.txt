@@ -1,3 +1,10 @@
 ### CENITH validation
 
 ## V1 basic validation over a and b
+
+## V2 runs over a,d and height
+
+## V2.1 adds new results
+
+## V2.2 adds merginf for intersecting polygons and clipp to min and max
+doenst work for tree detection due to merging.
