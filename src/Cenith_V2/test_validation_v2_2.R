@@ -93,5 +93,9 @@ val222 <- cenith_val_v2_2(chm=som,f=1,a=c(0.04,0.08),b=c(0.01,0.09),h=c(0.1,0.5,
 val22
 val222
 
+#test running on chm for treepos detection
+valtree <- cenith_val_v2_2(chm=chm,f=1,a=c(0.4,0.8),b=c(0.01,0.09),h=c(8,9,10),vp=vp_chm,min=0,max=100)
+# doenst work due to merging intersecting polygons
 ################################################################################
 #end of script
+ 
