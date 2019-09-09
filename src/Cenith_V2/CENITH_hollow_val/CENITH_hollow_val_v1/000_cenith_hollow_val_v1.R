@@ -1,4 +1,4 @@
-#' Mandatory: Cenith Validation V2.1
+#' Mandatory: Cenith Hollow Validation v1
 #'
 #' @description Optional: used to test optimal moving window for the Cenith Segmentation
 #' @name Mandatory Cenith  
@@ -14,12 +14,12 @@
 #' @param Mandatory if function: min - the minimum area in m² for polygons
 #' @param Mandatory if function: max - the maximum area in m² for polygons
 
-#note: v2.2 adds clipping of min and max area
+#note: v1 merging polygons and clipping of min and max area
 
-cenith_val_v2_2 <-function(chm,f=1,a,b,h,vp,min,max){
+cenith_hollow_val_v1 <-function(chm,f=1,a,b,h,vp,min,max){
   result <- data.frame(matrix(nrow = 3, ncol = 5))
   if (f>1){
-    cat(paste0("### Cenith computes chm with mean filter ",as.factor(f)," ###",sep = "\n"))
+    cat(paste0("### Cenith computes som with mean filter ",as.factor(f)," ###",sep = "\n"))
     chm <- raster::focal(chm,w=matrix(1/(f*f),nrow=f,ncol=f))
   } else {chm = chm}   ### filter function seperate
   
@@ -28,9 +28,9 @@ for (c in seq(1:length(h))){
   cat(paste0("### Cenith starts with loop h ",as.factor(c)," / ",as.factor(length(h))," ###",sep = "\n"))
   cat       ("#############################",sep="\n")
   if(c==1){
-    res <-cenith_val_a_v2_2(chm,a,b,h[c],vp,min,max)
+    res  <-cenith_hollow_val_a_v1(chm,a,b,h[c],vp,min,max)
   }    else {
-    res2 <-cenith_val_a_v2_2(chm,a,b,h[c],vp,min,max)
+    res2 <-cenith_hollow_val_a_v1(chm,a,b,h[c],vp,min,max)
     res= rbind(res,res2)}
 
 

@@ -1,4 +1,4 @@
-#' Mandatory: Cenith Validation Subfunction validation for value a
+#' Mandatory: Cenith Hollow Validation v1 Subfunction validation for value a
 #'
 #' @description Optional: subfunction for running val4b over a
 #' @name Mandatory Cenith  
@@ -9,9 +9,9 @@
 #' @param Mandatory if function: h - minimum height to detect trees
 #' @param Mandatory if function: optional vp - a pointlayer (shp) with positions of Trees
 
-#Note V2: uses cleaned sf
+#Note v1: uses cleaned sf
 
-cenith_val_a_v2_2 <-function(chm,a,b,h,vp,min,max){
+cenith_hollow_val_a_v1 <-function(chm,a,b,h,vp,min,max){
   result <- data.frame(matrix(nrow = 3, ncol = 5))
   
 for (i in seq(1:length(a))){
@@ -20,9 +20,9 @@ for (i in seq(1:length(a))){
 
  
    if(i==1){
-    res  <-cenith_val4b_v2_1(chm,a[i],b,h,vp,min,max)
+    res  <-cenith_hollow_val_b_v1(chm,a[i],b,h,vp,min,max)
   }    else {
-    res2 <-cenith_val4b_v2_1(chm,a[i],b,h,vp,min,max)
+    res2 <-cenith_hollow_val_b_v1(chm,a[i],b,h,vp,min,max)
     res= rbind(res,res2)}
 
 

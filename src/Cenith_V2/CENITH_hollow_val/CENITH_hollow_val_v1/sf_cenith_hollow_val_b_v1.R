@@ -1,4 +1,4 @@
-#' Mandatory: Cenith Validation Subfunction validation for value b
+#' Mandatory: Cenith Hollow Validation v1 Subfunction validation for value b
 #'
 #' @description Optional: primary subfunction for segmentation over b and calculate statistc results
 #' @name Mandatory Cenith  
@@ -11,20 +11,11 @@
 #' @param Mandatory if function: min - minimum area for a polygon
 #' @param Mandatory if function: max - maximum area for a polygon
 
-#Note sf_v2_1: uses cleaned sf and added merging intersection polygons, clipping min and max polygons
+#Note v1: uses cleaned sf and added merging intersection polygons, clipping min and max polygons
 
-# for development to test if error occurs##########
-#chm=chm
-#a=0.4
-#b=0.01
-#h=8
-#vp=vp_chm
-#j=1
-#min=0
-#max=100
-#result <- data.frame(matrix(nrow = 3, ncol = 11))####
 
-cenith_val4b_v2_1 <- function(chm,a,b,h,vp,min,max){
+
+cenith_hollow_val_b_v1 <- function(chm,a,b,h,vp,min,max){
   result <- data.frame(matrix(nrow = length(b), ncol = 8)) # ncol = n information stored
   for (j in seq(1:length(b))){
     cat       (" ",sep="\n")
