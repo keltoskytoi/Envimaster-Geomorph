@@ -28,11 +28,11 @@ for (c in seq(1:length(h))){
   if(c==1){
     res <-cenith_val_a_v2(chm,a,b,h[c],vp)
   }    else {
-    res2 <-cenith_val_a(chm,a,b,h[c],vp)
+    res2 <-cenith_val_a_v2(chm,a,b,h[c],vp)
     res= rbind(res,res2)}
   
 }
-  names(res)<- c("a","b","height","hit","area","miss","tp/vp","empty")
+  names(res)<- c("a","b","height","hit","tp/vp","miss","area","empty")
   cat       ("################################",sep="\n")
   cat       ("   CC EEEE N   N  I TTTTT H   H ",sep="\n")
   cat(paste0("  C   E    NN  N  I   T   H   H ",sep = "\n"))
