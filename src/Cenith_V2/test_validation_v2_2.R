@@ -83,10 +83,15 @@ source(file.path(root_folder, file.path(pathdir,"Cenith_V2/CENITH_validation/CEN
 
 #test CENITH validation V2.1
 val22 <- cenith_val_v2_2(chm=som,f=1,a=c(0.04,0.08),b=c(0.01,0.09),h=c(0.1,0.5,0.9),vp=vp_som,min=0,max=100)
-val22
+
 maxrow <- val22[which.max(val22$hit),] # search max vale but rturn only 1 value
 maxhit <- maxrow$hit
 val22[which(val22$hit==maxhit),] 
 
+#compare with clipping min and max
+val222 <- cenith_val_v2_2(chm=som,f=1,a=c(0.04,0.08),b=c(0.01,0.09),h=c(0.1,0.5,0.9),vp=vp_som,min=15,max=35)
+val22
+val222
+# val222 has lesser obj/vp ratio due to clipping the small or biggest polygon
 ################################################################################
 
