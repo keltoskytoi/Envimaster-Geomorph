@@ -93,7 +93,7 @@ cenith_val4b_v2_1 <- function(chm,a,b,h,vp,min,max){
     hit = pb/length(stat$TreeCount) # calc hit ration in percent (amount of exact trees
     over = pkb/length(stat$TreeCount) #calc empty ration in percent (amount of polygon without trees)
     under = pmb/length(stat$TreeCount) # mis.rati (or jan error) miss rate in percent (amount of polygons with more than 1 Tree)
-    ntree_vp = length(tpos)/length(vp)
+    ntree_vp = length(merc_seg)/length(vp)
     area =  sum(merc_seg$area)
     
     
@@ -109,6 +109,3 @@ cenith_val4b_v2_1 <- function(chm,a,b,h,vp,min,max){
   return(result)
 }
 
-#cenith_val4b(chm,a=0.03,b=c(0.2,0.3,0.4),h=8,vp)
-
-###exampl
