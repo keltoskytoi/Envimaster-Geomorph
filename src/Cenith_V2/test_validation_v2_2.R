@@ -40,8 +40,8 @@ compareCRS(som,vp_som) #check if projection is correct
 compareCRS(chm,vp_chm) #check if projection is correct
 ########################################################################################
 #source CENITH validation V1 basic validation a,b
-source(file.path(root_folder, file.path(pathdir,"Cenith_V2/CENITH_validation/CENITH_validation_V1/001_cenith_val_v1.R")))
-source(file.path(root_folder, file.path(pathdir,"Cenith_V2/CENITH_validation/CENITH_validation_V1/sf_cenith_val_b_v1.R")))
+source(file.path(root_folder, file.path(pathdir,"Cenith_V2/CENITH_val/CENITH_validation_V1/001_cenith_val_v1.R")))
+source(file.path(root_folder, file.path(pathdir,"Cenith_V2/CENITH_val/CENITH_validation_V1/sf_cenith_val_b_v1.R")))
 
 #test CENITH validation V1
 val1 <- cenith_val(chm=chm,f=1,a=c(0.04,0.08),b=c(0.01,0.09),13,vp=vp_chm)
@@ -50,9 +50,9 @@ val1[which.max(val1$hitrate),]
 
 ################################################################################
 #source CENITH validation V2.0 validation a,b and h
-source(file.path(root_folder, file.path(pathdir,"Cenith_V2/CENITH_validation/CENITH_validation_V2/002_cenith_val_v2.R")))
-source(file.path(root_folder, file.path(pathdir,"Cenith_V2/CENITH_validation/CENITH_validation_V2/sf_cenith_val_a.R")))
-source(file.path(root_folder, file.path(pathdir,"Cenith_V2/CENITH_validation/CENITH_validation_V2/sf_cenith_val_b_v1.R")))
+source(file.path(root_folder, file.path(pathdir,"Cenith_V2/CENITH_val/CENITH_validation_V2/002_cenith_val_v2.R")))
+source(file.path(root_folder, file.path(pathdir,"Cenith_V2/CENITH_val/CENITH_validation_V2/sf_cenith_val_a.R")))
+source(file.path(root_folder, file.path(pathdir,"Cenith_V2/CENITH_val/CENITH_validation_V2/sf_cenith_val_b_v1.R")))
 
 #test CENITH validation V2.0
 val2 <- cenith_val_v2(chm=chm,f=1,a=c(0.04,0.08),b=c(0.01,0.09),h=c(8,13),vp=vp_chm)
@@ -61,9 +61,9 @@ val2[which.max(val2$hit),]
 
 ################################################################################
 #source CENITH validation V2.1 validation a,b and h with more results
-source(file.path(root_folder, file.path(pathdir,"Cenith_V2/CENITH_validation/CENITH_validation_V2.1/002_cenith_val_v2_1.R")))
-source(file.path(root_folder, file.path(pathdir,"Cenith_V2/CENITH_validation/CENITH_validation_V2.1/sf_cenith_val_a_v2.R")))
-source(file.path(root_folder, file.path(pathdir,"Cenith_V2/CENITH_validation/CENITH_validation_V2.1/sf_cenith_val_b_v2.R")))
+source(file.path(root_folder, file.path(pathdir,"Cenith_V2/CENITH_val/CENITH_validation_V2.1/002_cenith_val_v2_1.R")))
+source(file.path(root_folder, file.path(pathdir,"Cenith_V2/CENITH_val/CENITH_validation_V2.1/sf_cenith_val_a_v2.R")))
+source(file.path(root_folder, file.path(pathdir,"Cenith_V2/CENITH_val/CENITH_validation_V2.1/sf_cenith_val_b_v2.R")))
 
 #test CENITH validation V2.1
 val21 <- cenith_val_v2_1(chm=chm,f=1,a=c(0.04,0.08),b=c(0.01,0.09),h=c(8,13),vp=vp_chm)
@@ -74,12 +74,12 @@ val21[which(val21$hit==maxhit),]
 
 ################################################################################
 #source CENITH validation V2.2 validation a,b and h with more results and merging intersecting polygons
-source(file.path(root_folder, file.path(pathdir,"Cenith_V2/CENITH_validation/CENITH_validation_V2.2/002_cenith_val_v2_2.R")))
-source(file.path(root_folder, file.path(pathdir,"Cenith_V2/CENITH_validation/CENITH_validation_V2.2/sf_cenith_val_a_v2_2.R")))
-source(file.path(root_folder, file.path(pathdir,"Cenith_V2/CENITH_validation/CENITH_validation_V2.2/sf_cenith_val_b_v2_1.R")))
-source(file.path(root_folder, file.path(pathdir,"Cenith_V2/CENITH_validation/CENITH_validation_V2.2/sf_chmseg_clean.R")))
-source(file.path(root_folder, file.path(pathdir,"Cenith_V2/CENITH_validation/CENITH_validation_V2.2/sf_ft_mcws_clean.R")))
-source(file.path(root_folder, file.path(pathdir,"Cenith_V2/CENITH_validation/CENITH_validation_V2.2/sf_ft_vwf_clean.R")))
+source(file.path(root_folder, file.path(pathdir,"Cenith_V2/CENITH_val/CENITH_validation_V2.2/002_cenith_val_v2_2.R")))
+source(file.path(root_folder, file.path(pathdir,"Cenith_V2/CENITH_val/CENITH_validation_V2.2/sf_cenith_val_a_v2_2.R")))
+source(file.path(root_folder, file.path(pathdir,"Cenith_V2/CENITH_val/CENITH_validation_V2.2/sf_cenith_val_b_v2_1.R")))
+source(file.path(root_folder, file.path(pathdir,"Cenith_V2/CENITH_val/CENITH_validation_V2.2/sf_chmseg_clean.R")))
+source(file.path(root_folder, file.path(pathdir,"Cenith_V2/CENITH_val/CENITH_validation_V2.2/sf_ft_mcws_clean.R")))
+source(file.path(root_folder, file.path(pathdir,"Cenith_V2/CENITH_val/CENITH_validation_V2.2/sf_ft_vwf_clean.R")))
 
 #test CENITH validation V2.2
 val22 <- cenith_val_v2_2(chm=som,f=1,a=c(0.04,0.08),b=c(0.01,0.09),h=c(0.1,0.5,0.9),vp=vp_som,min=0,max=100)
