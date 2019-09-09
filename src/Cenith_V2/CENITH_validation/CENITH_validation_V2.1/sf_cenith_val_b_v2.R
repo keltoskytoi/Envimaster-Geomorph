@@ -53,9 +53,10 @@ cenith_val4b_v2 <- function(chm,a,b,h,vp){
     result[j, 3] <- h
     result[j, 4] <- hit
     result[j, 5] <- ntree_vp
-    result[j, 6] <- over
-    result[j, 7] <- area
-    result[j, 8] <- under
+    result[j, 6] <- paste(length(tpos),"/",length(vp))
+    result[j, 7] <- over
+    result[j, 8] <- area
+    result[j, 9] <- under
     cat       (" ",sep="\n")
     cat(paste0("### Cenith rdy with b ",as.factor(j)," / ",as.factor(length(b))," ###",sep = "\n"))
     cat       ("#############################",sep="\n")

@@ -32,7 +32,7 @@ for (c in seq(1:length(h))){
     res= rbind(res,res2)}
   
 }
-  names(res)<- c("a","b","height","hit","tp/vp","miss","area","empty")
+  names(res)<- c("a","b","height","hit","tp/vp_rate","tpos/vp","miss","area","empty")
   cat       ("################################",sep="\n")
   cat       ("   CC EEEE N   N  I TTTTT H   H ",sep="\n")
   cat(paste0("  C   E    NN  N  I   T   H   H ",sep = "\n"))
