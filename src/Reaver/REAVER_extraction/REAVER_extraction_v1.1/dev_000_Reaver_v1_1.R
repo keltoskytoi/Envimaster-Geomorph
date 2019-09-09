@@ -1,4 +1,4 @@
-#' Mandatory: Reaver V1.0
+#' Mandatory: Reaver V1.1
 #'
 #' @description Optional: Function to extract values from multilayer objects for several spatial polygons
 #' and calculate multiple statistic values with one value per polygone. returns a single data frame.
@@ -11,8 +11,8 @@
 #' @param Mandatory if function: stats - bolean, if TRUE returns a list with sd,mean,sum,min and max values for each polygone, default is TRUE
 #' @param Mandatory if function: spell - bolean, if TRUE the function will call the workflow position, default is TRUE
 
-#note: v1_2 added statisical calculations
-Reaver <- function(poly,multilayer,set_ID=TRUE,stats=TRUE,spell=TRUE) {
+#note: v1_1 added statisical calculations
+Reaver_extraction <- function(poly,multilayer,set_ID=TRUE,stats=TRUE,spell=TRUE) {
   
   #workflow with "spelling" (cat orders)
   if (spell==TRUE){
