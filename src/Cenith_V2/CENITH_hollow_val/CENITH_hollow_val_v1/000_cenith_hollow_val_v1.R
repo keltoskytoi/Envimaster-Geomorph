@@ -45,7 +45,7 @@ for (c in seq(1:length(h))){
   cat       ("  C   E    N  NN  I   T   H   H ",sep="\n")
   cat       ("   CC EEEE N   N  I   T   H   H ",sep="\n")
   cat       ("                                ",sep="\n")
-  cat       ("Finished validation V2 ",sep="\n")
+  cat       ("Finished hollow validation ",sep="\n")
   return(res)
 }
 
