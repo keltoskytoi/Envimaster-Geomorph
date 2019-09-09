@@ -13,12 +13,11 @@
 
 #Note sf_v2_1: uses cleaned sf and added merging intersection polygons, clipping min and max polygons
 
-chm=som
-a=0.5
-b=0.6
-h=0.8
-vp=vp
-j=1
+#chm=som
+#a=0.1
+#b=0.5
+#h=0.5
+#vp=vp
 
 cenith_val4b_v2_1 <- function(chm,a,b,h,vp,min,max){
   result <- data.frame(matrix(nrow = length(b), ncol = 8)) # ncol = n information stored
@@ -62,7 +61,25 @@ cenith_val4b_v2_1 <- function(chm,a,b,h,vp,min,max){
     #run merging
     merc_seg_sf <- clusterSF(poly_sf)
     #convert sf to sp
-    merc_seg <- sf:::as_Spatial(merc_seg_sf)
+    merc_sp <- sf:::as_Spatial(merc_seg_sf)
+    cat("loop")
+    ########################
+    for (s in 1:length(merc_sp)){
+    merc_sp[s,2] <- gArea(merc_sp[s,])
+    }
+    cat("min")
+    names(merc_sp) <- c("group","area")
+    
+    merc_sp
+    
+    merc_min <- merc_sp[merc_sp$area>min,]
+    merc_min
+    
+    merc_seg <- merc_sp[merc_min$area<max,]
+    merc_seg
+    
+    
+    
     
     ########################
     #cat(paste0("### Cenith calculates precision ratios for b ",as.factor(j)," / ",as.factor(length(b))," ###",sep = "\n"))
@@ -77,7 +94,7 @@ cenith_val4b_v2_1 <- function(chm,a,b,h,vp,min,max){
     over = pkb/length(stat$TreeCount) #calc empty ration in percent (amount of polygon without trees)
     under = pmb/length(stat$TreeCount) # mis.rati (or jan error) miss rate in percent (amount of polygons with more than 1 Tree)
     ntree_vp = length(tpos)/length(vp)
-    area =  sum(seg$crownArea)
+    area =  sum(merc_seg$area)
     
     
     result[j, 1] <- a

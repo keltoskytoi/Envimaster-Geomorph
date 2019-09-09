@@ -26,19 +26,16 @@ for (c in seq(1:length(h))){
   cat(paste0("### Cenith starts with loop h ",as.factor(c)," / ",as.factor(length(h))," ###",sep = "\n"))
   cat       ("#############################",sep="\n")
   if(c==1){
-    res <-cenith_val_a_v2(chm,a,b,h[c],vp)
+    res <-cenith_val_a_v2_2(chm,a,b,h[c],vp,min,max)
   }    else {
-    res2 <-cenith_val_a(chm,a,b,h[c],vp)
+    res2 <-cenith_val_a_v2_2(chm,a,b,h[c],vp,min,max)
     res= rbind(res,res2)}
 
 
   
-}   #delete min and max
+}   
   names(res)<- c("a","b","height","hit","area","miss","tp/vp","empty")
-  wmax<-which(res$area>max)
-  dfmax <- if (length(wmax>0)){var_df <- res[-wmax,]} else{ dfmax <-res}
-  wmin<-which(dfmax$area<min)
-  df <- if (length(wmin>0)){var_df <- dfmax[-wmin,]} else{ df <-dfmax}
+  
   cat       ("################################",sep="\n")
   cat       ("   CC EEEE N   N  I TTTTT H   H ",sep="\n")
   cat(paste0("  C   E    NN  N  I   T   H   H ",sep = "\n"))
@@ -47,7 +44,7 @@ for (c in seq(1:length(h))){
   cat       ("   CC EEEE N   N  I   T   H   H ",sep="\n")
   cat       ("                                ",sep="\n")
   cat       ("Finished validation V2 ",sep="\n")
-  return(df)
+  return(res)
 }
 
 #'@examples
