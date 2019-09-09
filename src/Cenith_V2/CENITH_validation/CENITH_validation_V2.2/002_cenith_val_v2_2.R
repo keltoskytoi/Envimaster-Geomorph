@@ -4,13 +4,15 @@
 #' @name Mandatory Cenith  
 #' @export Mandatory Cenith
 
-#' @param Mandatory if function: chm - a canopy height model
+#' @param Mandatory if function: chm - a canopy height model or raster with elevation values
 #' @param Mandatory if function: a, b - parameters for moving window
 #' predefinition in var is recommended
 #' @param Mandatory if function: h - minimum height to detect trees
-#' @param Mandatory if function: optional f - numeric, must be odd, chm fxf filter,
+#' @param Mandatory if function: optional f - numeric, must be odd, fxf filter,
 #' uses a spatial mean filter
-#' @param Mandatory if function: optional vp - a pointlayer (shp) with positions of Trees
+#' @param Mandatory if function: vp - a pointlayer (shp) with positions of Objects
+#' @param Mandatory if function: min - the minimum area in m² for polygons
+#' @param Mandatory if function: max - the maximum area in m² for polygons
 
 #note: v2.2 adds clipping of min and max area
 
