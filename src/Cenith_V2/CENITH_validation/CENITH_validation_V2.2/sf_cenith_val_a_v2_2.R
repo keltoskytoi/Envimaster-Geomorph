@@ -20,7 +20,7 @@ for (i in seq(1:length(a))){
 
  
    if(i==1){
-    res <-cenith_val4b_v2_1(chm,a[i],b,h,vp,min,max)
+    res  <-cenith_val4b_v2_1(chm,a[i],b,h,vp,min,max)
   }    else {
     res2 <-cenith_val4b_v2_1(chm,a[i],b,h,vp,min,max)
     res= rbind(res,res2)}

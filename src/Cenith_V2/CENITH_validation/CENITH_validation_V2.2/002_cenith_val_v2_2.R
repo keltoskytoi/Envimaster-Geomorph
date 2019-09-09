@@ -34,11 +34,11 @@ for (c in seq(1:length(h))){
 
   
 }   
-  names(res)<- c("a","b","height","hit","area","miss","tp/vp","empty")
+  names(res)<- c("a","b","height","hit","area","miss","obj/vp","empty")
   
   cat       ("################################",sep="\n")
   cat       ("   CC EEEE N   N  I TTTTT H   H ",sep="\n")
-  cat(paste0("  C   E    NN  N  I   T   H   H ",sep = "\n"))
+  cat       ("  C   E    NN  N  I   T   H   H ",sep="\n")
   cat       (" C    EE   N N N  I   T   HHHHH ",sep="\n")
   cat       ("  C   E    N  NN  I   T   H   H ",sep="\n")
   cat       ("   CC EEEE N   N  I   T   H   H ",sep="\n")
