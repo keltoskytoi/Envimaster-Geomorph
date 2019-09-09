@@ -1,6 +1,6 @@
 #' Mandatory: Cenith fill sinks
 #'
-#' @description Optional: preprocessing tool for Cenith Segmentation of sinks.
+#' @description Optional: preprocessing tool for Cenith Segmentation of sinks. Requires a SAGA environment.
 #' computes a Sinks only elevation model (SOM). 
 #' @name Mandatory Cenith  
 #' @export Mandatory Cenith
@@ -15,7 +15,7 @@
 
 cenith_fillsinks <- function(dem,output,tmp,minslope,proj) {
   cat(" ",sep = "\n")
-  cat("### Cenith fill sinks starts ###")
+  cat("### Cenith start to fill sinks ###")
   raster::writeRaster(dem,filename=paste0(file.path(tmp),"/dem.sdat"),overwrite = TRUE,NAflag = 0)
   RSAGA::rsaga.geoprocessor(lib = "ta_preprocessor", module = 4,
                             param = list(ELEV =    paste(tmp,"/dem.sgrd", sep = ""), 
