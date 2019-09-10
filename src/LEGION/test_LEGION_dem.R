@@ -22,3 +22,33 @@ source(file.path(root_folder, paste0(pathdir,"001_setup_geomorph_withSAGA_v1.R")
 ###---------------------------------------------------------------------------------------###
 #############################################################################################
 
+# LEGION development script to develop and test LEGION functions
+
+
+# load example data
+dem <- raster::raster(file.path(envrmt$path_src,"/LEGION/exmpl_dem.tif"))
+#set paths
+tmp <- envrmt$path_tmp
+utm<-"+proj=utm +zone=32 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs"
+################################################################################
+#source LEGION dem v1 
+source(file.path(root_folder, file.path(pathdir,"LEGION/LEGION_dem/LEGION_dem_v1/LEGION_dem_v1.R")))
+
+################################################################################
+#test LEGION dem v1 
+
+brk <- LEGION_dem_v1(dem = dem,tmp = tmp,proj = utm)
+brk
+################################################################################
+#source LEGION dem v2 
+source(file.path(root_folder, file.path(pathdir,"LEGION/LEGION_dem/LEGION_dem_v2/LEGION_dem_v2.R")))
+source(file.path(root_folder, file.path(pathdir,"LEGION/LEGION_dem/LEGION_dem_v2/sf_LEGION_dem_v2.R")))
+
+################################################################################
+#test LEGION_dem v2
+
+test <- LEGION_dem_v2(dem = dem,tmp = tmp,proj = utm,filter = c(3,5))
+test
+
+plot(test$slope_f3)
+plot(test$slope_f5)
