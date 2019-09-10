@@ -23,8 +23,9 @@ LEGION_dem_v2 <- function(dem,tmp,method=6,units=0,radius=100,proj,filter){
    stk <-stack(ls[[1]])
  for (i in 2:length(filter)){
    stk <-stack(stk,ls[[i]])
-   return(stk)
+   
  }
+   return(stk)
 }
 
 
