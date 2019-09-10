@@ -32,13 +32,15 @@ crs(poly)
 utm <- "+proj=utm +zone=32 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs"
 poly<-spTransform(poly,utm)
 crs(poly)
+
+plot(poly)
 # load artificially layers
 slope  <-raster::raster(file.path(envrmt$path_Reaver, "expl_slope.tif"))
 aspect <-raster::raster(file.path(envrmt$path_Reaver, "expl_aspect.tif"))
 cov_min<-raster::raster(file.path(envrmt$path_Reaver, "expl_cov_min.tif"))
 cov_max<-raster::raster(file.path(envrmt$path_Reaver, "expl_cov_max.tif"))
 # create brick
-brck <- raster::brick(slope,aspect,cov_min,cov_max)
+brck <- raster::stack(slope,aspect,cov_min,cov_max)
 brck
 
 #source Reaver V1
