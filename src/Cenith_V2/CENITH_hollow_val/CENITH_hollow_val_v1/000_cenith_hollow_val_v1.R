@@ -9,7 +9,7 @@
 #' predefinition in var is recommended
 #' @param Mandatory if function: h - minimum height to detect trees
 #' @param Mandatory if function: optional f - numeric, must be odd, fxf filter,
-#' uses a spatial mean filter
+#' uses a spatial sum filter
 #' @param Mandatory if function: vp - a pointlayer (shp) with positions of Objects
 #' @param Mandatory if function: min - the minimum area in m² for polygons
 #' @param Mandatory if function: max - the maximum area in m² for polygons
@@ -19,7 +19,7 @@
 cenith_hollow_val <-function(chm,f=1,a,b,h,vp,min,max){
   result <- data.frame(matrix(nrow = 3, ncol = 5))
   if (f>1){
-    cat(paste0("### Cenith computes som with mean filter ",as.factor(f)," ###",sep = "\n"))
+    cat(paste0("### Cenith computes som with sum filter ",as.factor(f)," ###",sep = "\n"))
     chm <- raster::focal(chm,w=matrix(1/(f*f),nrow=f,ncol=f))
   } else {chm = chm}   ### filter function seperate
   
