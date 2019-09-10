@@ -1,0 +1,6 @@
+### LEGION dem
+
+used to compute several artifically layers from a single dem
+
+## V1 returns a rasterbrick
+
