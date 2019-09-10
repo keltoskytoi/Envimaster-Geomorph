@@ -21,8 +21,8 @@ sf_LEGION_dem <- function(dem,tmp,method=6,units=0,radius=100,proj,filter){
   lapply(filter, function(f){
 
   
-  # chnage dem
-  dem <- raster::focal(dem,w=matrix(1/(f*f),nrow=f,ncol=f),fun=sum)
+  # change dem
+  dem <- raster::focal(dem,w=matrix(1/(f*f),nrow=f,ncol=f))
   raster::writeRaster(dem,filename=paste0(file.path(paste0(tmp,"/dem_f",as.factor(f),".sdat"))),overwrite = TRUE,NAflag = 0)
   
 #compute SAGA morphometrics, save to tmp folder as .sgrd

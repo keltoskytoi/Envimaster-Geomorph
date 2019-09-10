@@ -15,7 +15,7 @@
 #' for others see http://www.saga-gis.org/saga_tool_doc/6.4.0/ta_morphometry_0.html
 
 
-LEGION_dem <- function(dem,tmp,method=6,units=0,radius=100,proj){
+LEGION_dem_v1 <- function(dem,tmp,method=6,units=0,radius=100,proj){
   
 ### compute Atrifically layers with SAGA alorithm, rastes will be saved as .sgrd in a mp folder
   
