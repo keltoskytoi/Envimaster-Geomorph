@@ -10,7 +10,7 @@ require(link2GI)                  #E    n  nn    v v    r  r  m   m m   m   t   
                                                                                             #
 # define needed libs and src folder                                                         #
 libs = c("link2GI") 
-pathdir = "repo/src/"
+pathdir = "repo/src"
 
 #set root folder for uniPC or laptop                                                        #
 root_folder = alternativeEnvi(root_folder = "~/edu/Envimaster-Geomorph",                    #
@@ -18,7 +18,7 @@ root_folder = alternativeEnvi(root_folder = "~/edu/Envimaster-Geomorph",        
                               alt_env_value = "PCRZP",                                      #
                               alt_env_root_folder = "F:/edu/Envimaster-Geomorph")           #
 #source environment script                                                                  #
-source(file.path(root_folder, paste0(pathdir,"001_setup_geomorph_withSAGA_v1.R")))                                                              
+source(file.path(root_folder, paste0(pathdir,"/001_setup_geomorph_withSAGA_v1.R")))                                                              
 ###---------------------------------------------------------------------------------------###
 #############################################################################################
 
@@ -41,14 +41,15 @@ brk <- LEGION_dem_v1(dem = dem,tmp = tmp,proj = utm)
 brk
 ################################################################################
 #source LEGION dem v2 
-source(file.path(root_folder, file.path(pathdir,"LEGION/LEGION_dem/LEGION_dem_v2/LEGION_dem_v2.R")))
-source(file.path(root_folder, file.path(pathdir,"LEGION/LEGION_dem/LEGION_dem_v2/sf_LEGION_dem_v2.R")))
+source(file.path(root_folder, file.path(pathdir,"LEGION/LEGION_dem/LEGION_dem_v1.4/LEGION_dem_v1_4.R")))
+source(file.path(root_folder, file.path(pathdir,"LEGION/LEGION_dem/LEGION_dem_v1.4/sf_LEGION_dem_v1_4.R")))
 
 ################################################################################
 #test LEGION_dem v2
 
-test <- LEGION_dem_v2(dem = dem,tmp = tmp,proj = utm,filter = c(1,3,5,9))
+test <- LEGION_dem_v2(dem = dem,tmp = tmp,proj = utm,filter=c(3,5))
 test
+
 
 plot(test$slope_f3)
 plot(test$slope_f9)
