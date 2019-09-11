@@ -23,7 +23,7 @@ project_folders = c("data/",
 
 # Automatically set root direcory, folder structure and load libraries
 cat("#--- set up Environment  ---#",sep = "\n")
-envrmt = createEnvi(root_folder = "~/edu/Envimaster-Geomorph/", 
+envrmt = createEnvi(root_folder = "~/edu/Envimaster-Geomorph", 
                     folders = project_folders, 
                     path_prefix = "path_", libs = libs,
                     alt_env_id = "COMPUTERNAME", alt_env_value = "PCRZP",
