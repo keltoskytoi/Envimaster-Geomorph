@@ -20,7 +20,7 @@
 LEGION_dem <- function(dem,tmp,method=6,units=0,radius=100,proj,filter=0){
   
   cat(" ",sep = "\n")
-  cat("### LEGION starts to grow to many ###")
+  cat("### LEGION starts to grow from a dem to many layers ###")
   cat(" ",sep = "\n")
   cat("### LEGION grows - computing morphometric layers ###")
   #compute SAGA morphometrics, save to tmp folder as .sgrd
