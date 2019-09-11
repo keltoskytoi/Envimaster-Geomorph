@@ -50,8 +50,4 @@ df<- Reaver_extraction(poly=poly,multilayer=stk,set_ID = TRUE,name="test")
 
 df
 
-df2<- Reaver_extraction(poly=poly,multilayer=brck,set_ID = TRUE,spell=F,stats = T)
-df
-df2
-#test if spell T anf F path are idetical results
-identical(df,df2) # TRUE
+# end of script
