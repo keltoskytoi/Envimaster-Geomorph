@@ -1,6 +1,7 @@
-#' Mandatory: Subfunction for Legion DEM
+#' Mandatory: Legion DEM
 #' 
-#' @description Optional: Computes several artificially raster layers from a single DEM. returns a list.
+#' @description Optional: Computes several artificially raster layers from a single DEM.
+#' Returns a Brick and uses a Filter
 #' @name Mandatory LEGION  
 #' @export Mandatory LEGION
 
@@ -11,18 +12,17 @@
 #' @param Mandatory if function: proj - desired projection for output data, predefinition in var is recommended
 #' @param Mandatory if function: radius - The maximum search radius for skyview [map units]
 #' @param Mandatory if function: units - the unit for slope and aspect,0=radians 1=degree, default is 0
-#' @param Mandatory if function: filter - a vector of at least 2 values for sum filter in f*f for the input dem.
 #' @param Mandatory if function: method - default 9 parameter 2nd order polynom (Zevenbergen & Thorne 1987) 
+#' @param Mandatory if function: f - optional: single value, a sum filter for the input dem in f*f, must be odd. Default =1(no filtering)
 #' for others see http://www.saga-gis.org/saga_tool_doc/6.4.0/ta_morphometry_0.html
 
-#Note sf: Subfunction to avoid list problem with lapply
-sf_LEGION_dem <- function(dem,tmp,method=6,units=0,radius=100,proj,filter){
+#Note v1_1: add simpl filter function and names with filtersize
+LEGION_dem <- function(dem,tmp,method=6,units=0,radius=100,proj,f=1){
   
-  lapply(filter, function(f){
-
+### compute Atrifically layers with SAGA alorithm, rastes will be saved as .sgrd in a tmp folder
   
-  # change dem
-  dem <- raster::focal(dem,w=matrix(1/(f*f),nrow=f,ncol=f))
+  # chnage dem
+  dem <- raster::focal(dem,w=matrix(1/(f*f),nrow=f,ncol=f),fun=sum)
   raster::writeRaster(dem,filename=paste0(file.path(paste0(tmp,"/dem_f",as.factor(f),".sdat"))),overwrite = TRUE,NAflag = 0)
   
 #compute SAGA morphometrics, save to tmp folder as .sgrd
@@ -111,9 +111,29 @@ sf_LEGION_dem <- function(dem,tmp,method=6,units=0,radius=100,proj,filter){
 # brick all layers and return brick, 
     #sequence can be set here, 
     #the names will be like the sdat org names not the variable names
-    stk <- raster::stack(slo,asp,gen,pro,pla,tan,lon,cro,min,max,tol,rot,vis,svf,sim,ter,dis)
-
-    return(stk)
+    sk <- raster::brick(slo,asp,gen,pro,pla,tan,lon,cro,min,max,tol,rot,vis,svf,sim,ter,dis)
+    return(sk)
+} #end of main function
+#############################################################
+#need if wanna write out all data
+    raster::writeRaster(slo,filename=paste0(file.path(output,"/slope.tif")),overwrite = TRUE,NAflag = 0)
+    raster::writeRaster(asp,filename=paste0(file.path(output,"/aspect.tif")),overwrite = TRUE,NAflag = 0)
+    raster::writeRaster(gen,filename=paste0(file.path(output,"/cov_generel.tif")),overwrite = TRUE,NAflag = 0)
+    raster::writeRaster(pro,filename=paste0(file.path(output,"/cov_profile.tif")),overwrite = TRUE,NAflag = 0)
+    raster::writeRaster(pla,filename=paste0(file.path(output,"/cov_plan.tif")),overwrite = TRUE,NAflag = 0)
+    raster::writeRaster(tan,filename=paste0(file.path(output,"/cov_tangetial.tif")),overwrite = TRUE,NAflag = 0)
+    raster::writeRaster(lon,filename=paste0(file.path(output,"/cov_longitudal.tif")),overwrite = TRUE,NAflag = 0)
+    raster::writeRaster(cro,filename=paste0(file.path(output,"/cov_cross.tif")),overwrite = TRUE,NAflag = 0)
+    raster::writeRaster(min,filename=paste0(file.path(output,"/cov_min.tif")),overwrite = TRUE,NAflag = 0)
+    raster::writeRaster(max,filename=paste0(file.path(output,"/cov_max.tif")),overwrite = TRUE,NAflag = 0)
+    raster::writeRaster(tol,filename=paste0(file.path(output,"/cov_total.tif")),overwrite = TRUE,NAflag = 0)
+    raster::writeRaster(rot,filename=paste0(file.path(output,"/cov_flowline.tif")),overwrite = TRUE,NAflag = 0)
     
-  })
-}
+    raster::writeRaster(vis,filename=paste0(file.path(output,"/visible.tif")),overwrite = TRUE,NAflag = 0)
+    raster::writeRaster(svf,filename=paste0(file.path(output,"/svf.tif")),overwrite = TRUE,NAflag = 0)
+    raster::writeRaster(sim,filename=paste0(file.path(output,"/simple.tif")),overwrite = TRUE,NAflag = 0)
+    raster::writeRaster(ter,filename=paste0(file.path(output,"/terrain.tif")),overwrite = TRUE,NAflag = 0)
+    raster::writeRaster(dis,filename=paste0(file.path(output,"/distance.tif")),overwrite = TRUE,NAflag = 0)
+    
+  
+

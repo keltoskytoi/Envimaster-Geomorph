@@ -16,8 +16,8 @@
 #' @param Mandatory if function: method - default 9 parameter 2nd order polynom (Zevenbergen & Thorne 1987) 
 #' for others see http://www.saga-gis.org/saga_tool_doc/6.4.0/ta_morphometry_0.html
 
-#Note sf: Subfunction to avoid list problem with lapply
-LEGION_dem_v2 <- function(dem,tmp,method=6,units=0,radius=100,proj,filter){
+#Note v1.3 resturns a stack and uses a sf to compute lists
+LEGION_dem<- function(dem,tmp,method=6,units=0,radius=100,proj,filter){
   ls <-sf_LEGION_dem(dem,tmp,method,units,radius,proj,filter)
   
    stk <-stack(ls[[1]])

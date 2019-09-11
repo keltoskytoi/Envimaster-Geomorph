@@ -16,8 +16,7 @@
 #' for others see http://www.saga-gis.org/saga_tool_doc/6.4.0/ta_morphometry_0.html
 #' @param Mandatory if function: filter - a vector of at least 2 values for sum filter in f*f for the input dem.
 
-#Note v1_3: add simpl filter function and names with filtersize
-#BUT: returns a list
+#Note v1_2: uses a loop to run over filters BUT: returns a list
 LEGION_dem <- function(dem,tmp,method=6,units=0,radius=100,proj,filter){
   
   lapply(filter, function(f){
