@@ -4,3 +4,13 @@ used to compute several artifically layers from a single dem
 
 ## V1 returns a rasterbrick
 
+## V1.1 adds simple filter function
+
+## V1.2 adds a loop to run over filter
+
+## V1.3 uses a sf to stack returning list from loop
+
+## V1.4 uses longer names for rasters and in first run computes without filter and filter tag
+	if filters is missing returns stack for unfiltered dem, if filters is single or seq runs
+	over filters and returns a stack with untagged (first step) and filter tagged rasterlayers
+
