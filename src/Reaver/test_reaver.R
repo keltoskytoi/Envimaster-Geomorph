@@ -33,21 +33,20 @@ utm <- "+proj=utm +zone=32 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs
 poly<-spTransform(poly,utm)
 crs(poly)
 
-plot(poly)
 # load artificially layers
 slope  <-raster::raster(file.path(envrmt$path_Reaver, "expl_slope.tif"))
 aspect <-raster::raster(file.path(envrmt$path_Reaver, "expl_aspect.tif"))
 cov_min<-raster::raster(file.path(envrmt$path_Reaver, "expl_cov_min.tif"))
 cov_max<-raster::raster(file.path(envrmt$path_Reaver, "expl_cov_max.tif"))
 # create brick
-brck <- raster::stack(slope,aspect,cov_min,cov_max)
-brck
+stk <- raster::stack(slope,aspect,cov_min,cov_max)
+stk
 
 #source Reaver V1
-source(file.path(root_folder, file.path(pathdir,"Reaver/REAVER_extraction/REAVER_extraction_v1/000_Reaver_extraction.R")))
+source(file.path(root_folder, file.path(pathdir,"Reaver/REAVER_extraction/REAVER_extraction_v1.1/000_Reaver_extraction_v1.1.R")))
 
 ###run Reaver V1
-df<- Reaver_extraction(poly=poly,multilayer=brck,set_ID = TRUE,spell=T,stats = T)
+df<- Reaver_extraction(poly=poly,multilayer=stk,set_ID = TRUE,name="test")
 
 df
 
