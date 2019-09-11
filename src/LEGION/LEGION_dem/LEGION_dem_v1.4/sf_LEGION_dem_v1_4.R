@@ -25,6 +25,9 @@ sf_LEGION_dem <- function(dem,tmp,method=6,units=0,radius=100,proj,filter){
   dem <- raster::focal(dem,w=matrix(1/(f*f),nrow=f,ncol=f))
   raster::writeRaster(dem,filename=paste0(file.path(paste0(tmp,"/dem_f",as.factor(f),".sdat"))),overwrite = TRUE,NAflag = 0)
   
+  cat(" ",sep = "\n")
+  cat(paste("### LEGION grows - computing morphometric layers for filter ",as.factor(f), "###"))
+  cat(" ",sep = "\n")
 #compute SAGA morphometrics, save to tmp folder as .sgrd
   #parameters are taken from the website saga-gis
         RSAGA::rsaga.geoprocessor(lib = "ta_morphometry", module = 0,
@@ -49,6 +52,9 @@ sf_LEGION_dem <- function(dem,tmp,method=6,units=0,radius=100,proj,filter){
                               ),
                               show.output.on.console = TRUE, invisible = TRUE,
                               env = env)
+        cat(" ",sep = "\n")
+        cat(paste("### LEGION grows - computing skyview layers for filter ",as.factor(f), "###"))
+        cat(" ",sep = "\n")
 #compute SAGA skyview, save to tmp folder as .sgrd
     #parameters are taken from the website saga-gis
     RSAGA::rsaga.geoprocessor(lib = "ta_lighting", module = 3,

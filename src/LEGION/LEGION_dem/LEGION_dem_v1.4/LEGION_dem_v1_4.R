@@ -19,6 +19,10 @@
 #Note sf: Subfunction to avoid list problem with lapply
 LEGION_dem <- function(dem,tmp,method=6,units=0,radius=100,proj,filter=0){
   
+  cat(" ",sep = "\n")
+  cat("### LEGION starts to grow to many ###")
+  cat(" ",sep = "\n")
+  cat("### LEGION grows - computing morphometric layers ###")
   #compute SAGA morphometrics, save to tmp folder as .sgrd
   #parameters are taken from the website saga-gis
   RSAGA::rsaga.geoprocessor(lib = "ta_morphometry", module = 0,
@@ -43,6 +47,9 @@ LEGION_dem <- function(dem,tmp,method=6,units=0,radius=100,proj,filter=0){
                             ),
                             show.output.on.console = TRUE, invisible = TRUE,
                             env = env)
+  cat(" ",sep = "\n")
+  cat("### LEGION grows - computing skyview layers ###")
+  cat(" ",sep = "\n")
   #compute SAGA skyview, save to tmp folder as .sgrd
   #parameters are taken from the website saga-gis
   RSAGA::rsaga.geoprocessor(lib = "ta_lighting", module = 3,
@@ -108,6 +115,9 @@ LEGION_dem <- function(dem,tmp,method=6,units=0,radius=100,proj,filter=0){
   stk <- raster::stack(slo,asp,gen,pro,pla,tan,lon,cro,min,max,tol,rot,vis,svf,sim,ter,dis)
   
   if (filter[1]==0){
+    cat(" ",sep = "\n")
+    cat("### LEGION finished ###")
+    cat(" ",sep = "\n")
     return(stk)
   }else{
   
@@ -119,6 +129,9 @@ LEGION_dem <- function(dem,tmp,method=6,units=0,radius=100,proj,filter=0){
    stk <-stack(stk,ls[[i]])
    
  }
+  cat(" ",sep = "\n")
+  cat("### LEGION finished ###")
+  cat(" ",sep = "\n")
    return(stk)
   }
 }
