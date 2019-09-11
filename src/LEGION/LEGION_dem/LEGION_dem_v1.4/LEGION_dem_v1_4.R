@@ -17,7 +17,7 @@
 #' for others see http://www.saga-gis.org/saga_tool_doc/6.4.0/ta_morphometry_0.html
 
 #Note sf: Subfunction to avoid list problem with lapply
-LEGION_dem_v2 <- function(dem,tmp,method=6,units=0,radius=100,proj,filter=0){
+LEGION_dem <- function(dem,tmp,method=6,units=0,radius=100,proj,filter=0){
   
   #compute SAGA morphometrics, save to tmp folder as .sgrd
   #parameters are taken from the website saga-gis

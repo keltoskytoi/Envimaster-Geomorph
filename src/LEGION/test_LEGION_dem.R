@@ -47,7 +47,7 @@ source(file.path(root_folder, file.path(pathdir,"LEGION/LEGION_dem/LEGION_dem_v1
 ################################################################################
 #test LEGION_dem v2
 
-test <- LEGION_dem_v2(dem = dem,tmp = tmp,proj = utm,filter=c(3,5))
+test <- LEGION_dem(dem = dem,tmp = tmp,proj = utm,filter=c(3,5))
 test
 
 
