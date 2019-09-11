@@ -1,4 +1,4 @@
-#' Mandatory: Reaver V1.0
+#' Mandatory: Reaver Extraction
 #'
 #' @description Optional: Function to extract values from multilayer objects for several spatial polygons
 #' and calculate multiple statistic values with one value per polygone. returns a single data frame.

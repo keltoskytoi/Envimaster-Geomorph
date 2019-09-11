@@ -1,5 +1,5 @@
-#' Mandatory: Reaver V1.1
-#'
+#' Mandatory: Reaver Extraction
+#' 
 #' @description Optional: Function to extract values from multilayer objects for several spatial polygons
 #' and calculate multiple statistic values with one value per polygone. returns a single data frame.
 #' @name Mandatory Reaver 
@@ -33,7 +33,7 @@ Reaver_extraction <- function(poly,multilayer,set_ID=TRUE,name="") {
   
   #rasterize polygones , mask the multilayer to rasterized polygones and add the rasterized polygone 
   cat(" ",sep = "\n")
-  cat("### Reaver rasterizes the polygones ###")
+  cat("### Reaver rasterizes the polygones for",nlayers(multilayer),"Layers ###")
   rastrize <- raster::rasterize(poly,multilayer,field="ID")
   masked <- raster::mask(multilayer,rastrize)
   masked_ID <- raster::addLayer(masked,rastrize)
