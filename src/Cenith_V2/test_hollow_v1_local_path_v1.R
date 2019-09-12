@@ -90,8 +90,8 @@ mapview(hol)+som
 #isabellengrund pingen
 #cenith_hollow(som=som,a=0.1,b=0.01,h=0.1,min=8,max=1000,f=1)
 
-#neu anspach
+#neu anspach pingen
 #cenith_hollow(som=som,a=0.1,b=0.01,h=0.1,min=3,max=1000,f=1)
 
-#mof
+#mof ?
 #cenith_hollow(som=som,a=0.1,b=0.01,h=0.1,min=3,max=1000,f=1)
