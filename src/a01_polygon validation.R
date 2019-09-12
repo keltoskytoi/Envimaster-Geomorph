@@ -82,10 +82,10 @@ mapview(hol)+som
 
 #write data
 writeOGR(obj=hollow,dsn= file.path(envrmt$path_002_processed, "seg_lahnberge_krater_poly.shp"),layer="testShape",driver="ESRI Shapefile")
-writeOGR(obj=hollow,dsn= file.path(envrmt$path_002_processed, "seg_mof_poly.shp"),layer="testShape",driver="ESRI Shapefile")
-writeOGR(obj=hollow,dsn= file.path(envrmt$path_002_processed, "seg_neu_anspach_pinge_poly.shp"),layer="testShape",driver="ESRI Shapefile")
-writeOGR(obj=hollow,dsn= file.path(envrmt$path_002_processed, "seg_isabellengrund_pinge_poly.shp"),layer="testShape",driver="ESRI Shapefile")
 writeOGR(obj=hollow,dsn= file.path(envrmt$path_002_processed, "seg_bad_driebach_doline_poly.shp"),layer="testShape",driver="ESRI Shapefile")
+writeOGR(obj=hollow,dsn= file.path(envrmt$path_002_processed, "seg_isabellengrund_pinge_poly.shp"),layer="testShape",driver="ESRI Shapefile")
+writeOGR(obj=hollow,dsn= file.path(envrmt$path_002_processed, "seg_neu_anspach_pinge_poly.shp"),layer="testShape",driver="ESRI Shapefile")
+writeOGR(obj=hollow,dsn= file.path(envrmt$path_002_processed, "seg_mof_poly.shp"),layer="testShape",driver="ESRI Shapefile")
 
 
 #end of script
