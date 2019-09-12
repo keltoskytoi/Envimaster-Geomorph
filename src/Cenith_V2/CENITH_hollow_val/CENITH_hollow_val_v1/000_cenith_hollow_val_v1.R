@@ -18,6 +18,10 @@
 
 cenith_hollow_val <-function(chm,f=1,a,b,h,vp,min,max){
   result <- data.frame(matrix(nrow = 3, ncol = 5))
+  maxsom <- raster::cellStats(chm, "max")
+  if (max(h)>maxsom){
+    stop("max of h is higher than the highest cell in som")
+  }
   if (f>1){
     cat(paste0("### Cenith computes som with sum filter ",as.factor(f)," ###",sep = "\n"))
     chm <- raster::focal(chm,w=matrix(1/(f*f),nrow=f,ncol=f))
