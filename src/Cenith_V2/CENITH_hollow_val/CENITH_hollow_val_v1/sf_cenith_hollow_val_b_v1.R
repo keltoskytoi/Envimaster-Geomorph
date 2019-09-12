@@ -70,7 +70,7 @@ cenith_hollow_val_b_v1 <- function(chm,a,b,h,vp,min,max){
     merc_min <- merc_sp[merc_sp$area>min,]
     merc_min
     
-    merc_seg <- merc_sp[merc_min$area<max,]
+    merc_seg <- merc_min[merc_min$area<max,]
     merc_seg
     
     

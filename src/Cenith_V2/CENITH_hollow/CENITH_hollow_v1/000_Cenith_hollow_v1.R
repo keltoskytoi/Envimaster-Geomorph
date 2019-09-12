@@ -72,7 +72,7 @@ cenith_hollow <- function(som,a,b,h,min,max,f=1){
     merc_min <- merc_sp[merc_sp$area>min,]
     merc_min
     
-    merc_seg <- merc_sp[merc_min$area<max,]
+    merc_seg <- merc_min[merc_min$area<max,]
     merc_seg
     
     
