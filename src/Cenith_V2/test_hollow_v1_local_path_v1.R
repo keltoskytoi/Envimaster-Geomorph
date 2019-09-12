@@ -50,7 +50,7 @@ source(file.path(root_folder, file.path(pathdir,"Cenith_V2/CENITH_hollow/CENITH_
 ################################################################################
 #test CENITH hollow v1 
 
-hollow <- cenith_hollow(som=som,a=0.1,b=0.01,h=0.1,min=3,max=1000,f=1)
+hollow <- cenith_hollow(som=som,a=2,b=2,h=0.1,min=4,max=1000,f=1)
 hollow
 mapview(hollow)+vp_som
 
@@ -65,7 +65,7 @@ registerDoParallel(cl)
 
 valh <- cenith_hollow_val(chm=som,f=1,a=c(0.1,0,2,0.3,0.4,0.5,0.6,0.7,0.8,0.9),
                           b=c(0.01,0,02,0.03,0.04,0.05,0.06,0.07,0.08,0.09),
-                          h=c(0.1,0.2,0.3),vp=vp_som,min=4,max=1000)
+                          h=c(0.1,0.2,0.3,0.4,0.5),vp=vp_som,min=4,max=1000)
 
 stopCluster(cl)
 
@@ -82,7 +82,7 @@ mapview(hol)+som
 #end of script
  
 #lahnberge bombenkrater
-#cenith_hollow(som=som,a=0.1,b=0.01,h=0.1,min=4,max=1000,f=1)
+#cenith_hollow(som=som,a=2,b=2,h=0.1,min=4,max=1000,f=1)
 
 #bad drieburg dolinen
 #cenith_hollow(som=som,a=0.1,b=0.01,h=0.1,min=8,max=1000,f=1)
