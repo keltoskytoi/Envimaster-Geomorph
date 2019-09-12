@@ -67,7 +67,7 @@ Reaver_extraction <- function(poly,multilayer,set_ID=TRUE,name="") {
   df <- merge(df,sum,by="layer")
   df <- merge(df,min,by="layer")
   df <- merge(df,max,by="layer")
-  df$layer <-paste(df$layer,name,sep="")
+  row.names(df) <-paste0(name,row.names(df),sep="")
   cat(" ",sep = "\n")
   cat(" ",sep = "\n")
   cat("### Reaver has finished ###")
