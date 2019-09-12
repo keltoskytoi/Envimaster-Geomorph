@@ -9,7 +9,7 @@ require(link2GI)                  #E    n  nn    v v    r  r  m   m m   m   t   
                                   ###############################################           #
                                                                                             #
 # define needed libs and src folder                                                         #
-libs = c("link2GI","ForestTools","uavRst","sf","sp","rgeos","mapview","doParallel","parallel") 
+libs = c("link2GI","ForestTools","uavRst","sf","sp","rgeos","rgdal","mapview","doParallel","parallel") 
 pathdir = "repo/src/"
 
 #set root folder for uniPC or laptop                                                        #
@@ -81,7 +81,11 @@ plot(hol)
 mapview(hol)+som
 
 #write data
-writeOGR(obj=hol,dsn= file.path(envrmt$path_002_processed, "seg_mof_poly.shp"),layer="testShape",driver="ESRI Shapefile")
+writeOGR(obj=hollow,dsn= file.path(envrmt$path_002_processed, "seg_lahnberge_krater_poly.shp"),layer="testShape",driver="ESRI Shapefile")
+writeOGR(obj=hollow,dsn= file.path(envrmt$path_002_processed, "seg_mof_poly.shp"),layer="testShape",driver="ESRI Shapefile")
+writeOGR(obj=hollow,dsn= file.path(envrmt$path_002_processed, "seg_neu_anspach_pinge_poly.shp"),layer="testShape",driver="ESRI Shapefile")
+writeOGR(obj=hollow,dsn= file.path(envrmt$path_002_processed, "seg_isabellengrund_pinge_poly.shp"),layer="testShape",driver="ESRI Shapefile")
+writeOGR(obj=hollow,dsn= file.path(envrmt$path_002_processed, "seg_bad_driebach_doline_poly.shp"),layer="testShape",driver="ESRI Shapefile")
 
 
 #end of script
