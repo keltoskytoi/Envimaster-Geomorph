@@ -79,6 +79,11 @@ hol <- cenith_hollow(som=som,a=0.05,b=0.05,h=0.45,min=3,max=100,f=1)
 hol
 plot(hol)
 mapview(hol)+som
+
+#write data
+writeOGR(obj=hol,dsn= file.path(envrmt$path_002_processed, "seg_mof_poly.shp"),layer="testShape",driver="ESRI Shapefile")
+
+
 #end of script
  
 #lahnberge bombenkrater
