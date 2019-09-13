@@ -57,4 +57,9 @@ plot(stk[[1]])
 identical(grd[[1]],stk[[1]]) # false but:
 plot(grd[[1]]-stk[[1]])# substraction gies to ZERO values, so both have same values
 
+#save and load RDS
+saveRDS(stk,file.path(envrmt$path_tmp,"stack_bsp.rds"))
+rdsstk <-readRDS(file.path(envrmt$path_tmp,"stack_bsp.rds"))
+identical(rdsstk,stk)
+######################## best result due to TRUE identical
 # end of script
