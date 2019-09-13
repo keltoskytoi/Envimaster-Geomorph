@@ -26,6 +26,10 @@ source(file.path(root_folder, paste0(pathdir,"001_setup_geomorph_v1.R")))
 
 
 # load example data
+
+som <- raster::raster(file.path(envrmt$path_002_processed, "mof_big/som_mof.tif"))
+vp_som <-  rgdal::readOGR(file.path(envrmt$path_002_processed,"mof_big/vp_mof.shp"))
+
 som <- raster::raster(file.path(envrmt$path_002_processed, "som_small/som_lahnberge_small.tif"))
 vp_som <-  rgdal::readOGR(file.path(envrmt$path_002_processed,"points/lahnberge_vp.shp"))
 som <- raster::raster(file.path(envrmt$path_002_processed, "som_small/som_bad_drieburg_small.tif"))
@@ -53,7 +57,7 @@ source(file.path(root_folder, file.path(pathdir,"Cenith_V2/CENITH_hollow/CENITH_
 hollow <- cenith_hollow(som=som,a=0.1,b=2,h=0.1,min=4,max=1000,f=1)
 hollow
 mapview(hollow)+vp_som
-
+plot(som)
 ################################################################################
 #source CENITH hollow validation v1 
 source(file.path(root_folder, file.path(pathdir,"Cenith_V2/CENITH_hollow_val/CENITH_hollow_val_V1/000_cenith_hollow_val_v1.R")))
@@ -81,6 +85,8 @@ plot(hol)
 mapview(hol)+som
 
 #write data
+writeOGR(obj=hollow,dsn= file.path(envrmt$path_002_processed, "mof_big/seg_mof_big_poly.shp"),layer="testShape",driver="ESRI Shapefile")
+
 writeOGR(obj=hollow,dsn= file.path(envrmt$path_002_processed, "seg_lahnberge_krater_poly.shp"),layer="testShape",driver="ESRI Shapefile")
 writeOGR(obj=hollow,dsn= file.path(envrmt$path_002_processed, "seg_bad_driebach_doline_poly.shp"),layer="testShape",driver="ESRI Shapefile")
 writeOGR(obj=hollow,dsn= file.path(envrmt$path_002_processed, "seg_isabellengrund_pinge_poly.shp"),layer="testShape",driver="ESRI Shapefile")
@@ -100,7 +106,7 @@ writeOGR(obj=hollow,dsn= file.path(envrmt$path_002_processed, "seg_mof_poly.shp"
 #cenith_hollow(som=som,a=0.1,b=2,h=0.1,min=4,max=1000,f=1)
 
 #neu anspach pingen
-#cenith_hollow(som=som,a=0.1,b=0.01,h=0.1,min=3,max=1000,f=1)
+#cenith_hollow(som=som,a=0.1,b=2,h=0.1,min=3,max=1000,f=1)
 
 #mof ?
-#cenith_hollow(som=som,a=0.1,b=0.01,h=0.1,min=3,max=1000,f=1)
+#cenith_hollow(som=som,a=0.1,b=2,h=0.1,min=4,max=1000,f=1)

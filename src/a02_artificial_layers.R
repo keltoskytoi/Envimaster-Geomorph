@@ -24,18 +24,27 @@ source(file.path(root_folder, paste0(pathdir,"001_setup_geomorph_withSAGA_v1.R")
 
 #load data
  # use dem of aoi
+dem <- raster::raster(file.path(envrmt$path_002_processed, "mof_big/dem_mof.tif"))
+
 dem <- raster::raster(file.path(envrmt$path_001_org, "dem_small_lahnberge.tif"))
 dem <- raster::raster(file.path(envrmt$path_001_org, "dem_small_bad_drieburg.tif"))
 dem <- raster::raster(file.path(envrmt$path_001_org, "dem_small_isabellengrund.tif"))
 dem <- raster::raster(file.path(envrmt$path_001_org, "dem_small_neu_anspach.tif"))
 dem <- raster::raster(file.path(envrmt$path_001_org, "dem_small_mof.tif"))
 
+#load som
+som <- raster::raster(file.path(envrmt$path_002_processed, "mof_big/som_mof.tif"))
+
 som <- raster::raster(file.path(envrmt$path_002_processed, "som_small/som_lahnberge_small.tif"))
 som <- raster::raster(file.path(envrmt$path_002_processed, "som_small/som_bad_drieburg_small.tif"))
 som <- raster::raster(file.path(envrmt$path_002_processed, "som_small/som_isabellengrund_small.tif"))
 som <- raster::raster(file.path(envrmt$path_002_processed, "som_small/som_neu_anspach_small.tif"))
 som <- raster::raster(file.path(envrmt$path_002_processed, "som_small/som_mof_small.tif"))
+
  #load polygon
+
+poly <-  rgdal::readOGR(file.path(envrmt$path_002_processed,"poly/seg_mof_big_poly.shp"))
+
 poly <-  rgdal::readOGR(file.path(envrmt$path_002_processed,"poly/seg_lahnberge_krater_poly.shp"))
 poly <-  rgdal::readOGR(file.path(envrmt$path_002_processed,"poly/seg_bad_driebach_doline_poly.shp"))
 poly <-  rgdal::readOGR(file.path(envrmt$path_002_processed,"poly/seg_isabellengrund_pinge_poly.shp"))
