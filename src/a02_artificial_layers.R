@@ -9,7 +9,7 @@ require(link2GI)                  #E    n  nn    v v    r  r  m   m m   m   t   
 ###############################################           #
 #
 # define needed libs and src folder                                                         #
-libs = c("link2GI") 
+libs = c("link2GI","plyr") 
 pathdir = "repo/src/"
 
 #set root folder for uniPC or laptop                                                        #
@@ -36,11 +36,11 @@ som <- raster::raster(file.path(envrmt$path_002_processed, "som_small/som_isabel
 som <- raster::raster(file.path(envrmt$path_002_processed, "som_small/som_neu_anspach_small.tif"))
 som <- raster::raster(file.path(envrmt$path_002_processed, "som_small/som_mof_small.tif"))
  #load polygon
-poly <-  rgdal::readOGR(file.path(envrmt$path_002_processed,"seg_lahnberge_krater_poly.shp"))
-poly <-  rgdal::readOGR(file.path(envrmt$path_002_processed,"seg_bad_driebach_doline_poly.shp"))
-poly <-  rgdal::readOGR(file.path(envrmt$path_002_processed,"seg_isabellengrund_pinge_poly.shp"))
-poly <-  rgdal::readOGR(file.path(envrmt$path_002_processed,"seg_neu_anspach_pinge_poly.shp"))
-poly <-  rgdal::readOGR(file.path(envrmt$path_002_processed,"seg_mof_poly.shp"))
+poly <-  rgdal::readOGR(file.path(envrmt$path_002_processed,"poly/seg_lahnberge_krater_poly.shp"))
+poly <-  rgdal::readOGR(file.path(envrmt$path_002_processed,"poly/seg_bad_driebach_doline_poly.shp"))
+poly <-  rgdal::readOGR(file.path(envrmt$path_002_processed,"poly/seg_isabellengrund_pinge_poly.shp"))
+poly <-  rgdal::readOGR(file.path(envrmt$path_002_processed,"poly/seg_neu_anspach_pinge_poly.shp"))
+poly <-  rgdal::readOGR(file.path(envrmt$path_002_processed,"poly/seg_mof_poly.shp"))
 #set desired CRS
 utm <- "+proj=utm +zone=32 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs"
 #check if projection is correct
@@ -55,19 +55,29 @@ compareCRS(dem,poly)
 ###first generate several artifically layers using the LEGION_dem function
 
 #source LEGION 
-source(file.path(root_folder, paste0(pathdir,"LEGION/dev_LEGION_dem_v2.R"))) 
-source(file.path(root_folder, paste0(pathdir,"LEGION/dev_sf_LEGION_dem.R"))) 
+source(file.path(root_folder, file.path(pathdir,"LEGION/LEGION_dem/LEGION_dem_v1.4/LEGION_dem_v1_4.R")))
+source(file.path(root_folder, file.path(pathdir,"LEGION/LEGION_dem/LEGION_dem_v1.4/sf_LEGION_dem_v1_4.R")))
 
-#set filter sizes
-fs <- c(1,3,5,9)
+#set tmp path
+tmp <- envrmt$path_tmp
 
-#run LEGION_dm_v2
-stck <- LEGION_dem_v2(dem    =dem,
-                      tmp    =envrmt$path_tmp,
-                      proj   =utm,
-                      filter =fs)
+#test for filters missing, should return stack with unfiltered rasters
+stck <- LEGION_dem(dem = dem,tmp = tmp,proj = utm)
+stck
+#test for single filter, should return stack with unfiltered rasters and raster with filtertag
+stckf3 <- LEGION_dem(dem = dem,tmp = tmp,proj = utm, filter=3)
+stckf3
 
-stck #should be a stack containing 56 raster layers (nlayer for the stack)
+identical(test[[1]],testf[[1]])
+testf[[18]] #should be slope_f3
+
+#test for multiple filter, should return stack with unfiltered rasters and rasters with for all filters
+testmf <- LEGION_dem(dem = dem,tmp = tmp,proj = utm, filter=c(3,5))
+testmf
+
+identical(test[[1]],testmf[[1]])
+identical(testf[[18]],testmf[[18]])
+testmf[[35]] #should be slope_f5
 
 ### compute the polygons using a SOM (sink only elevation model) and CENITH V2 segmentation algorithem
 
@@ -75,11 +85,8 @@ stck #should be a stack containing 56 raster layers (nlayer for the stack)
 #source Reaver V1
 source(file.path(root_folder, file.path(pathdir,"Reaver/REAVER_extraction/REAVER_extraction_v1.1/000_Reaver_extraction_v1.1.R")))
 
-#run REAVER
-df<- Reaver(poly=poly,multilayer=stck,set_ID = TRUE,spell=TRUE,stats = TRUE)
+df<- Reaver_extraction(poly=poly,multilayer=stck,set_ID = TRUE,name="test")
 
-#view dataframe, should show rows for the polygones (column"layer"is the ID of the polygons)
-#and columns with several values for eg "slo"(slope) "asp" (aspect) for several filtered dems (with "_3" etc)
 df
 
  
