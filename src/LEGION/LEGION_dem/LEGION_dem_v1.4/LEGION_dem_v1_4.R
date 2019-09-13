@@ -22,6 +22,7 @@ LEGION_dem <- function(dem,tmp,method=6,units=0,radius=100,proj,filter=0){
   cat(" ",sep = "\n")
   cat("### LEGION starts to grow from a dem to many layers ###")
   cat(" ",sep = "\n")
+  raster::writeRaster(dem,filename=file.path(paste0(tmp,"/dem.sdat")),overwrite = TRUE,NAflag = 0)
   cat("### LEGION grows - computing morphometric layers ###")
   #compute SAGA morphometrics, save to tmp folder as .sgrd
   #parameters are taken from the website saga-gis
