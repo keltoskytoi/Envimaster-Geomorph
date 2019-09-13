@@ -22,6 +22,9 @@ source(file.path(root_folder, paste0(pathdir,"001_setup_geomorph_withSAGA_v1.R")
 ###---------------------------------------------------------------------------------------###
 #############################################################################################
 
+#IMPORTANT
+#erase previous data from tmp before
+
 #load data
  # use dem of aoi
 dem <- raster::raster(file.path(envrmt$path_002_processed, "mof_big/dem_mof.tif"))
@@ -72,30 +75,34 @@ source(file.path(root_folder, file.path(pathdir,"LEGION/LEGION_dem/LEGION_dem_v1
 #set tmp path
 tmp <- envrmt$path_tmp
 
+#set cluster computing
 cl =  makeCluster(detectCores()-1)
 registerDoParallel(cl)
 
-#test for filters missing, should return stack with unfiltered rasters
+#test for filters missing, should return stack with unfiltered rasters 
+#erase previous data from tmp before
 stck <- LEGION_dem(dem = dem,tmp = tmp,proj = utm)
 stck
-#test for single filter, should return stack with unfiltered rasters and raster with filtertag
-stckf3 <- LEGION_dem(dem = dem,tmp = tmp,proj = utm, filter=3)
-stckf3
+
+#test for single filter, should return stack with unfiltered rasters and raster with filtertag ###filter not working
+#stckf <- LEGION_dem(dem = dem,tmp = tmp,proj = utm, filter=3)
+#stckf
 
 plot(stck$slope)
 
+#stop cluster computing
 stopCluster(cl)
 
-identical(test[[1]],testf[[1]])
+identical(stck[[1]],stckf[[1]])
 testf[[18]] #should be slope_f3
 
 #test for multiple filter, should return stack with unfiltered rasters and rasters with for all filters
-testmf <- LEGION_dem(dem = dem,tmp = tmp,proj = utm, filter=c(3,5))
-testmf
+stckmf <- LEGION_dem(dem = dem,tmp = tmp,proj = utm, filter=c(3,5))
+stckmf
 
-identical(test[[1]],testmf[[1]])
-identical(testf[[18]],testmf[[18]])
-testmf[[35]] #should be slope_f5
+identical(stck[[1]],stckmf[[1]])
+identical(stckf[[18]],stckmf[[18]])
+stckmf[[35]] #should be slope_f5
 
 ### compute the polygons using a SOM (sink only elevation model) and CENITH V2 segmentation algorithem
 
@@ -103,8 +110,24 @@ testmf[[35]] #should be slope_f5
 #source Reaver V1
 source(file.path(root_folder, file.path(pathdir,"Reaver/REAVER_extraction/REAVER_extraction_v1.1/000_Reaver_extraction_v1.1.R")))
 
-df<- Reaver_extraction(poly=poly,multilayer=stck,set_ID = TRUE,name="test")
+df<- Reaver_extraction(poly=poly,multilayer=stck,set_ID = TRUE,name="mof")
 
 df
 
- 
+#write data
+write.table(df,file=file.path(envrmt$path_002_processed,"mof_big/mof.csv"))
+
+write.table(df,file=file.path(envrmt$path_002_processed,"reaver_csv/lahnberge.csv"))
+write.table(df,file=file.path(envrmt$path_002_processed,"reaver_csv/bad_drieburg.csv"))
+write.table(df,file=file.path(envrmt$path_002_processed,"reaver_csv/isabellengrund.csv"))
+write.table(df,file=file.path(envrmt$path_002_processed,"reaver_csv/neu_anspach.csv"))
+write.table(df,file=file.path(envrmt$path_002_processed,"reaver_csv/mof.csv"))
+
+#read data
+df1 <- read.table(file.path(envrmt$path_002_processed,"mof_big/mof.csv"))
+
+df1 <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/lahnberge.csv"))
+df1 <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/bad_drieburg.csv"))
+df1 <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/isabellengrund.csv"))
+df1 <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/neu_anspach.csv"))
+df1 <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/mof.csv"))
