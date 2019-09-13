@@ -54,7 +54,7 @@ source(file.path(root_folder, file.path(pathdir,"Cenith_V2/CENITH_hollow/CENITH_
 ################################################################################
 #test CENITH hollow v1 
 
-hollow <- cenith_hollow(som=som,a=0.1,b=2,h=0.1,min=4,max=1000,f=1)
+hollow <- cenith_hollow(som=som,a=0.1,b=2,h=0.1,min=25,max=40,f=1)
 hollow
 mapview(hollow)+vp_som
 plot(som)
