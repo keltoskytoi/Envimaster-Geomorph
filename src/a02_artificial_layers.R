@@ -85,10 +85,10 @@ stck <- LEGION_dem(dem = dem,tmp = tmp,proj = utm)
 stck
 
 #test for single filter, should return stack with unfiltered rasters and raster with filtertag ###filter not working
-#stckf <- LEGION_dem(dem = dem,tmp = tmp,proj = utm, filter=3)
+stckf <- LEGION_dem(dem = dem,tmp = tmp,proj = utm, filter=3)
 #stckf
 
-plot(stck$slope)
+plot(stckf$slope)
 
 #stop cluster computing
 stopCluster(cl)
