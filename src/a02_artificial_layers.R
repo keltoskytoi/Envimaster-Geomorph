@@ -9,7 +9,7 @@ require(link2GI)                  #E    n  nn    v v    r  r  m   m m   m   t   
 ###############################################           #
 #
 # define needed libs and src folder                                                         #
-libs = c("link2GI","plyr") 
+libs = c("link2GI","plyr","rgeos","rgdal","mapview","doParallel","parallel") 
 pathdir = "repo/src/"
 
 #set root folder for uniPC or laptop                                                        #
@@ -43,7 +43,7 @@ som <- raster::raster(file.path(envrmt$path_002_processed, "som_small/som_mof_sm
 
  #load polygon
 
-poly <-  rgdal::readOGR(file.path(envrmt$path_002_processed,"poly/seg_mof_big_poly.shp"))
+poly <-  rgdal::readOGR(file.path(envrmt$path_002_processed,"mof_big/seg_mof_big_poly_01_2_02_20_70_1.shp"))
 
 poly <-  rgdal::readOGR(file.path(envrmt$path_002_processed,"poly/seg_lahnberge_krater_poly.shp"))
 poly <-  rgdal::readOGR(file.path(envrmt$path_002_processed,"poly/seg_bad_driebach_doline_poly.shp"))
@@ -60,7 +60,9 @@ som <- spTransform(som,utm)
 compareCRS(dem,som)
 poly <- spTransform(poly,utm)
 compareCRS(dem,poly)
-
+plot(dem)
+plot(som)
+plot(poly)
 ###first generate several artifically layers using the LEGION_dem function
 
 #source LEGION 
@@ -70,12 +72,19 @@ source(file.path(root_folder, file.path(pathdir,"LEGION/LEGION_dem/LEGION_dem_v1
 #set tmp path
 tmp <- envrmt$path_tmp
 
+cl =  makeCluster(detectCores()-1)
+registerDoParallel(cl)
+
 #test for filters missing, should return stack with unfiltered rasters
 stck <- LEGION_dem(dem = dem,tmp = tmp,proj = utm)
 stck
 #test for single filter, should return stack with unfiltered rasters and raster with filtertag
 stckf3 <- LEGION_dem(dem = dem,tmp = tmp,proj = utm, filter=3)
 stckf3
+
+plot(stck$slope)
+
+stopCluster(cl)
 
 identical(test[[1]],testf[[1]])
 testf[[18]] #should be slope_f3
