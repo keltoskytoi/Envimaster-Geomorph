@@ -50,7 +50,7 @@ source(file.path(root_folder, file.path(pathdir,"Cenith_V2/CENITH_hollow/CENITH_
 ################################################################################
 #test CENITH hollow v1 
 
-hollow <- cenith_hollow(som=som,a=0.8,b=2,h=0.1,min=4,max=1000,f=1)
+hollow <- cenith_hollow(som=som,a=0.1,b=2,h=0.1,min=4,max=1000,f=1)
 hollow
 mapview(hollow)+vp_som
 
@@ -97,7 +97,7 @@ writeOGR(obj=hollow,dsn= file.path(envrmt$path_002_processed, "seg_mof_poly.shp"
 #cenith_hollow(som=som,a=0.8,b=2,h=0.2,min=4,max=1000,f=1)
 
 #isabellengrund pingen
-#cenith_hollow(som=som,a=0.1,b=0.01,h=0.1,min=8,max=1000,f=1)
+#cenith_hollow(som=som,a=0.1,b=2,h=0.1,min=4,max=1000,f=1)
 
 #neu anspach pingen
 #cenith_hollow(som=som,a=0.1,b=0.01,h=0.1,min=3,max=1000,f=1)
