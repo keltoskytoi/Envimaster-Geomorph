@@ -26,7 +26,7 @@ source(file.path(root_folder, paste0(pathdir,"001_setup_geomorph_v1.R")))
 
 
 # load example data
-
+rgb <- raster::raster(file.path(envrmt$path_002_processed, "mof_big/RGB_mof.tif"))
 som <- raster::raster(file.path(envrmt$path_002_processed, "mof_big/som_mof.tif"))
 vp_som <-  rgdal::readOGR(file.path(envrmt$path_002_processed,"mof_big/vp_mof.shp"))
 
@@ -54,7 +54,8 @@ source(file.path(root_folder, file.path(pathdir,"Cenith_V2/CENITH_hollow/CENITH_
 ################################################################################
 #test CENITH hollow v1 
 
-hollow <- cenith_hollow(som=som,a=0.1,b=2,h=0.1,min=25,max=40,f=1)
+hollow <- cenith_hollow(som=som,a=0.1,b=2,h=0.2,min=20,max=70,f=1)
+hollow <- cenith_hollow(som=som,a=0.1,b=2,h=0.6,min=5,max=70,f=1)
 hollow
 mapview(hollow)+vp_som
 plot(som)
@@ -95,6 +96,9 @@ writeOGR(obj=hollow,dsn= file.path(envrmt$path_002_processed, "seg_mof_poly.shp"
 
 
 #end of script
+
+#mof big area
+#cenith_hollow(som=som,a=0.1,b=2,h=0.2,min=20,max=70,f=1)
  
 #lahnberge bombenkrater
 #cenith_hollow(som=som,a=2,b=2,h=0.1,min=4,max=1000,f=1)
