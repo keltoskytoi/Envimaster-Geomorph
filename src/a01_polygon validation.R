@@ -55,6 +55,9 @@ source(file.path(root_folder, file.path(pathdir,"Cenith_V2/CENITH_hollow/CENITH_
 #test CENITH hollow v1 
 
 hollow <- cenith_hollow(som=som,a=0.1,b=2,h=0.2,min=20,max=70,f=1)
+hollow <- cenith_hollow(som=som,a=0.05,b=1,h=0.2,min=20,max=70,f=1) #test if relation is the same
+hollow <- cenith_hollow(som=som,a=0.1,b=2,h=0.1,min=20,max=70,f=1) #test lower min height
+
 hollow <- cenith_hollow(som=som,a=0.1,b=2,h=0.6,min=5,max=70,f=1)
 hollow
 mapview(hollow)+vp_som
@@ -80,13 +83,13 @@ maxhit <- maxrow$hit
 valh[which(valh$hit==maxhit),] 
 ################################################################################
 # view polygons with validation values
-hol <- cenith_hollow(som=som,a=0.05,b=0.05,h=0.45,min=3,max=100,f=1)
+hol <- cenith_hollow(som=som,a=0.05,b=1,h=0.2,min=20,max=70,f=1)
 hol
 plot(hol)
 mapview(hol)+som
 
 #write data
-writeOGR(obj=hollow,dsn= file.path(envrmt$path_002_processed, "mof_big/seg_mof_big_poly.shp"),layer="testShape",driver="ESRI Shapefile")
+writeOGR(obj=hollow,dsn= file.path(envrmt$path_002_processed, "mof_big/seg_mof_big_poly_01_2_02_20_70_1.shp"),layer="testShape",driver="ESRI Shapefile")
 
 writeOGR(obj=hollow,dsn= file.path(envrmt$path_002_processed, "seg_lahnberge_krater_poly.shp"),layer="testShape",driver="ESRI Shapefile")
 writeOGR(obj=hollow,dsn= file.path(envrmt$path_002_processed, "seg_bad_driebach_doline_poly.shp"),layer="testShape",driver="ESRI Shapefile")
@@ -98,8 +101,8 @@ writeOGR(obj=hollow,dsn= file.path(envrmt$path_002_processed, "seg_mof_poly.shp"
 #end of script
 
 #mof big area
-#cenith_hollow(som=som,a=0.1,b=2,h=0.2,min=20,max=70,f=1)
- 
+#cenith_hollow(som=som,a=0.05,b=1,h=0.2,min=20,max=70,f=1)
+
 #lahnberge bombenkrater
 #cenith_hollow(som=som,a=2,b=2,h=0.1,min=4,max=1000,f=1)
 
