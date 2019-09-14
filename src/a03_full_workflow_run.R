@@ -23,6 +23,7 @@ source(file.path(root_folder, paste0(pathdir,"001_setup_geomorph_withSAGA_v1.R")
 #############################################################################################
 
 ### IMPORTANT: First create tmp,tmp1 etc folders in tmp directory
+### SAGA version 6.3 suggested for use
 
 
 #load data
