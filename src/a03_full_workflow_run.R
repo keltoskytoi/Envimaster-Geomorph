@@ -22,8 +22,11 @@ source(file.path(root_folder, paste0(pathdir,"001_setup_geomorph_withSAGA_v1.R")
 ###---------------------------------------------------------------------------------------###
 #############################################################################################
 
+### IMPORTANT: First create tmp,tmp1 etc folders in tmp directory
+
+
 #load data
- # use dem of aoi
+# use dem of aoi
 dem <- raster::raster(file.path(envrmt$path_002_processed, "mof_big/dem_mof.tif"))
 
 dem1 <- raster::raster(file.path(envrmt$path_001_org, "dem_small_lahnberge.tif"))
@@ -41,7 +44,7 @@ som3 <- raster::raster(file.path(envrmt$path_002_processed, "som_small/som_isabe
 som4 <- raster::raster(file.path(envrmt$path_002_processed, "som_small/som_neu_anspach_small.tif"))
 som5 <- raster::raster(file.path(envrmt$path_002_processed, "som_small/som_mof_small.tif"))
 
- #load polygon
+#load polygon
 
 poly <-  rgdal::readOGR(file.path(envrmt$path_002_processed,"mof_big/seg_mof_big_poly_01_2_02_20_70_1.shp"))
 
@@ -70,6 +73,7 @@ plot(poly)
 #source LEGION 
 source(file.path(root_folder, file.path(pathdir,"LEGION/LEGION_dem/LEGION_dem_v1.4/LEGION_dem_v1_4.R")))
 source(file.path(root_folder, file.path(pathdir,"LEGION/LEGION_dem/LEGION_dem_v1.4/sf_LEGION_dem_v1_4.R")))
+source(file.path(root_folder, file.path(pathdir,"Reaver/REAVER_extraction/REAVER_extraction_v1.1/000_Reaver_extraction_v1.1.R")))
 
 #set tmp path ###always clean after one run instead use subfolders 
 tmp <- envrmt$path_tmp
@@ -80,50 +84,30 @@ registerDoParallel(cl)
 
 #test for filters missing, should return stack with unfiltered rasters 
 #erase previous data from tmp before
+tmp <- file.path(envrmt$path_tmp,"tmp")
 stck <- LEGION_dem(dem = dem,tmp = tmp,proj = utm)
-
-stck1 <- LEGION_dem(dem = dem1,tmp = tmp,proj = utm)
-stck2 <- LEGION_dem(dem = dem2,tmp = tmp,proj = utm)
-stck3 <- LEGION_dem(dem = dem3,tmp = tmp,proj = utm)
-stck4 <- LEGION_dem(dem = dem4,tmp = tmp,proj = utm)
-stck5 <- LEGION_dem(dem = dem5,tmp = tmp,proj = utm)
-
-plot(stck1$aspect)
-#stck
-
-#test for single filter, should return stack with unfiltered rasters and raster with filtertag 
-#stckf <- LEGION_dem(dem = dem,tmp = tmp,proj = utm, filter=3)
-#stckf
-
-#plot(stck$slope)
-
-#test
-#identical(stck[[1]],stckf[[1]])
-#testf[[18]] #should be slope_f3
-
-#test for multiple filter, should return stack with unfiltered rasters and rasters with for all filters
-#stckmf <- LEGION_dem(dem = dem,tmp = tmp,proj = utm, filter=c(3,5))
-#stckmf
-
-#identical(stck[[1]],stckmf[[1]])
-#identical(stckf[[18]],stckmf[[18]])
-#stckmf[[35]] #should be slope_f5
-
-### compute the polygons using a SOM (sink only elevation model) and CENITH V2 segmentation algorithem
-
-### extract Values from the Stack and compute statisics for each polygone using REAVER
-#source Reaver V1
-source(file.path(root_folder, file.path(pathdir,"Reaver/REAVER_extraction/REAVER_extraction_v1.1/000_Reaver_extraction_v1.1.R")))
-
 df<- Reaver_extraction(poly=poly,multilayer=stck,set_ID = TRUE,name="mof_big")
 
+tmp <- file.path(envrmt$path_tmp,"tmp1")
+stck1 <- LEGION_dem(dem = dem1,tmp = tmp,proj = utm)
 df1<- Reaver_extraction(poly=poly1,multilayer=stck1,set_ID = TRUE,name="lahnberge")
+
+tmp <- file.path(envrmt$path_tmp,"tmp2")
+stck2 <- LEGION_dem(dem = dem2,tmp = tmp,proj = utm)
 df2<- Reaver_extraction(poly=poly2,multilayer=stck2,set_ID = TRUE,name="bad_drieburg")
+
+tmp <- file.path(envrmt$path_tmp,"tmp3")
+stck3 <- LEGION_dem(dem = dem3,tmp = tmp,proj = utm)
 df3<- Reaver_extraction(poly=poly3,multilayer=stck3,set_ID = TRUE,name="isabellengrund")
+
+tmp <- file.path(envrmt$path_tmp,"tmp4")
+stck4 <- LEGION_dem(dem = dem4,tmp = tmp,proj = utm)
 df4<- Reaver_extraction(poly=poly4,multilayer=stck4,set_ID = TRUE,name="neu_anspach")
+
+tmp <- file.path(envrmt$path_tmp,"tmp5")
+stck5 <- LEGION_dem(dem = dem5,tmp = tmp,proj = utm)
 df5<- Reaver_extraction(poly=poly5,multilayer=stck5,set_ID = TRUE,name="mof")
 
-#df
 
 #stop cluster computing
 stopCluster(cl)
