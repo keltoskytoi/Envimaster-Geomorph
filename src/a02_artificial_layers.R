@@ -131,3 +131,21 @@ df1 <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/bad_drieburg.c
 df1 <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/isabellengrund.csv"))
 df1 <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/neu_anspach.csv"))
 df1 <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/mof.csv"))
+
+#save as rds
+saveRDS(stck,file.path(path_002_processed,"mof_big/mof.rds"))
+
+saveRDS(stck,file.path(envrmt$path_002_processed,"lahnberge.rds"))
+saveRDS(stck,file.path(envrmt$path_002_processed,"bad_drieburg.rds"))
+saveRDS(stck,file.path(envrmt$path_002_processed,"isabellengrund.rds"))
+saveRDS(stck,file.path(envrmt$path_002_processed,"neu_anspach.rds"))
+saveRDS(stck,file.path(envrmt$path_002_processed,"mof.rds"))
+
+#read rds
+rdsstk <-readRDS(file.path(envrmt$path_002_processed,"mof_big/mof.rds"))
+
+rdsstk <-readRDS(file.path(envrmt$path_002_processed,"lahnberge.rds"))
+rdsstk <-readRDS(file.path(envrmt$path_002_processed,"bad_drieburg.rds"))
+rdsstk <-readRDS(file.path(envrmt$path_002_processed,"isabellengrund.rds"))
+rdsstk <-readRDS(file.path(envrmt$path_002_processed,"neu_anspach.rds"))
+rdsstk <-readRDS(file.path(envrmt$path_002_processed,"mof.rds"))
