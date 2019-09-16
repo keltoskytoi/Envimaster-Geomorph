@@ -10,7 +10,7 @@
 
 #note: v1 returns cluster
 
-cl=3
+
 
 Reaver_hyperspace <-function(df,cl){
   cat(" ",sep = "\n")
@@ -36,14 +36,17 @@ Reaver_hyperspace <-function(df,cl){
   
   #clusters#########################################################################################
   #bray ward
+  par(mfrow=c(1,1))
   vdist <- vegdist(df, method = "bray", binary = FALSE)
   cluster <- hclust(vdist, method = "ward.D")
-  #plot(cluster, hang = -1)
-  #rect.hclust(cluster,2, border ="green")
-  #rect.hclust(cluster,3, border="blue")
-  #rect.hclust(cluster,4, border="orange")
-  #rect.hclust(cluster,5, border="red")
-  
+  plot(cluster, hang = -1)
+  cat("after plot")
+  rect.hclust(cluster,2, border ="green")
+  Sys.sleep(1)
+  rect.hclust(cluster,3, border="blue")
+  Sys.sleep(1)
+  rect.hclust(cluster,4, border="orange")
+  Sys.sleep(5)
   cutclust <- cutree(cluster, k=cl)
   #kmeans clustering
   km_cl <- kmeans(df,centers=cl,nstart=20)
@@ -64,8 +67,8 @@ Reaver_hyperspace <-function(df,cl){
   ordiplot(nmds,type="n",main="km_nmds")
   orditorp(nmds,display="sites",cex=1,air=0.01)
   orditorp(nmds,display="species",col="red",air=0.01)
-  ordihull(nmds, cl.km$cluster, lty=3, col="grey60",lwd=2)
-  points(sc[,1],sc[,2],cex=2,pch=20,col=cl.km$cluster)
+  ordihull(nmds, km_cl$cluster, lty=3, col="grey60",lwd=2)
+  points(sc[,1],sc[,2],cex=2,pch=20,col=km_cl$cluster)
 
   #plot with dca
   #plot with hc dca points
@@ -78,8 +81,10 @@ Reaver_hyperspace <-function(df,cl){
   #plot with km dca points
   plot(dca,display="sites",type="n", main="km_dca")
   orditorp(dca,display="sites",cex=1,air=0.01)
-  points(scd[,1],scd[,2],cex=2,pch=20,col=cl.km$cluster)
-  ordihull(dca, cl.km$cluster, lty=3, col="grey60",lwd=2)
+  points(scd[,1],scd[,2],cex=2,pch=20,col=km_cl$cluster)
+  ordihull(dca, km_cl$cluster, lty=3, col="grey60",lwd=2)
+  
+  warning("plot may differ, run function severel times, maybe a problme with less data")
   #indicator for hc
   const_hc <-const(df, cutclust)
   import_hc <-importance(df, cutclust,show=NA)
@@ -87,14 +92,19 @@ Reaver_hyperspace <-function(df,cl){
   print(summary(hc_ival))
 
   
-  const_km <-const(df, cl.km$cluster)
-  import_km <-importance(df, cl.km$cluster,show=NA)
-  km_ival <- indval(df, cl.km$cluster)
+  const_km <-const(df, km_cl$cluster)
+  import_km <-importance(df,km_cl$cluster,show=NA)
+  km_ival <- indval(df, km_cl$cluster)
   print(summary(km_ival))
 
   #return data
-  kmeansCL <- cl.km$cluster
-  return(list(kmeansCL,cutclust))
+  par(mfrow=c(1,1))
+  kmeansCL <- km_cl$cluster
+  ls <-list(cutclust,kmeansCL)
+  names(ls) <-c("hc","km")
+  print(ls)
+  return(ls)
+  
 }#end of fucntion
   
 

@@ -9,7 +9,7 @@ require(link2GI)                  #E    n  nn    v v    r  r  m   m m   m   t   
                                   ###############################################           #
                                                                                             #
 # define needed libs and src folder                                                         #
-libs = c("link2GI","plyr") 
+libs = c("link2GI","vegan","cluster","labdsv") 
 pathdir = "repo/src"
 
 #set root folder for uniPC or laptop                                                        #
@@ -32,9 +32,32 @@ rownames(df)<-df$X
 df<- df[2:5]
 df
 
-library(vegan)
-library(cluster)
-library(labdsv)
+test2 <- Reaver_hyperspace(df,3)
+test2
+test[1]
 
-test <- Reaver_hyperspace(df,3)
+test1 <-1
+test2 <-2
+ls <-list(test1,test2)
+names(ls) <-c("test","test2")
+ls
 
+# look for a resolution to sort cluster nr by rowname (eg bombcrate) to make a statisic
+hc <- test2$hc
+hc
+km <- test2$km
+sort(hc)
+sort(km)
+which(".*a.*")
+
+hc[,".venat"] 
+unique(hc)
+require(dplyr)
+dff %>% select(starts_with('venator'))
+testtt <- dplyr::select(df,("venator"))
+dff
+dff <-as.data.frame(hc)
+
+# a way to show the cl nr for all eg "bombs"
+acc <-dff[grep(".*acc.*",row.names(dff)),]
+acc    
