@@ -58,7 +58,7 @@ testtt <- dplyr::select(df,("venator"))
 dff$class <- rownames(dff)
 dff
 dff <-as.data.frame(hc)
-
+dff[which((regexpr("ven",rownames(dff)))==1),]
 for (i in (nrow(df))){
   dff$classs[i] <- 23
 }
