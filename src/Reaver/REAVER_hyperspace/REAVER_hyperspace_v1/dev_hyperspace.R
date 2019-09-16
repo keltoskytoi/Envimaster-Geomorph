@@ -55,9 +55,17 @@ unique(hc)
 require(dplyr)
 dff %>% select(starts_with('venator'))
 testtt <- dplyr::select(df,("venator"))
+dff$class <- rownames(dff)
 dff
 dff <-as.data.frame(hc)
 
+for (i in (nrow(df))){
+  dff$classs[i] <- 23
+}
+dff$classs[2]<-32
 # a way to show the cl nr for all eg "bombs"
-acc <-dff[grep(".*acc.*",row.names(dff)),]
+
 acc    
+
+
+    
