@@ -54,7 +54,6 @@ source(file.path(root_folder, file.path(pathdir,"Cenith_V2/CENITH_hollow/CENITH_
 ################################################################################
 #test CENITH hollow v1 
 
-hollow <- cenith_hollow(som=som,a=0.1,b=2,h=0.2,min=20,max=70,f=1)
 hollow <- cenith_hollow(som=som,a=0.05,b=1,h=0.2,min=20,max=70,f=1) #test if relation is the same
 hollow <- cenith_hollow(som=som,a=0.1,b=2,h=0.1,min=20,max=70,f=1) #test lower min height
 

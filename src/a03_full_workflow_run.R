@@ -55,6 +55,8 @@ poly3 <-  rgdal::readOGR(file.path(envrmt$path_002_processed,"poly/seg_isabellen
 poly4 <-  rgdal::readOGR(file.path(envrmt$path_002_processed,"poly/seg_neu_anspach_pinge_poly.shp"))
 poly5 <-  rgdal::readOGR(file.path(envrmt$path_002_processed,"poly/seg_mof_poly.shp"))
 
+mapview(poly5)
+
 #set desired CRS
 utm <- "+proj=utm +zone=32 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs"
 #check if projection is correct
@@ -91,19 +93,19 @@ df<- Reaver_extraction(poly=poly,multilayer=stck,set_ID = TRUE,name="mof_big")
 
 tmp <- file.path(envrmt$path_tmp,"tmp1")
 stck1 <- LEGION_dem(dem = dem1,tmp = tmp,proj = utm)
-df1<- Reaver_extraction(poly=poly1,multilayer=stck1,set_ID = TRUE,name="lahnberge")
+df1<- Reaver_extraction(poly=poly1,multilayer=stck1,set_ID = TRUE,name="krater")
 
 tmp <- file.path(envrmt$path_tmp,"tmp2")
 stck2 <- LEGION_dem(dem = dem2,tmp = tmp,proj = utm)
-df2<- Reaver_extraction(poly=poly2,multilayer=stck2,set_ID = TRUE,name="bad_drieburg")
+df2<- Reaver_extraction(poly=poly2,multilayer=stck2,set_ID = TRUE,name="doline")
 
 tmp <- file.path(envrmt$path_tmp,"tmp3")
 stck3 <- LEGION_dem(dem = dem3,tmp = tmp,proj = utm)
-df3<- Reaver_extraction(poly=poly3,multilayer=stck3,set_ID = TRUE,name="isabellengrund")
+df3<- Reaver_extraction(poly=poly3,multilayer=stck3,set_ID = TRUE,name="pinge")
 
 tmp <- file.path(envrmt$path_tmp,"tmp4")
 stck4 <- LEGION_dem(dem = dem4,tmp = tmp,proj = utm)
-df4<- Reaver_extraction(poly=poly4,multilayer=stck4,set_ID = TRUE,name="neu_anspach")
+df4<- Reaver_extraction(poly=poly4,multilayer=stck4,set_ID = TRUE,name="pinge1")
 
 tmp <- file.path(envrmt$path_tmp,"tmp5")
 stck5 <- LEGION_dem(dem = dem5,tmp = tmp,proj = utm)

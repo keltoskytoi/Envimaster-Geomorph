@@ -9,7 +9,7 @@ require(link2GI)                  #E    n  nn    v v    r  r  m   m m   m   t   
                                   ###############################################           #
                                                                                             #
 # define needed libs and src folder                                                         #
-libs = c("link2GI") 
+libs = c("link2GI","vegan","cluster","labdsv") 
 pathdir = "repo/src"
 
 #set root folder for uniPC or laptop                                                        #
@@ -30,10 +30,10 @@ df_b <-readOGR(file.path(envrmt$path_Reaver,"expl_poly.shp")) # bomb
 df_p <-readOGR(file.path(envrmt$path_Reaver,"expl_poly.shp")) # pinge
 df_d <-readOGR(file.path(envrmt$path_Reaver,"expl_poly.shp")) # doline
 
-#transorm to correct utm string
-df_b<-spTransform(df_b,utm)
-df_p<-spTransform(df_p,utm)
-df_d<-spTransform(df_d,utm)
+df_b <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/lahnberge.csv"))
+df_d <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/bad_drieburg.csv"))
+df_p <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/isabellengrund.csv"))
+
 
 #source function
 source(file.path(root_folder, file.path(pathdir,"Reaver/REAVER_hyperspace/REAVER_hyperspace_v1/000_Reaver_hyperspace.R")))
@@ -42,14 +42,13 @@ source(file.path(root_folder, file.path(pathdir,"Reaver/REAVER_hyperspace/REAVER
 df <- rbind(df_b,df_p)
 df <- rbind (df,df_d)
 
-#test if valuesa re correct
-df_b[]
-df_p[]
-df_d[]
-df[]
+
+# eliminate negative values
+df[] <- lapply(df, abs)
+df
+
 
 # run Reaver hyperspace
-
 test <- Reaver_hyperspace(df,3)
 test$hc
 test$km
