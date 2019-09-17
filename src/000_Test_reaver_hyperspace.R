@@ -33,7 +33,8 @@ df_d <-readOGR(file.path(envrmt$path_Reaver,"expl_poly.shp")) # doline
 df_b <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/lahnberge.csv"))
 df_d <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/bad_drieburg.csv"))
 df_p <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/isabellengrund.csv"))
-
+df_p1 <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/neu_anspach.csv"))
+df_m <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/mof.csv"))
 
 #source function
 source(file.path(root_folder, file.path(pathdir,"Reaver/REAVER_hyperspace/REAVER_hyperspace_v1/000_Reaver_hyperspace.R")))
@@ -41,6 +42,8 @@ source(file.path(root_folder, file.path(pathdir,"Reaver/REAVER_hyperspace/REAVER
 # merge dfs
 df <- rbind(df_b,df_p)
 df <- rbind (df,df_d)
+df <- rbind (df,df_p1)
+df <- rbind (df,df_m)
 
 
 # eliminate negative values

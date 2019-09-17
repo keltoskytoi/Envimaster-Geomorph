@@ -150,3 +150,4 @@ rdsstk2 <-readRDS(file.path(envrmt$path_002_processed,"reaver_rds/bad_drieburg.r
 rdsstk3 <-readRDS(file.path(envrmt$path_002_processed,"reaver_rds/isabellengrund.rds"))
 rdsstk4 <-readRDS(file.path(envrmt$path_002_processed,"reaver_rds/neu_anspach.rds"))
 rdsstk5 <-readRDS(file.path(envrmt$path_002_processed,"reaver_rds/mof.rds"))
+
