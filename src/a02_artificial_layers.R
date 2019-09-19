@@ -32,6 +32,11 @@ dem3 <- raster::raster(file.path(envrmt$path_001_org, "dem_small_isabellengrund.
 dem4 <- raster::raster(file.path(envrmt$path_001_org, "dem_small_neu-anspach.tif"))
 dem5 <- raster::raster(file.path(envrmt$path_001_org, "dem_small_mof.tif"))
 
+dem6 <- raster::raster(file.path(envrmt$path_001_org, "dem_bad_drieburg_alternative.tif"))
+dem7 <- raster::raster(file.path(envrmt$path_001_org, "dem_bad_drieburg_alternative1.tif"))
+dem8 <- raster::raster(file.path(envrmt$path_001_org, "dem_bad_drieburg_alternative2.tif"))
+
+
 #load som
 som <- raster::raster(file.path(envrmt$path_002_processed, "mof_big/som_mof.tif"))
 
@@ -40,6 +45,11 @@ som2 <- raster::raster(file.path(envrmt$path_002_processed, "som_small/som_bad_d
 som3 <- raster::raster(file.path(envrmt$path_002_processed, "som_small/som_isabellengrund_small.tif"))
 som4 <- raster::raster(file.path(envrmt$path_002_processed, "som_small/som_neu_anspach_small.tif"))
 som5 <- raster::raster(file.path(envrmt$path_002_processed, "som_small/som_mof_small.tif"))
+
+som6 <- raster::raster(file.path(envrmt$path_002_processed, "som_small/som_bad_drieburg_alt.tif"))
+som7 <- raster::raster(file.path(envrmt$path_002_processed, "som_small/som_bad_drieburg_alt1.tif"))
+som8 <- raster::raster(file.path(envrmt$path_002_processed, "som_small/som_bad_drieburg_alt2.tif"))
+
 
  #load polygon
 
@@ -50,6 +60,11 @@ poly2 <-  rgdal::readOGR(file.path(envrmt$path_002_processed,"poly/seg_bad_drieb
 poly3 <-  rgdal::readOGR(file.path(envrmt$path_002_processed,"poly/seg_isabellengrund_pinge_poly.shp"))
 poly4 <-  rgdal::readOGR(file.path(envrmt$path_002_processed,"poly/seg_neu_anspach_pinge_poly.shp"))
 poly5 <-  rgdal::readOGR(file.path(envrmt$path_002_processed,"poly/seg_mof_poly.shp"))
+
+poly6 <-  rgdal::readOGR(file.path(envrmt$path_002_processed,"poly/seg_bad_drieburg_alt_poly.shp"))
+poly7 <-  rgdal::readOGR(file.path(envrmt$path_002_processed,"poly/seg_bad_drieburg_alt1_poly.shp"))
+poly8 <-  rgdal::readOGR(file.path(envrmt$path_002_processed,"poly/seg_bad_drieburg_alt2_poly.shp"))
+
 
 #set desired CRS
 utm <- "+proj=utm +zone=32 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs"
@@ -88,6 +103,11 @@ stck3 <- LEGION_dem(dem = dem3,tmp = tmp,proj = utm)
 stck4 <- LEGION_dem(dem = dem4,tmp = tmp,proj = utm)
 stck5 <- LEGION_dem(dem = dem5,tmp = tmp,proj = utm)
 
+stck6 <- LEGION_dem(dem = dem6,tmp = tmp,proj = utm)
+stck7 <- LEGION_dem(dem = dem7,tmp = tmp,proj = utm)
+stck8 <- LEGION_dem(dem = dem8,tmp = tmp,proj = utm)
+
+
 plot(stck1$aspect)
 #stck
 
@@ -123,6 +143,10 @@ df3<- Reaver_extraction(poly=poly3,multilayer=stck3,set_ID = TRUE,name="isabelle
 df4<- Reaver_extraction(poly=poly4,multilayer=stck4,set_ID = TRUE,name="neu_anspach")
 df5<- Reaver_extraction(poly=poly5,multilayer=stck5,set_ID = TRUE,name="mof")
 
+df6<- Reaver_extraction(poly=poly6,multilayer=stck6,set_ID = TRUE,name="bad_drieburg_a")
+df7<- Reaver_extraction(poly=poly7,multilayer=stck7,set_ID = TRUE,name="bad_drieburg_b")
+df8<- Reaver_extraction(poly=poly8,multilayer=stck8,set_ID = TRUE,name="bad_drieburg_c")
+
 #df
 
 #stop cluster computing
@@ -137,6 +161,11 @@ write.table(df3,file=file.path(envrmt$path_002_processed,"reaver_csv/isabellengr
 write.table(df4,file=file.path(envrmt$path_002_processed,"reaver_csv/neu_anspach.csv"))
 write.table(df5,file=file.path(envrmt$path_002_processed,"reaver_csv/mof.csv"))
 
+write.table(df6,file=file.path(envrmt$path_002_processed,"reaver_csv/bad_drieburg_a.csv"))
+write.table(df7,file=file.path(envrmt$path_002_processed,"reaver_csv/bad_drieburg_b.csv"))
+write.table(df8,file=file.path(envrmt$path_002_processed,"reaver_csv/bad_drieburg_c.csv"))
+
+
 #read data
 dfn <- read.table(file.path(envrmt$path_002_processed,"mof_big/mof.csv"))
 
@@ -145,6 +174,11 @@ dfn2 <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/bad_drieburg.
 dfn3 <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/isabellengrund.csv"))
 dfn4 <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/neu_anspach.csv"))
 dfn5 <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/mof.csv"))
+
+dfn6 <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/bad_drieburg_a.csv"))
+dfn7 <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/bad_drieburg_b.csv"))
+dfn8 <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/bad_drieburg_c.csv"))
+
 
 #save as rds
 saveRDS(stck,file.path(envrmt$path_002_processed,"mof_big/mof.rds"))
@@ -155,6 +189,10 @@ saveRDS(stck3,file.path(envrmt$path_002_processed,"reaver_rds/isabellengrund.rds
 saveRDS(stck4,file.path(envrmt$path_002_processed,"reaver_rds/neu_anspach.rds"))
 saveRDS(stck5,file.path(envrmt$path_002_processed,"reaver_rds/mof.rds"))
 
+saveRDS(stck6,file.path(envrmt$path_002_processed,"reaver_rds/bad_drieburg_a.rds"))
+saveRDS(stck7,file.path(envrmt$path_002_processed,"reaver_rds/bad_drieburg_b.rds"))
+saveRDS(stck8,file.path(envrmt$path_002_processed,"reaver_rds/bad_drieburg_c.rds"))
+
 #read rds
 rdsstk <-readRDS(file.path(envrmt$path_002_processed,"mof_big/mof.rds"))
 
@@ -163,3 +201,7 @@ rdsstk2 <-readRDS(file.path(envrmt$path_002_processed,"reaver_rds/bad_drieburg.r
 rdsstk3 <-readRDS(file.path(envrmt$path_002_processed,"reaver_rds/isabellengrund.rds"))
 rdsstk4 <-readRDS(file.path(envrmt$path_002_processed,"reaver_rds/neu_anspach.rds"))
 rdsstk5 <-readRDS(file.path(envrmt$path_002_processed,"reaver_rds/mof.rds"))
+
+rdsstk6 <-readRDS(file.path(envrmt$path_002_processed,"reaver_rds/bad_drieburg_a.rds"))
+rdsstk7 <-readRDS(file.path(envrmt$path_002_processed,"reaver_rds/bad_drieburg_b.rds"))
+rdsstk8 <-readRDS(file.path(envrmt$path_002_processed,"reaver_rds/bad_drieburg_c.rds"))

@@ -21,7 +21,7 @@ root_folder = alternativeEnvi(root_folder = "~/edu/Envimaster-Geomorph",        
 source(file.path(root_folder, paste0(pathdir,"001_setup_geomorph_withSAGA_v1.R")))                                                              
 ###---------------------------------------------------------------------------------------###
 #############################################################################################
-dem <- raster::raster(file.path(envrmt$path_001_org, "DEM_mof.tif"))
+dem <- raster::raster(file.path(envrmt$path_001_org, "dem_bad_drieburg_alternative2.tif"))
 utm <- "+proj=utm +zone=32 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs"
 
 source(file.path(root_folder, paste0(pathdir,"000_dev/cenith_fillsinks.R"))) 
@@ -40,8 +40,9 @@ cenith_fillsinks(dem      =dem,
 #stop cluster
 stopCluster(cl)
 
+#delete afterwards to clean for further calculations
 som <- raster::raster(file.path(envrmt$path_002_processed, "som.tif"))
 
 mapview(som)
 
-writeRaster(som, filename= file.path(envrmt$path_002_processed, "som_mof.tif"), format="GTiff", overwrite=TRUE)
+writeRaster(som, filename= file.path(envrmt$path_002_processed, "som_small/som_bad_drieburg_alt2.tif"), format="GTiff", overwrite=TRUE)

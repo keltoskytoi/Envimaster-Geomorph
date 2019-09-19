@@ -30,6 +30,7 @@ rgb <- raster::raster(file.path(envrmt$path_002_processed, "mof_big/RGB_mof.tif"
 som <- raster::raster(file.path(envrmt$path_002_processed, "mof_big/som_mof.tif"))
 vp_som <-  rgdal::readOGR(file.path(envrmt$path_002_processed,"mof_big/vp_mof.shp"))
 
+
 som <- raster::raster(file.path(envrmt$path_002_processed, "som_small/som_lahnberge_small.tif"))
 vp_som <-  rgdal::readOGR(file.path(envrmt$path_002_processed,"points/lahnberge_vp.shp"))
 som <- raster::raster(file.path(envrmt$path_002_processed, "som_small/som_bad_drieburg_small.tif"))
@@ -41,6 +42,22 @@ vp_som <-  rgdal::readOGR(file.path(envrmt$path_002_processed,"points/neu_anspac
 som <- raster::raster(file.path(envrmt$path_002_processed, "som_small/som_mof_small.tif"))
 vp_som <-  rgdal::readOGR(file.path(envrmt$path_002_processed,"points/mof_vp.shp"))
 
+#alternative vp
+som <- raster::raster(file.path(envrmt$path_002_processed, "som_small/som_bad_drieburg_alt.tif"))
+vp_som <-  rgdal::readOGR(file.path(envrmt$path_002_processed,"points/bad_drieburg_alt_vp.shp"))
+
+som <- raster::raster(file.path(envrmt$path_002_processed, "som_small/som_bad_drieburg_alt1.tif"))
+vp_som <-  rgdal::readOGR(file.path(envrmt$path_002_processed,"points/bad_drieburg_alt1_vp.shp"))
+
+som <- raster::raster(file.path(envrmt$path_002_processed, "som_small/som_bad_drieburg_alt2.tif"))
+vp_som <-  rgdal::readOGR(file.path(envrmt$path_002_processed,"points/bad_drieburg_alt2_vp.shp"))
+
+
+
+#check extent
+mapview(vp_som)+som
+
+#check coordinate system
 crs(som)
 crs(vp_som)
 vp_som <- spTransform(vp_som,"+proj=utm +zone=32 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
@@ -52,16 +69,7 @@ source(file.path(root_folder, file.path(pathdir,"Cenith_V2/CENITH_hollow/CENITH_
 source(file.path(root_folder, file.path(pathdir,"Cenith_V2/CENITH_hollow/CENITH_hollow_V1/sf_ft_mcws_clean.R")))
 source(file.path(root_folder, file.path(pathdir,"Cenith_V2/CENITH_hollow/CENITH_hollow_V1/sf_ft_vwf_clean.R")))
 ################################################################################
-#test CENITH hollow v1 
 
-hollow <- cenith_hollow(som=som,a=0.05,b=1,h=0.2,min=20,max=70,f=1) #test if relation is the same
-hollow <- cenith_hollow(som=som,a=0.1,b=2,h=0.1,min=20,max=70,f=1) #test lower min height
-
-hollow <- cenith_hollow(som=som,a=0.1,b=2,h=0.6,min=5,max=70,f=1)
-hollow
-mapview(hollow)+vp_som
-plot(som)
-################################################################################
 #source CENITH hollow validation v1 
 source(file.path(root_folder, file.path(pathdir,"Cenith_V2/CENITH_hollow_val/CENITH_hollow_val_V1/000_cenith_hollow_val_v1.R")))
 source(file.path(root_folder, file.path(pathdir,"Cenith_V2/CENITH_hollow_val/CENITH_hollow_val_V1/sf_cenith_hollow_val_a_v1.R")))
@@ -82,20 +90,28 @@ maxhit <- maxrow$hit
 valh[which(valh$hit==maxhit),] 
 ################################################################################
 # view polygons with validation values
-hol <- cenith_hollow(som=som,a=0.05,b=1,h=0.2,min=20,max=70,f=1)
-hol
-plot(hol)
-mapview(hol)+som
+#test CENITH hollow v1 
+
+hollow <- cenith_hollow(som=som,a=0.05,b=1,h=0.2,min=20,max=70,f=1) #test if relation is the same
+hollow <- cenith_hollow(som=som,a=0.1,b=2,h=0.1,min=50,max=1000,f=1) #test lower min height
+
+hollow <- cenith_hollow(som=som,a=0.1,b=2,h=0.6,min=5,max=70,f=1)
+hollow
+mapview(hollow)+vp_som
+plot(som)
 
 #write data
-writeOGR(obj=hollow,dsn= file.path(envrmt$path_002_processed, "mof_big/seg_mof_big_poly_01_2_02_20_70_1.shp"),layer="testShape",driver="ESRI Shapefile")
+writeOGR(obj=hollow,dsn= file.path(envrmt$path_002_processed, "poly/mof_big/seg_mof_big_poly_01_2_02_20_70_1.shp"),layer="testShape",driver="ESRI Shapefile")
 
-writeOGR(obj=hollow,dsn= file.path(envrmt$path_002_processed, "seg_lahnberge_krater_poly.shp"),layer="testShape",driver="ESRI Shapefile")
-writeOGR(obj=hollow,dsn= file.path(envrmt$path_002_processed, "seg_bad_driebach_doline_poly.shp"),layer="testShape",driver="ESRI Shapefile")
-writeOGR(obj=hollow,dsn= file.path(envrmt$path_002_processed, "seg_isabellengrund_pinge_poly.shp"),layer="testShape",driver="ESRI Shapefile")
-writeOGR(obj=hollow,dsn= file.path(envrmt$path_002_processed, "seg_neu_anspach_pinge_poly.shp"),layer="testShape",driver="ESRI Shapefile")
-writeOGR(obj=hollow,dsn= file.path(envrmt$path_002_processed, "seg_mof_poly.shp"),layer="testShape",driver="ESRI Shapefile")
+writeOGR(obj=hollow,dsn= file.path(envrmt$path_002_processed, "poly/seg_lahnberge_krater_poly.shp"),layer="testShape",driver="ESRI Shapefile")
+writeOGR(obj=hollow,dsn= file.path(envrmt$path_002_processed, "poly/seg_bad_driebach_doline_poly.shp"),layer="testShape",driver="ESRI Shapefile")
+writeOGR(obj=hollow,dsn= file.path(envrmt$path_002_processed, "poly/seg_isabellengrund_pinge_poly.shp"),layer="testShape",driver="ESRI Shapefile")
+writeOGR(obj=hollow,dsn= file.path(envrmt$path_002_processed, "poly/seg_neu_anspach_pinge_poly.shp"),layer="testShape",driver="ESRI Shapefile")
+writeOGR(obj=hollow,dsn= file.path(envrmt$path_002_processed, "poly/seg_mof_poly.shp"),layer="testShape",driver="ESRI Shapefile")
 
+writeOGR(obj=hollow,dsn= file.path(envrmt$path_002_processed, "poly/seg_bad_drieburg_alt_poly.shp"),layer="testShape",driver="ESRI Shapefile")
+writeOGR(obj=hollow,dsn= file.path(envrmt$path_002_processed, "poly/seg_bad_drieburg_alt1_poly.shp"),layer="testShape",driver="ESRI Shapefile")
+writeOGR(obj=hollow,dsn= file.path(envrmt$path_002_processed, "poly/seg_bad_drieburg_alt2_poly.shp"),layer="testShape",driver="ESRI Shapefile")
 
 #end of script
 
@@ -116,3 +132,9 @@ writeOGR(obj=hollow,dsn= file.path(envrmt$path_002_processed, "seg_mof_poly.shp"
 
 #mof ?
 #cenith_hollow(som=som,a=0.1,b=2,h=0.1,min=4,max=1000,f=1)
+
+
+#bad drieburg alternative
+#cenith_hollow(som=som,a=0.1,b=2,h=0.1,min=100,max=1000,f=1)
+
+
