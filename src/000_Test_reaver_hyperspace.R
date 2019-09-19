@@ -29,8 +29,7 @@ df_b <-readOGR(file.path(envrmt$path_Reaver,"expl_poly.shp")) # bomb
 df_p <-readOGR(file.path(envrmt$path_Reaver,"expl_poly.shp")) # pinge
 df_d <-readOGR(file.path(envrmt$path_Reaver,"expl_poly.shp")) # doline
 
-
-
+df_mb <- read.table(file.path(envrmt$path_002_processed,"mof_big/mof.csv"))
 df_m <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/mof.csv"))
 
 df_b <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/lahnberge.csv"))
@@ -57,7 +56,7 @@ df <- rbind (df,df_pc)
 df <- rbind (df,df_da)
 df <- rbind (df,df_db)
 df <- rbind (df,df_dc)
-df <- rbind (df,df_m)
+df <- rbind (df,df_mb)
 
 #eliminate layer column
 df <- df[,2:length(df)]
