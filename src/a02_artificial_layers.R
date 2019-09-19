@@ -35,6 +35,7 @@ dem5 <- raster::raster(file.path(envrmt$path_001_org, "dem_small_mof.tif"))
 dem6 <- raster::raster(file.path(envrmt$path_001_org, "dem_bad_drieburg_alternative.tif"))
 dem7 <- raster::raster(file.path(envrmt$path_001_org, "dem_bad_drieburg_alternative1.tif"))
 dem8 <- raster::raster(file.path(envrmt$path_001_org, "dem_bad_drieburg_alternative2.tif"))
+dem9 <- raster::raster(file.path(envrmt$path_001_org, "dem_neu_anspach_alternative.tif"))
 
 
 #load som
@@ -49,6 +50,7 @@ som5 <- raster::raster(file.path(envrmt$path_002_processed, "som_small/som_mof_s
 som6 <- raster::raster(file.path(envrmt$path_002_processed, "som_small/som_bad_drieburg_alt.tif"))
 som7 <- raster::raster(file.path(envrmt$path_002_processed, "som_small/som_bad_drieburg_alt1.tif"))
 som8 <- raster::raster(file.path(envrmt$path_002_processed, "som_small/som_bad_drieburg_alt2.tif"))
+som9 <- raster::raster(file.path(envrmt$path_002_processed, "som_small/neu_anspach_alt.tif"))
 
 
  #load polygon
@@ -64,6 +66,7 @@ poly5 <-  rgdal::readOGR(file.path(envrmt$path_002_processed,"poly/seg_mof_poly.
 poly6 <-  rgdal::readOGR(file.path(envrmt$path_002_processed,"poly/seg_bad_drieburg_alt_poly.shp"))
 poly7 <-  rgdal::readOGR(file.path(envrmt$path_002_processed,"poly/seg_bad_drieburg_alt1_poly.shp"))
 poly8 <-  rgdal::readOGR(file.path(envrmt$path_002_processed,"poly/seg_bad_drieburg_alt2_poly.shp"))
+poly9 <-  rgdal::readOGR(file.path(envrmt$path_002_processed,"poly/seg_neu_anspach_alt_poly.shp"))
 
 
 #set desired CRS
@@ -106,6 +109,7 @@ stck5 <- LEGION_dem(dem = dem5,tmp = tmp,proj = utm)
 stck6 <- LEGION_dem(dem = dem6,tmp = tmp,proj = utm)
 stck7 <- LEGION_dem(dem = dem7,tmp = tmp,proj = utm)
 stck8 <- LEGION_dem(dem = dem8,tmp = tmp,proj = utm)
+stck9 <- LEGION_dem(dem = dem9,tmp = tmp,proj = utm)
 
 
 plot(stck1$aspect)
@@ -146,6 +150,7 @@ df5<- Reaver_extraction(poly=poly5,multilayer=stck5,set_ID = TRUE,name="mof")
 df6<- Reaver_extraction(poly=poly6,multilayer=stck6,set_ID = TRUE,name="bad_drieburg_a")
 df7<- Reaver_extraction(poly=poly7,multilayer=stck7,set_ID = TRUE,name="bad_drieburg_b")
 df8<- Reaver_extraction(poly=poly8,multilayer=stck8,set_ID = TRUE,name="bad_drieburg_c")
+df9<- Reaver_extraction(poly=poly9,multilayer=stck9,set_ID = TRUE,name="neu_anspach_a")
 
 #df
 
@@ -164,6 +169,7 @@ write.table(df5,file=file.path(envrmt$path_002_processed,"reaver_csv/mof.csv"))
 write.table(df6,file=file.path(envrmt$path_002_processed,"reaver_csv/bad_drieburg_a.csv"))
 write.table(df7,file=file.path(envrmt$path_002_processed,"reaver_csv/bad_drieburg_b.csv"))
 write.table(df8,file=file.path(envrmt$path_002_processed,"reaver_csv/bad_drieburg_c.csv"))
+write.table(df9,file=file.path(envrmt$path_002_processed,"reaver_csv/neu_anspach_a.csv"))
 
 
 #read data
@@ -178,6 +184,7 @@ dfn5 <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/mof.csv"))
 dfn6 <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/bad_drieburg_a.csv"))
 dfn7 <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/bad_drieburg_b.csv"))
 dfn8 <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/bad_drieburg_c.csv"))
+dfn9 <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/neu_anspach_a.csv"))
 
 
 #save as rds
@@ -192,6 +199,7 @@ saveRDS(stck5,file.path(envrmt$path_002_processed,"reaver_rds/mof.rds"))
 saveRDS(stck6,file.path(envrmt$path_002_processed,"reaver_rds/bad_drieburg_a.rds"))
 saveRDS(stck7,file.path(envrmt$path_002_processed,"reaver_rds/bad_drieburg_b.rds"))
 saveRDS(stck8,file.path(envrmt$path_002_processed,"reaver_rds/bad_drieburg_c.rds"))
+saveRDS(stck9,file.path(envrmt$path_002_processed,"reaver_rds/neu_anspach_a.rds"))
 
 #read rds
 rdsstk <-readRDS(file.path(envrmt$path_002_processed,"mof_big/mof.rds"))
@@ -205,3 +213,4 @@ rdsstk5 <-readRDS(file.path(envrmt$path_002_processed,"reaver_rds/mof.rds"))
 rdsstk6 <-readRDS(file.path(envrmt$path_002_processed,"reaver_rds/bad_drieburg_a.rds"))
 rdsstk7 <-readRDS(file.path(envrmt$path_002_processed,"reaver_rds/bad_drieburg_b.rds"))
 rdsstk8 <-readRDS(file.path(envrmt$path_002_processed,"reaver_rds/bad_drieburg_c.rds"))
+rdsstk9 <-readRDS(file.path(envrmt$path_002_processed,"reaver_rds/neu_anspach_a.rds"))

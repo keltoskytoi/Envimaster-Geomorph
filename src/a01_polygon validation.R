@@ -52,6 +52,8 @@ vp_som <-  rgdal::readOGR(file.path(envrmt$path_002_processed,"points/bad_driebu
 som <- raster::raster(file.path(envrmt$path_002_processed, "som_small/som_bad_drieburg_alt2.tif"))
 vp_som <-  rgdal::readOGR(file.path(envrmt$path_002_processed,"points/bad_drieburg_alt2_vp.shp"))
 
+som <- raster::raster(file.path(envrmt$path_002_processed, "som_small/som_neu_anspach_alt.tif"))
+vp_som <-  rgdal::readOGR(file.path(envrmt$path_002_processed,"points/neu_anspach_alt_vp.shp"))
 
 
 #check extent
@@ -93,7 +95,7 @@ valh[which(valh$hit==maxhit),]
 #test CENITH hollow v1 
 
 hollow <- cenith_hollow(som=som,a=0.05,b=1,h=0.2,min=20,max=70,f=1) #test if relation is the same
-hollow <- cenith_hollow(som=som,a=0.1,b=2,h=0.1,min=50,max=1000,f=1) #test lower min height
+hollow <- cenith_hollow(som=som,a=0.1,b=2,h=0.1,min=5,max=1000,f=1) #test lower min height
 
 hollow <- cenith_hollow(som=som,a=0.1,b=2,h=0.6,min=5,max=70,f=1)
 hollow
@@ -112,6 +114,7 @@ writeOGR(obj=hollow,dsn= file.path(envrmt$path_002_processed, "poly/seg_mof_poly
 writeOGR(obj=hollow,dsn= file.path(envrmt$path_002_processed, "poly/seg_bad_drieburg_alt_poly.shp"),layer="testShape",driver="ESRI Shapefile")
 writeOGR(obj=hollow,dsn= file.path(envrmt$path_002_processed, "poly/seg_bad_drieburg_alt1_poly.shp"),layer="testShape",driver="ESRI Shapefile")
 writeOGR(obj=hollow,dsn= file.path(envrmt$path_002_processed, "poly/seg_bad_drieburg_alt2_poly.shp"),layer="testShape",driver="ESRI Shapefile")
+writeOGR(obj=hollow,dsn= file.path(envrmt$path_002_processed, "poly/seg_neu_anspach_alt_poly.shp"),layer="testShape",driver="ESRI Shapefile")
 
 #end of script
 
@@ -138,3 +141,5 @@ writeOGR(obj=hollow,dsn= file.path(envrmt$path_002_processed, "poly/seg_bad_drie
 #cenith_hollow(som=som,a=0.1,b=2,h=0.1,min=100,max=1000,f=1)
 
 
+#neu anspach alt
+#cenith_hollow(som=som,a=0.1,b=2,h=0.1,min=10,max=1000,f=1)
