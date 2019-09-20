@@ -9,7 +9,7 @@ require(link2GI)                  #E    n  nn    v v    r  r  m   m m   m   t   
                                   ###############################################           #
                                                                                             #
 # define needed libs and src folder                                                         #
-libs = c("link2GI","vegan","cluster","labdsv","rgdal") 
+libs = c("link2GI","vegan","cluster","labdsv","rgdal","stringr") 
 pathdir = "repo/src"
 
 #set root folder for uniPC or laptop                                                        #

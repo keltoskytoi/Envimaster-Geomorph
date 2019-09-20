@@ -112,7 +112,7 @@ Reaver_hyperspace <-function(df){
   #  cql[1,i] <- sum(hc[,1]==i)
   #}
   cat(" ",sep = "\n")
-  cat(" ### Stats for hc only ###")
+  cat(" ### Stats for hc only.Amount or percent objects of total obj (upper) and obj in cluster (lower) ###")
   cat(" ",sep = "\n")
   
   
@@ -141,7 +141,7 @@ Reaver_hyperspace <-function(df){
  # cluster quality by highest amount of class per cluster instead of n_obj per class
   
   cqm <- data.frame(matrix(nrow=3,ncol=10))
-  colnames(cqm) <- c("hc_cluster","bomb","b/n_b","pinge","p/n_p","doline","d/n_d","n_obj","max_class","class%")
+  colnames(cqm) <- c("hc_cluster","bomb","b/nobj_cl","pinge","p/nobj_cl","doline","d/nobj_cl","n_obj_cl","hig_n_incl","in%")
   cqm$hc_cluster <- 1:3
   
   for (i in 1:max(cl)){
@@ -165,6 +165,7 @@ Reaver_hyperspace <-function(df){
 
   ls <-list(hc,km)
   names(ls) <-c("hc","km")
+  warning("cluster quality is dependent on interpretation !")
   return(ls)
   
 }#end of fucntion
