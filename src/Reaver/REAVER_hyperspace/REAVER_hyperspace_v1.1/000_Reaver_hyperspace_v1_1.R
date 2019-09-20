@@ -6,7 +6,7 @@
 #' @export Mandatory Reaver
 
 #' @param Mandatory if function: df - a data.frame with sites in rows and parameters in columns with numeric values.
-#' @param Mandatory if function: cl - desired n-count of clusters
+#' @param Mandatory if function: indi - if TRUE the indicator parameters are printed, default = TRUE
 
 #note: v1.1 calculates statistics for cluster quality by
 #           amount of objects per cluster in percent of class in total and n_obj per cluster returns cluster
@@ -14,7 +14,7 @@
 # stats for HC only !!!
 
 
-Reaver_hyperspace <-function(df){
+Reaver_hyperspace <-function(df,indi=TRUE){
   cl=3 # set value, desciptiv stats work only for 3
   cat(" ",sep = "\n")
   cat("### Reaver starts to reduce the ",nrow(df),"-dimensional Hyperspace ###")
@@ -61,10 +61,12 @@ Reaver_hyperspace <-function(df){
   ordihull(dca, km_cl$cluster, lty=3, col="grey60",lwd=2)
   
  # #indicator for hc
-#  const_hc <-const(df, cutclust)
-#  import_hc <-importance(df, cutclust,show=NA)
-#  hc_ival <- indval(df, cutclust)
-#  
+  if (indi==TRUE){
+  const_hc <-const(df, cutclust)
+  import_hc <-importance(df, cutclust,show=NA)
+  hc_ival <- indval(df, cutclust)
+  summary(hc_ival)  
+  }
 #  const_km <-const(df, km_cl$cluster)
 #  import_km <-importance(df,km_cl$cluster,show=NA)
 #  km_ival <- indval(df, km_cl$cluster) # summarys indicator
