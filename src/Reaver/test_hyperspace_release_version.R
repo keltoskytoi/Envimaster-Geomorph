@@ -50,14 +50,26 @@ df <- rbind (df,df_m)
 df[] <- lapply(df, abs)
 df <- df[,2:length(df)]
 
-# check n count string in colnames
+#select col by name
+# only slope
+dfslo <-df[,which(str_count(colnames(df),pattern = "slop")==1)]
 
+#get col position for multiple cols
+slo <-which(str_count(colnames(df),pattern = "slop")==1)
+asp <-which(str_count(colnames(df),pattern = "asp")==1)
+c <- c(slo,asp)
+#only slope and aspect
+dfsa <-df[,c]
+
+# all col with sd
+sd <-which(str_count(colnames(df),pattern = "sd")==1)
+dfsd <- df[,sd]
+
+max <- which(str_count(colnames(df),pattern = "max")==1)
+dfmax <-df[,max]
+rm(df)
 # run Reaver hyperspace
-test <- Reaver_hyperspace(df)
-hc <-test$hc
-test$km
-
-
+test <- Reaver_hyperspace(dfmax,indi=F)
 
 # descriptive Werte. Anzahl an Objecten je Cluster als Clustergüte (zb 85% bombemkrater)
 # Hyphotthese von eindeutigen zuordnbaren Cluster zb bei 85 % wird angenommen es handelt sich um den Bombemcluster

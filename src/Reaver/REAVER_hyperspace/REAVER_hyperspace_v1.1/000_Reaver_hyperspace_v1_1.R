@@ -120,7 +120,6 @@ Reaver_hyperspace <-function(df,indi=TRUE){
   
   ####################################################################
   # cluster quality with esitmated cluster class by max percent amount of obj/ n_obj in cluster
-  
   cqe <- data.frame(matrix(nrow=3,ncol=10))
   colnames(cqe) <- c("hc_cluster","bomb","b/n_b","pinge","p/n_p","doline","d/n_d","n_obj","max_class","class%")
   cqe$hc_cluster <- 1:3
@@ -137,7 +136,7 @@ Reaver_hyperspace <-function(df,indi=TRUE){
         which(cqe[i,]==max(cqe[i,c(3,5,7)]))==7){cqe[i,9] <- "doline" }
     cqe[i,10] <- max(cqe[i,c(3,5,7)])
   }
-  
+  # in which string, returns 3 max positions, uses only first.
   print(cqe)
   ##############################################################################
  # cluster quality by highest amount of class per cluster instead of n_obj per class
