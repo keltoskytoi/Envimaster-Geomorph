@@ -32,19 +32,26 @@ source(file.path(root_folder, file.path(pathdir,"Reaver/REAVER_hyperspace/REAVER
 # selcet cols
 
 #select col by name
-
-df_b <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/lahnberge.csv"))
-df_d <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/bad_drieburg.csv"))
-df_p <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/isabellengrund.csv"))
-df_p1 <-read.table(file.path(envrmt$path_002_processed,"reaver_csv/neu_anspach.csv"))
+df_mb <- read.table(file.path(envrmt$path_002_processed,"mof_big/mof.csv"))
 df_m <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/mof.csv"))
+
+df_b <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/lahnberge_a.csv"))
+df_pa <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/isabellengrund.csv"))
+df_pb <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/neu_anspach.csv"))
+df_pc <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/neu_anspach_a.csv"))
+df_da <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/bad_drieburg_a.csv"))
+df_db <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/bad_drieburg_b.csv"))
+df_dc <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/bad_drieburg_c.csv"))
 
 
 # merge dfs
-df <- rbind(df_b,df_p)
-df <- rbind (df,df_d)
-df <- rbind (df,df_p1)
-df <- rbind (df,df_m)
+df <- rbind(df_b,df_pa)
+df <- rbind (df,df_pb)
+df <- rbind (df,df_pc)
+df <- rbind (df,df_da)
+df <- rbind (df,df_db)
+df <- rbind (df,df_dc)
+df <- rbind (df,df_mb)
 
 # eliminate negative values
 df[] <- lapply(df, abs)

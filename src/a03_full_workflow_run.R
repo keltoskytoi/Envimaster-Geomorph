@@ -40,7 +40,7 @@ dem6 <- raster::raster(file.path(envrmt$path_001_org, "dem_bad_drieburg_alternat
 dem7 <- raster::raster(file.path(envrmt$path_001_org, "dem_bad_drieburg_alternative1.tif"))
 dem8 <- raster::raster(file.path(envrmt$path_001_org, "dem_bad_drieburg_alternative2.tif"))
 dem9 <- raster::raster(file.path(envrmt$path_001_org, "dem_neu_anspach_alternative.tif"))
-dem10 <- raster::raster(file.path(envrmt$path_001_org, "tif4.tif"))
+dem10 <- raster::raster(file.path(envrmt$path_001_org, "dem_lahnberge_alternative.tif"))
 
 #load som
 som <- raster::raster(file.path(envrmt$path_002_processed, "mof_big/som_mof.tif"))
@@ -150,7 +150,7 @@ df9<- Reaver_extraction(poly=poly9,multilayer=stck9,set_ID = TRUE,name="pinge_c"
 
 tmp <- file.path(envrmt$path_tmp,"tmp10")
 stck10 <- LEGION_dem(dem = dem10,tmp = tmp,proj = utm)
-df10<- Reaver_extraction(poly=poly10,multilayer=stck10,set_ID = TRUE,name="pinge_c")
+df10<- Reaver_extraction(poly=poly10,multilayer=stck10,set_ID = TRUE,name="krater_a")
 
 
 #stop cluster computing

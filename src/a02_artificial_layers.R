@@ -36,7 +36,7 @@ dem6 <- raster::raster(file.path(envrmt$path_001_org, "dem_bad_drieburg_alternat
 dem7 <- raster::raster(file.path(envrmt$path_001_org, "dem_bad_drieburg_alternative1.tif"))
 dem8 <- raster::raster(file.path(envrmt$path_001_org, "dem_bad_drieburg_alternative2.tif"))
 dem9 <- raster::raster(file.path(envrmt$path_001_org, "dem_neu_anspach_alternative.tif"))
-dem10 <- raster::raster(file.path(envrmt$path_001_org, "tif4.tif"))
+dem10 <- raster::raster(file.path(envrmt$path_001_org, "dem_lahnberge_alternative.tif"))
 
 
 #load som
