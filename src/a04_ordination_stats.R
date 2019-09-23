@@ -32,12 +32,16 @@ source(file.path(root_folder, file.path(pathdir,"Reaver/REAVER_hyperspace/REAVER
 # selcet cols
 
 #select col by name
-df_mb <- read.table(file.path(envrmt$path_002_processed,"mof_big/mof.csv"))
+
+#mof layersdf_mb <- read.table(file.path(envrmt$path_002_processed,"mof_big/mof.csv"))
 df_m <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/mof.csv"))
 
-df_b <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/lahnberge_a.csv"))
-df_b <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/lahnberge.csv"))
+#test layers
+df_dt <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/bad_drieburg_test.csv"))
+df_bt <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/lahnberge_test.csv"))
 
+#train layers
+df_b <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/lahnberge_a.csv"))
 df_pa <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/isabellengrund.csv"))
 df_pb <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/neu_anspach.csv"))
 df_pc <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/neu_anspach_a.csv"))
@@ -53,6 +57,11 @@ df <- rbind (df,df_pc)
 df <- rbind (df,df_da)
 df <- rbind (df,df_db)
 df <- rbind (df,df_dc)
+
+#test layers
+df <- rbind (df,df_bt)
+df <- rbind (df,df_dt)
+
 
 df <- rbind (df,df_mb)
 
@@ -80,12 +89,25 @@ dfsd <- df[,sd]
 max <- which(str_count(colnames(df),pattern = "max")==1)
 dfmax <-df[,max]
 rm(df)
-# run Reaver hyperspace
-test <- Reaver_hyperspace(df,indi=F)
 
+
+#run
+
+
+
+# run Reaver hyperspace
+test <- Reaver_hyperspace(df,indi=T)
+
+#get col position for multiple cols
+asp_min <-which(str_count(colnames(df),pattern = "aspect_min")==1)
+cov_mean <-which(str_count(colnames(df),pattern = "cov_flowli_mean")==1)
+sv_dist <-which(str_count(colnames(df),pattern = "sv_dist_sum")==1)
+
+c <- c(asp_min,cov_mean,sv_dist)
+dfx <-df[,c]
 # descriptive Werte. Anzahl an Objecten je Cluster als Clustergüte (zb 85% bombemkrater)
 # Hyphotthese von eindeutigen zuordnbaren Cluster zb bei 85 % wird angenommen es handelt sich um den Bombemcluster
-# konkrete statistische tests hat auch JK gerade keine ahnung, evt 3x3 tafel für shi2 test
+# konkrete statistische tests hat auch JK gerade keine ahnung, evt 3x3 tafel für chi2 test
 
 
 

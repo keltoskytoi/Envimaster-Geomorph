@@ -109,14 +109,6 @@ tmp <- file.path(envrmt$path_tmp,"tmp")
 stck <- LEGION_dem(dem = dem,tmp = tmp,proj = utm, units = 0)
 df<- Reaver_extraction(poly=poly,multilayer=stck,set_ID = TRUE,name="mof_big")
 
-tmp <- file.path(envrmt$path_tmp,"tmp1")
-stck1 <- LEGION_dem(dem = dem1,tmp = tmp,proj = utm, units = 0)
-df1<- Reaver_extraction(poly=poly1,multilayer=stck1,set_ID = TRUE,name="krater")
-
-tmp <- file.path(envrmt$path_tmp,"tmp2")
-stck2 <- LEGION_dem(dem = dem2,tmp = tmp,proj = utm, units = 0)
-df2<- Reaver_extraction(poly=poly2,multilayer=stck2,set_ID = TRUE,name="doline")
-
 tmp <- file.path(envrmt$path_tmp,"tmp3")
 stck3 <- LEGION_dem(dem = dem3,tmp = tmp,proj = utm, units = 0)
 df3<- Reaver_extraction(poly=poly3,multilayer=stck3,set_ID = TRUE,name="pinge_a")
@@ -128,8 +120,6 @@ df4<- Reaver_extraction(poly=poly4,multilayer=stck4,set_ID = TRUE,name="pinge_b"
 tmp <- file.path(envrmt$path_tmp,"tmp5")
 stck5 <- LEGION_dem(dem = dem5,tmp = tmp,proj = utm, units = 0)
 df5<- Reaver_extraction(poly=poly5,multilayer=stck5,set_ID = TRUE,name="mof")
-
-
 
 #alternative areas
 tmp <- file.path(envrmt$path_tmp,"tmp6")
@@ -153,14 +143,24 @@ stck10 <- LEGION_dem(dem = dem10,tmp = tmp,proj = utm, units = 0)
 df10<- Reaver_extraction(poly=poly10,multilayer=stck10,set_ID = TRUE,name="krater_a")
 
 
+
+######## test layer krater
+tmp <- file.path(envrmt$path_tmp,"tmp11")
+stck11 <- LEGION_dem(dem = dem1,tmp = tmp,proj = utm, units = 0)
+df11<- Reaver_extraction(poly=poly1,multilayer=stck11,set_ID = TRUE,name="test_k")
+
+######### test layer dolinen
+tmp <- file.path(envrmt$path_tmp,"tmp2")
+stck2 <- LEGION_dem(dem = dem2,tmp = tmp,proj = utm, units = 0)
+df2<- Reaver_extraction(poly=poly2,multilayer=stck2,set_ID = TRUE,name="test_d")
+
+
 #stop cluster computing
 stopCluster(cl)
 
 #write data
 write.table(df,file=file.path(envrmt$path_002_processed,"mof_big/mof.csv"))
 
-write.table(df1,file=file.path(envrmt$path_002_processed,"reaver_csv/lahnberge.csv"))
-write.table(df2,file=file.path(envrmt$path_002_processed,"reaver_csv/bad_drieburg.csv"))
 write.table(df3,file=file.path(envrmt$path_002_processed,"reaver_csv/isabellengrund.csv"))
 write.table(df4,file=file.path(envrmt$path_002_processed,"reaver_csv/neu_anspach.csv"))
 write.table(df5,file=file.path(envrmt$path_002_processed,"reaver_csv/mof.csv"))
@@ -171,11 +171,12 @@ write.table(df8,file=file.path(envrmt$path_002_processed,"reaver_csv/bad_driebur
 write.table(df9,file=file.path(envrmt$path_002_processed,"reaver_csv/neu_anspach_a.csv"))
 write.table(df10,file=file.path(envrmt$path_002_processed,"reaver_csv/lahnberge_a.csv"))
 
+write.table(df11,file=file.path(envrmt$path_002_processed,"reaver_csv/lahnberge_test.csv"))
+write.table(df2,file=file.path(envrmt$path_002_processed,"reaver_csv/bad_drieburg_test.csv"))
+
 #read data
 dfn <- read.table(file.path(envrmt$path_002_processed,"mof_big/mof.csv"))
 
-dfn1 <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/lahnberge.csv"))
-dfn2 <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/bad_drieburg.csv"))
 dfn3 <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/isabellengrund.csv"))
 dfn4 <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/neu_anspach.csv"))
 dfn5 <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/mof.csv"))
@@ -186,11 +187,12 @@ dfn8 <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/bad_drieburg_
 dfn9 <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/neu_anspach_a.csv"))
 dfn10 <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/lahnberge_a.csv"))
 
+dfn11 <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/lahnberge_test.csv"))
+dfn2 <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/bad_drieburg_test.csv"))
+
 #save as rds
 saveRDS(stck,file.path(envrmt$path_002_processed,"mof_big/mof.rds"))
 
-saveRDS(stck1,file.path(envrmt$path_002_processed,"reaver_rds/lahnberge.rds"))
-saveRDS(stck2,file.path(envrmt$path_002_processed,"reaver_rds/bad_drieburg.rds"))
 saveRDS(stck3,file.path(envrmt$path_002_processed,"reaver_rds/isabellengrund.rds"))
 saveRDS(stck4,file.path(envrmt$path_002_processed,"reaver_rds/neu_anspach.rds"))
 saveRDS(stck5,file.path(envrmt$path_002_processed,"reaver_rds/mof.rds"))
@@ -201,11 +203,12 @@ saveRDS(stck8,file.path(envrmt$path_002_processed,"reaver_rds/bad_drieburg_c.rds
 saveRDS(stck9,file.path(envrmt$path_002_processed,"reaver_rds/neu_anspach_a.rds"))
 saveRDS(stck10,file.path(envrmt$path_002_processed,"reaver_rds/lahnberge_a.rds"))
 
+saveRDS(stck11,file.path(envrmt$path_002_processed,"reaver_rds/lahnberge_test.rds"))
+saveRDS(stck2,file.path(envrmt$path_002_processed,"reaver_rds/bad_drieburg_test.rds"))
+
 #read rds
 rdsstk <-readRDS(file.path(envrmt$path_002_processed,"mof_big/mof.rds"))
 
-rdsstk1 <-readRDS(file.path(envrmt$path_002_processed,"reaver_rds/lahnberge.rds"))
-rdsstk2 <-readRDS(file.path(envrmt$path_002_processed,"reaver_rds/bad_drieburg.rds"))
 rdsstk3 <-readRDS(file.path(envrmt$path_002_processed,"reaver_rds/isabellengrund.rds"))
 rdsstk4 <-readRDS(file.path(envrmt$path_002_processed,"reaver_rds/neu_anspach.rds"))
 rdsstk5 <-readRDS(file.path(envrmt$path_002_processed,"reaver_rds/mof.rds"))
@@ -215,4 +218,7 @@ rdsstk7 <-readRDS(file.path(envrmt$path_002_processed,"reaver_rds/bad_drieburg_b
 rdsstk8 <-readRDS(file.path(envrmt$path_002_processed,"reaver_rds/bad_drieburg_c.rds"))
 rdsstk9 <-readRDS(file.path(envrmt$path_002_processed,"reaver_rds/neu_anspach_a.rds"))
 rdsstk10 <-readRDS(file.path(envrmt$path_002_processed,"reaver_rds/lahnberge_a.rds"))
+
+rdsstk11 <-readRDS(file.path(envrmt$path_002_processed,"reaver_rds/lahnberge_test.rds"))
+rdsstk2 <-readRDS(file.path(envrmt$path_002_processed,"reaver_rds/bad_drieburg_test.rds"))
 
