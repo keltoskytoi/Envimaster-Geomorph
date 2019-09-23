@@ -106,50 +106,50 @@ registerDoParallel(cl)
 #test for filters missing, should return stack with unfiltered rasters 
 #erase previous data from tmp before
 tmp <- file.path(envrmt$path_tmp,"tmp")
-stck <- LEGION_dem(dem = dem,tmp = tmp,proj = utm)
+stck <- LEGION_dem(dem = dem,tmp = tmp,proj = utm, units = 0)
 df<- Reaver_extraction(poly=poly,multilayer=stck,set_ID = TRUE,name="mof_big")
 
 tmp <- file.path(envrmt$path_tmp,"tmp1")
-stck1 <- LEGION_dem(dem = dem1,tmp = tmp,proj = utm)
+stck1 <- LEGION_dem(dem = dem1,tmp = tmp,proj = utm, units = 0)
 df1<- Reaver_extraction(poly=poly1,multilayer=stck1,set_ID = TRUE,name="krater")
 
 tmp <- file.path(envrmt$path_tmp,"tmp2")
-stck2 <- LEGION_dem(dem = dem2,tmp = tmp,proj = utm)
+stck2 <- LEGION_dem(dem = dem2,tmp = tmp,proj = utm, units = 0)
 df2<- Reaver_extraction(poly=poly2,multilayer=stck2,set_ID = TRUE,name="doline")
 
 tmp <- file.path(envrmt$path_tmp,"tmp3")
-stck3 <- LEGION_dem(dem = dem3,tmp = tmp,proj = utm)
+stck3 <- LEGION_dem(dem = dem3,tmp = tmp,proj = utm, units = 0)
 df3<- Reaver_extraction(poly=poly3,multilayer=stck3,set_ID = TRUE,name="pinge_a")
 
 tmp <- file.path(envrmt$path_tmp,"tmp4")
-stck4 <- LEGION_dem(dem = dem4,tmp = tmp,proj = utm)
+stck4 <- LEGION_dem(dem = dem4,tmp = tmp,proj = utm, units = 0)
 df4<- Reaver_extraction(poly=poly4,multilayer=stck4,set_ID = TRUE,name="pinge_b")
 
 tmp <- file.path(envrmt$path_tmp,"tmp5")
-stck5 <- LEGION_dem(dem = dem5,tmp = tmp,proj = utm)
+stck5 <- LEGION_dem(dem = dem5,tmp = tmp,proj = utm, units = 0)
 df5<- Reaver_extraction(poly=poly5,multilayer=stck5,set_ID = TRUE,name="mof")
 
 
 
 #alternative areas
 tmp <- file.path(envrmt$path_tmp,"tmp6")
-stck6 <- LEGION_dem(dem = dem6,tmp = tmp,proj = utm)
+stck6 <- LEGION_dem(dem = dem6,tmp = tmp,proj = utm, units = 0)
 df6<- Reaver_extraction(poly=poly6,multilayer=stck6,set_ID = TRUE,name="doline_a")
 
 tmp <- file.path(envrmt$path_tmp,"tmp7")
-stck7 <- LEGION_dem(dem = dem7,tmp = tmp,proj = utm)
+stck7 <- LEGION_dem(dem = dem7,tmp = tmp,proj = utm, units = 0)
 df7<- Reaver_extraction(poly=poly7,multilayer=stck7,set_ID = TRUE,name="doline_b")
 
 tmp <- file.path(envrmt$path_tmp,"tmp8")
-stck8 <- LEGION_dem(dem = dem8,tmp = tmp,proj = utm)
+stck8 <- LEGION_dem(dem = dem8,tmp = tmp,proj = utm, units = 0)
 df8<- Reaver_extraction(poly=poly8,multilayer=stck8,set_ID = TRUE,name="doline_c")
 
 tmp <- file.path(envrmt$path_tmp,"tmp9")
-stck9 <- LEGION_dem(dem = dem9,tmp = tmp,proj = utm)
+stck9 <- LEGION_dem(dem = dem9,tmp = tmp,proj = utm, units = 0)
 df9<- Reaver_extraction(poly=poly9,multilayer=stck9,set_ID = TRUE,name="pinge_c")
 
 tmp <- file.path(envrmt$path_tmp,"tmp10")
-stck10 <- LEGION_dem(dem = dem10,tmp = tmp,proj = utm)
+stck10 <- LEGION_dem(dem = dem10,tmp = tmp,proj = utm, units = 0)
 df10<- Reaver_extraction(poly=poly10,multilayer=stck10,set_ID = TRUE,name="krater_a")
 
 
