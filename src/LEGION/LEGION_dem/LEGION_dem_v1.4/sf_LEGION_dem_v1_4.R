@@ -45,8 +45,8 @@ sf_LEGION_dem <- function(dem,tmp,method=6,units=0,radius=100,proj,filter){
                                            C_TOTA= paste(tmp,"/cov_total_f",  as.factor(f),".sgrd", sep = ""),
                                            C_ROTO= paste(tmp,"/cov_flowli_f", as.factor(f),".sgrd", sep = ""),
                                            METHOD= method,
-                                           UNIT_SLOPE= 0,#0=radians,1=degree
-                                           UNIT_ASPECT=0 #0=radians,1=degree
+                                           UNIT_SLOPE= units,#0=radians,1=degree
+                                           UNIT_ASPECT=units #0=radians,1=degree
                                            
                                            
                               ),

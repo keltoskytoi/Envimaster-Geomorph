@@ -11,13 +11,13 @@
 #' @param Mandatory if function: tmp - a folder to save several rasterlayers (can be deleted later)
 #' @param Mandatory if function: proj - desired projection for output data, predefinition in var is recommended
 #' @param Mandatory if function: radius - The maximum search radius for skyview [map units]
-#' @param Mandatory if function: units - the unit for slope and aspect,0=radians 1=degree, default is 0
+#' @param Mandatory if function: units - the unit for slope and aspect,0=radians 1=degree, default is 1
 #' @param Mandatory if function: filter - a vector of at least 2 values for sum filter in f*f for the input dem.
 #' @param Mandatory if function: method - default 9 parameter 2nd order polynom (Zevenbergen & Thorne 1987) 
 #' for others see http://www.saga-gis.org/saga_tool_doc/6.4.0/ta_morphometry_0.html
 
 #Note sf: Subfunction to avoid list problem with lapply
-LEGION_dem <- function(dem,tmp,method=6,units=0,radius=100,proj,filter=0){
+LEGION_dem <- function(dem,tmp,method=6,units=1,radius=100,proj,filter=0){
   
   cat(" ",sep = "\n")
   cat("### LEGION starts to grow from a dem to many layers ###")
@@ -41,8 +41,8 @@ LEGION_dem <- function(dem,tmp,method=6,units=0,radius=100,proj,filter=0){
                                          C_TOTA= paste0(tmp,"/cov_total.sgrd"),
                                          C_ROTO= paste0(tmp,"/cov_flowli.sgrd"),
                                          METHOD= method,
-                                         UNIT_SLOPE= 0,#0=radians,1=degree
-                                         UNIT_ASPECT=0 #0=radians,1=degree
+                                         UNIT_SLOPE= units,#0=radians,1=degree
+                                         UNIT_ASPECT=units #0=radians,1=degree
                                          
                                          
                             ),
