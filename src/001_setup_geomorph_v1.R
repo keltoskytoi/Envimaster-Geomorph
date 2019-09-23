@@ -12,11 +12,13 @@ project_folders = c("data/",
                     "repo/src/",   #for scripts
                     "repo/doc/",   #for docs
                     "repo/lit/",   #for literature
-                      
+                    "repo/img/", 
+                    "repo/img/künzelplots/",
                     
                     "repo/src/Cenith_V2/",
                     "repo/src/000_dev/",
-                    "repo/src/Reaver/"
+                    "repo/src/Reaver/",
+                    "repo/src/LEGION"
                    
                     
 )
