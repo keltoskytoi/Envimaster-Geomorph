@@ -34,7 +34,6 @@ source(file.path(root_folder, file.path(pathdir,"Reaver/REAVER_hyperspace/REAVER
 #select col by name
 
 #mof layersdf_mb <- read.table(file.path(envrmt$path_002_processed,"mof_big/mof.csv"))
-df_m <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/mof.csv"))
 df_mb <- read.table(file.path(envrmt$path_002_processed,"mof_big/mof.csv"))
 
 #test layers
@@ -64,7 +63,7 @@ df <- rbind (df,df_bt)
 df <- rbind (df,df_dt)
 
 #mof_layers
-df <- rbind (df,df_m)
+
 df <- rbind (df,df_mb)
 
 # eliminate negative values and layer column
