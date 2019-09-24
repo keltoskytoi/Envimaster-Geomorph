@@ -17,7 +17,7 @@ Reaver_extraction <- function(poly,multilayer,set_ID=TRUE,name="") {
   
   #infun Test###
   #poly=poly
-  #multilayer=brk
+  #multilayer=stk
   ###############
   
  
@@ -67,7 +67,9 @@ Reaver_extraction <- function(poly,multilayer,set_ID=TRUE,name="") {
   df <- merge(df,sum,by="layer")
   df <- merge(df,min,by="layer")
   df <- merge(df,max,by="layer")
-  row.names(df) <-paste0(name,row.names(df),sep="")
+  #row.names(df) <-paste0(name,row.names(df),sep="")
+  row.names(df) <-paste0(name,poly$ID)
+  #df
   cat(" ",sep = "\n")
   cat(" ",sep = "\n")
   cat("### Reaver has finished ###")
