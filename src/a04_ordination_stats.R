@@ -35,6 +35,7 @@ source(file.path(root_folder, file.path(pathdir,"Reaver/REAVER_hyperspace/REAVER
 
 #mof layersdf_mb <- read.table(file.path(envrmt$path_002_processed,"mof_big/mof.csv"))
 df_m <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/mof.csv"))
+df_mb <- read.table(file.path(envrmt$path_002_processed,"mof_big/mof.csv"))
 
 #test layers
 df_dt <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/bad_drieburg_test.csv"))
@@ -62,14 +63,14 @@ df <- rbind (df,df_dc)
 df <- rbind (df,df_bt)
 df <- rbind (df,df_dt)
 
-
-df <- rbind (df,df_mb)
-
+#mof_layers
 df <- rbind (df,df_m)
+df <- rbind (df,df_mb)
 
 # eliminate negative values and layer column
 df[] <- lapply(df, abs)
 df <- df[,2:length(df)]
+
 
 #select col by name
 # only slope
