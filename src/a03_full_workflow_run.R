@@ -107,7 +107,7 @@ registerDoParallel(cl)
 #erase previous data from tmp before
 tmp <- file.path(envrmt$path_tmp,"tmp")
 stck <- LEGION_dem(dem = dem,tmp = tmp,proj = utm, units = 0)
-df<- Reaver_extraction(poly=poly,multilayer=stck,set_ID = TRUE,name="mof_big")
+df<- Reaver_extraction(poly=poly,multilayer=stck,set_ID = TRUE,name="test_mof")
 
 tmp <- file.path(envrmt$path_tmp,"tmp3")
 stck3 <- LEGION_dem(dem = dem3,tmp = tmp,proj = utm, units = 0)
