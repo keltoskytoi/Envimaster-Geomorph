@@ -103,11 +103,13 @@ tmp <- envrmt$path_tmp
 cl =  makeCluster(detectCores()-1)
 registerDoParallel(cl)
 
-#test for filters missing, should return stack with unfiltered rasters 
+
 #erase previous data from tmp before
 tmp <- file.path(envrmt$path_tmp,"tmp")
 stck <- LEGION_dem(dem = dem,tmp = tmp,proj = utm, units = 0)
-df<- Reaver_extraction(poly=poly,multilayer=stck,set_ID = TRUE,name="test_mof")
+df<- Reaver_extraction(poly=poly,multilayer=stck,set_ID = FALSE,name="test_mof")
+
+
 
 tmp <- file.path(envrmt$path_tmp,"tmp3")
 stck3 <- LEGION_dem(dem = dem3,tmp = tmp,proj = utm, units = 0)

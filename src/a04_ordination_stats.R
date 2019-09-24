@@ -58,13 +58,14 @@ df <- rbind (df,df_da)
 df <- rbind (df,df_db)
 df <- rbind (df,df_dc)
 
+#mof_layers
+df <- rbind (df,df_mb)
+
 #test layers
 df <- rbind (df,df_bt)
 df <- rbind (df,df_dt)
 
-#mof_layers
 
-df <- rbind (df,df_mb)
 
 # eliminate negative values and layer column
 df[] <- lapply(df, abs)
