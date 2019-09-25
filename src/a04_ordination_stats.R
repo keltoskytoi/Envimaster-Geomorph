@@ -48,6 +48,7 @@ df_pc <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/neu_anspach_
 df_da <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/bad_drieburg_a.csv"))
 df_db <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/bad_drieburg_b.csv"))
 df_dc <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/bad_drieburg_c.csv"))
+df_pd <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/isabellengrund_new.csv"))
 
 
 # merge dfs
@@ -57,6 +58,9 @@ df <- rbind (df,df_pc)
 df <- rbind (df,df_da)
 df <- rbind (df,df_db)
 df <- rbind (df,df_dc)
+
+df <- rbind (df,df_pd)
+
 
 #mof_layers
 df <- rbind (df,df_mb)

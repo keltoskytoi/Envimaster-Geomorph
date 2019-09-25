@@ -58,6 +58,9 @@ vp_som <-  rgdal::readOGR(file.path(envrmt$path_002_processed,"points/neu_anspac
 som <- raster::raster(file.path(envrmt$path_002_processed, "som_small/som_lahnberge_alt.tif"))
 vp_som <-  rgdal::readOGR(file.path(envrmt$path_002_processed,"points/lahnberge_alt_vp.shp"))
 
+som <- raster::raster(file.path(envrmt$path_002_processed, "som_small/som_isabellengrund_new.tif"))
+vp_som <-  rgdal::readOGR(file.path(envrmt$path_002_processed,"points/lahnberge_alt_vp.shp"))
+
 
 #check extent
 mapview(vp_som)+som
@@ -102,7 +105,7 @@ hollow <- cenith_hollow(som=som,a=0.1,b=2,h=0.1,min=5,max=1000,f=1) #test lower 
 
 hollow <- cenith_hollow(som=som,a=0.1,b=2,h=0.6,min=5,max=70,f=1)
 hollow
-mapview(hollow)+vp_som
+mapview(hollow)+som
 plot(som)
 
 #write data
@@ -119,6 +122,8 @@ writeOGR(obj=hollow,dsn= file.path(envrmt$path_002_processed, "poly/seg_bad_drie
 writeOGR(obj=hollow,dsn= file.path(envrmt$path_002_processed, "poly/seg_bad_drieburg_alt2_poly.shp"),layer="testShape",driver="ESRI Shapefile")
 writeOGR(obj=hollow,dsn= file.path(envrmt$path_002_processed, "poly/seg_neu_anspach_alt_poly.shp"),layer="testShape",driver="ESRI Shapefile")
 writeOGR(obj=hollow,dsn= file.path(envrmt$path_002_processed, "poly/seg_lahnberge_alt_poly.shp"),layer="testShape",driver="ESRI Shapefile")
+
+writeOGR(obj=hollow,dsn= file.path(envrmt$path_002_processed, "poly/seg_isabellengrund_poly_new.shp"),layer="testShape",driver="ESRI Shapefile")
 
 #end of script
 

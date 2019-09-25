@@ -21,7 +21,7 @@ root_folder = alternativeEnvi(root_folder = "~/edu/Envimaster-Geomorph",        
 source(file.path(root_folder, paste0(pathdir,"001_setup_geomorph_withSAGA_v1.R")))                                                              
 ###---------------------------------------------------------------------------------------###
 #############################################################################################
-dem <- raster::raster(file.path(envrmt$path_001_org, "tif4.tif"))
+dem <- raster::raster(file.path(envrmt$path_001_org, "isabellengrund_new.tif"))
 utm <- "+proj=utm +zone=32 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs"
 mapview(dem)
 source(file.path(root_folder, paste0(pathdir,"000_dev/cenith_fillsinks.R"))) 
@@ -48,4 +48,4 @@ utm <- "+proj=utm +zone=32 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs
 crs(som) <- utm
 mapview(som)
 
-writeRaster(som, filename= file.path(envrmt$path_002_processed, "som_small/som_lahnberge_alt.tif"), format="GTiff", overwrite=TRUE)
+writeRaster(som, filename= file.path(envrmt$path_002_processed, "som_small/isabellengrund_new.tif"), format="GTiff", overwrite=TRUE)
