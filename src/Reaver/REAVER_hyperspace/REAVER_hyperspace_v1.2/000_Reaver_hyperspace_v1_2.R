@@ -79,7 +79,7 @@ Reaver_hyperspace <-function(df,indi=TRUE){
   n_bom <-sum(str_count(rownames(hc),pattern = "krat"))
   n_dol <-sum(str_count(rownames(hc),pattern = "doli"))
   n_pin <-sum(str_count(rownames(hc),pattern = "ping"))
-  
+  n_test<-sum(str_count(rownames(hc),pattern = "test"))
   
   ################################################
   # cluster quality 
