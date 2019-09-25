@@ -120,7 +120,7 @@ Reaver_hyperspace <-function(df,indi=TRUE){
   
   ####################################################################
   # cluster quality with esitmated cluster class by max percent amount of obj/ n_obj in cluster
-  cqe <- data.frame(matrix(nrow=3,ncol=10))
+  cqe <- data.frame(matrix(nrow=3,ncol=12))
   colnames(cqe) <- c("hc_cluster","bomb","b/n_b","pinge","p/n_p","doline","d/n_d","n_obj","testobj","t/n_t", "max_class","class%")
   cqe$hc_cluster <- 1:3
   for (i in 1:max(cl)){
@@ -144,7 +144,7 @@ Reaver_hyperspace <-function(df,indi=TRUE){
   ##############################################################################
  # cluster quality by highest amount of class per cluster instead of n_obj per class
   
-  cqm <- data.frame(matrix(nrow=3,ncol=10))
+  cqm <- data.frame(matrix(nrow=3,ncol=12))
   colnames(cqm) <- c("hc_cluster","bomb","b/nobj_cl","pinge","p/nobj_cl","doline","d/nobj_cl","n_obj_cl","testobj","t/nobj_cl","hig_n_incl","in%")
   cqm$hc_cluster <- 1:3
   
