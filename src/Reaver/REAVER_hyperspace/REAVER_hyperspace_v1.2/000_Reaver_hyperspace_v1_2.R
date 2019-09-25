@@ -12,7 +12,7 @@
 #           amount of objects per cluster in percent of class in total and n_obj per cluster returns cluster
 
 # stats for HC only !!!
-
+cl=3
 
 Reaver_hyperspace <-function(df,indi=TRUE){
   cl=3 # set value, desciptiv stats work only for 3
@@ -156,8 +156,8 @@ Reaver_hyperspace <-function(df,indi=TRUE){
     cqm[i,6] <- paste0(sum(str_count(rownames(hc),pattern = "doli")& hc[,1]==i),"/",sum(hc[,1]==i))
     cqm[i,7] <- (sum(str_count(rownames(hc),pattern = "doli")& hc[,1]==i) / sum(hc[,1]==i))
     cqm[i,8] <- sum(hc[,1]==i)
-    cqe[i,9] <- paste0(sum(str_count(rownames(hc),pattern = "test")& hc[,1]==i),"/",sum(hc[,1]==i))
-    cqe[i,10]<- (sum(str_count(rownames(hc),pattern = "test")& hc[,1]==i) / sum(hc[,1]==i))
+    cqm[i,9] <- paste0(sum(str_count(rownames(hc),pattern = "test")& hc[,1]==i),"/",sum(hc[,1]==i))
+    cqm[i,10]<- (sum(str_count(rownames(hc),pattern = "test")& hc[,1]==i) / sum(hc[,1]==i))
     if ( which(cqm[i,]==max(cqm[i,c(3,5,7)]))==3)  {cqm[i,11] <- "bomb"} else if(
       which(cqm[i,]==max(cqm[i,c(3,5,7)]))==5)     {cqm[i,11] <- "pinge" } else if(
         which(cqm[i,]==max(cqm[i,c(3,5,7)]))==7)   {cqm[i,11] <- "doline" }
