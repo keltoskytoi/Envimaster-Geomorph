@@ -7,14 +7,13 @@ project_folders = c("data/",
                     "data/002_processed/",
                     "data/003_Stage_2/",
                     "data/004_Stage_3/",  #local data not in repo
+                    "data/img/künzelplots/",
                     "tmp/", # tmp folder for saga data
                     "GIS/",
                     "repo/src/",   #for scripts
                     "repo/doc/",   #for docs
                     "repo/lit/",   #for literature
                     "repo/img/", 
-                    "repo/img/künzelplots/",
-                    
                     "repo/src/Cenith_V2/",
                     "repo/src/000_dev/",
                     "repo/src/Reaver/",
