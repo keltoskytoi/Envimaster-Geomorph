@@ -132,7 +132,7 @@ Reaver_hyperspace <-function(df,indi=TRUE){
     cqe[i,7] <- (sum(str_count(rownames(hc),pattern = "doli")& hc[,1]==i) / n_dol)
     cqe[i,8] <- sum(hc[,1]==i)
     cqe[i,9] <- paste0(sum(str_count(rownames(hc),pattern = "test")& hc[,1]==i),"/",n_test)
-    cqe[i,10]<- (sum(str_count(rownames(hc),pattern = "doli")& hc[,1]==i) / n_test)
+    cqe[i,10]<- (sum(str_count(rownames(hc),pattern = "test")& hc[,1]==i) / n_test)
     
    if ( which(cqe[i,]==max(cqe[i,c(3,5,7)]))==3)   {cqe[i,11] <- "bomb"} else if(
       which(cqe[i,]==max(cqe[i,c(3,5,7)]))==5)     {cqe[i,11] <- "pinge" } else if(
@@ -157,7 +157,7 @@ Reaver_hyperspace <-function(df,indi=TRUE){
     cqm[i,7] <- (sum(str_count(rownames(hc),pattern = "doli")& hc[,1]==i) / sum(hc[,1]==i))
     cqm[i,8] <- sum(hc[,1]==i)
     cqe[i,9] <- paste0(sum(str_count(rownames(hc),pattern = "test")& hc[,1]==i),"/",sum(hc[,1]==i))
-    cqe[i,10]<- (sum(str_count(rownames(hc),pattern = "doli")& hc[,1]==i) / sum(hc[,1]==i))
+    cqe[i,10]<- (sum(str_count(rownames(hc),pattern = "test")& hc[,1]==i) / sum(hc[,1]==i))
     if ( which(cqm[i,]==max(cqm[i,c(3,5,7)]))==3)  {cqm[i,11] <- "bomb"} else if(
       which(cqm[i,]==max(cqm[i,c(3,5,7)]))==5)     {cqm[i,11] <- "pinge" } else if(
         which(cqm[i,]==max(cqm[i,c(3,5,7)]))==7)   {cqm[i,11] <- "doline" }
