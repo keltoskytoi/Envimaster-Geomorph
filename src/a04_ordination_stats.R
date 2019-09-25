@@ -107,11 +107,16 @@ test <- Reaver_hyperspace(df,indi=T)
 
 #get col position for multiple cols
 asp_min <-which(str_count(colnames(df),pattern = "aspect_min")==1)
+cov_min <-which(str_count(colnames(df),pattern = "cov_total_min")==1)
 cov_mean <-which(str_count(colnames(df),pattern = "cov_flowli_mean")==1)
+cov_flo <-which(str_count(colnames(df),pattern = "cov_flowli_sd")==1)
 sv_dist <-which(str_count(colnames(df),pattern = "sv_dist_sum")==1)
+cov_max <-which(str_count(colnames(df),pattern = "cov_maxim_sum")==1)
 
-c <- c(asp_min,cov_mean,sv_dist)
+c <- c(asp_min,cov_min,cov_mean,cov_flo,sv_dist,cov_max)
 dfx <-df[,c]
+
+test <- Reaver_hyperspace(dfx,indi=T)
 # descriptive Werte. Anzahl an Objecten je Cluster als Clustergüte (zb 85% bombemkrater)
 # Hyphotthese von eindeutigen zuordnbaren Cluster zb bei 85 % wird angenommen es handelt sich um den Bombemcluster
 # konkrete statistische tests hat auch JK gerade keine ahnung, evt 3x3 tafel für chi2 test
