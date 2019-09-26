@@ -39,6 +39,7 @@ df_mb <- read.table(file.path(envrmt$path_002_processed,"mof_big/mof.csv"))
 #test layers
 df_dt <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/bad_drieburg_test.csv"))
 df_bt <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/lahnberge_test.csv"))
+df_pt <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/isabellengrund_new.csv"))
 
 #train layers
 df_b <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/lahnberge_a.csv"))
@@ -70,7 +71,7 @@ df <- rbind (df,df_mb)
 #test layers
 df <- rbind (df,df_bt)
 df <- rbind (df,df_dt)
-
+df <- rbind (df,df_pt)
 
 
 # eliminate negative values and layer column

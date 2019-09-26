@@ -89,9 +89,10 @@ som <- spTransform(som,utm)
 compareCRS(dem,som)
 poly <- spTransform(poly,utm)
 compareCRS(dem,poly)
-plot(dem)
-plot(som)
-plot(poly)
+plot(dem11)
+plot(som11)
+plot(poly11)
+mapview(poly11)+som11
 ###first generate several artifically layers using the LEGION_dem function
 
 #source LEGION 
@@ -154,6 +155,24 @@ df11<- Reaver_extraction(poly=poly11,multilayer=stck11,set_ID = TRUE,name="test_
 tmp <- file.path(envrmt$path_tmp,"tmp2")
 stck2 <- LEGION_dem(dem = dem2,tmp = tmp,proj = utm, units = 0)
 df2<- Reaver_extraction(poly=poly2,multilayer=stck2,set_ID = TRUE,name="test_d")
+
+######### test layer pingen
+tmp <- file.path(envrmt$path_tmp,"tmp1")
+stck12 <- LEGION_dem(dem = dem11,tmp = tmp,proj = utm, units = 0)
+df12<- Reaver_extraction(poly=poly11,multilayer=stck12,set_ID = TRUE,name="test_p")
+
+
+
+
+
+### add testdat to traindat (optional)
+tmp <- file.path(envrmt$path_tmp,"tmp11")
+stck11 <- LEGION_dem(dem = dem1,tmp = tmp,proj = utm, units = 0)
+df11<- Reaver_extraction(poly=poly11,multilayer=stck11,set_ID = TRUE,name="krater_b")
+
+tmp <- file.path(envrmt$path_tmp,"tmp2")
+stck2 <- LEGION_dem(dem = dem2,tmp = tmp,proj = utm, units = 0)
+df2<- Reaver_extraction(poly=poly2,multilayer=stck2,set_ID = TRUE,name="doline_d")
 
 tmp <- file.path(envrmt$path_tmp,"tmp1")
 stck12 <- LEGION_dem(dem = dem11,tmp = tmp,proj = utm, units = 0)
