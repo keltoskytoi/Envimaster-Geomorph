@@ -1,0 +1,306 @@
+---
+title: "LEGION dem"
+author: "Andreas Schönberg"
+date: "26 September 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Description
+
+The function LEGION dem generates several artifically raster layers for morphometrics (slope, aspect and cuvature) and Skyview Factor (visible sky, SVF) from a DEM. The function returns a RasterStack.
+
+The function is a wrapper for RSAGA and uses the SAGA tool morphometrics http://www.saga-gis.org/saga_tool_doc/6.4.0/ta_morphometry_0.html and SAGA tool sky view factor http://www.saga-gis.org/saga_tool_doc/6.4.0/ta_lighting_3.html.
+
+NOTE: requires a RSAGA environment!
+
+Development information:
+The wrapper writes the input dem to the ".sdat" Saga format and uses the SAGA tools morphometrics and sky view factor to generate raster lyers in ".sdat" format. The ".sdat" rasters are loaded projected in the desired projection and saved as ".tif" format. The fucntion uses a tmp folder to save the ".sdat" and ".tif" raster and returns a stack. 
+
+### Filters
+optional different filter sizes can be used to generate artificaly raster layers from a filtered dem.
+Filter size will be FxF sum filters. The filtered output raster get a tag with the "f_'filter size'"
+
+### Output data
+The returning stack sources the rasters from the "tmp" folder which are overwritten in a new run. 
+Creating a specific tmp folder for each use of LEGION dem is recommended
+
+### Outlook
+Next update will include an output path to save the resulting rasters and an option to select only desired rasters. Further more artifical rasters will be included.
+
+```{r cars}
+#' Mandatory: Legion DEM
+#' 
+#' @description Optional: Computes several artificially raster layers from a single DEM and uses
+#' several sum filters .Returns a single RasterStack.
+#' @name Mandatory LEGION  
+#' @export Mandatory LEGION
+
+#' @param Mandatory if function: dem - a digital elevation model in tif format
+#' @param Mandatory if function: output - the path where the som and filled_dem to be saved
+#' predefinition in var is recommended
+#' @param Mandatory if function: tmp - a folder to save several rasterlayers (can be deleted later)
+#' @param Mandatory if function: proj - desired projection for output data, predefinition in var is recommended
+#' @param Mandatory if function: radius - The maximum search radius for skyview [map units]
+#' @param Mandatory if function: units - the unit for slope and aspect,0=radians 1=degree, default is 1
+#' @param Mandatory if function: filter - a vector of at least 2 values for sum filter in f*f for the input dem.
+#' @param Mandatory if function: method - default 9 parameter 2nd order polynom (Zevenbergen & Thorne 1987) 
+#' for others see http://www.saga-gis.org/saga_tool_doc/6.4.0/ta_morphometry_0.html
+
+#Note v1.4: uses longer names for rasters, generate first rasters witout filter and tag filtersize to raster names
+LEGION_dem <- function(dem,tmp,method=6,units=1,radius=100,proj,filter=0){
+  
+  cat(" ",sep = "\n")
+  cat("### LEGION starts to grow from a dem to many layers ###")
+  cat(" ",sep = "\n")
+  raster::writeRaster(dem,filename=file.path(paste0(tmp,"/dem.sdat")),overwrite = TRUE,NAflag = 0)
+  cat("### LEGION grows - computing morphometric layers ###")
+  #compute SAGA morphometrics, save to tmp folder as .sgrd
+  #parameters are taken from the website saga-gis
+  RSAGA::rsaga.geoprocessor(lib = "ta_morphometry", module = 0,
+                            param = list(ELEVATION =     paste0(tmp,"/dem.sgrd"), 
+                                         SLOPE = paste0(tmp,"/slope.sgrd"),
+                                         ASPECT= paste0(tmp,"/aspect.sgrd"),
+                                         C_GENE= paste0(tmp,"/cov_general.sgrd"),
+                                         C_PROF= paste0(tmp,"/cov_profil.sgrd"),
+                                         C_PLAN= paste0(tmp,"/cov_plan.sgrd"),
+                                         C_TANG= paste0(tmp,"/cov_tangen.sgrd"),
+                                         C_LONG= paste0(tmp,"/cov_longin.sgrd"),
+                                         C_CROS= paste0(tmp,"/cov_cross.sgrd"),
+                                         C_MINI= paste0(tmp,"/cov_minim.sgrd"),
+                                         C_MAXI= paste0(tmp,"/cov_maxim.sgrd"),
+                                         C_TOTA= paste0(tmp,"/cov_total.sgrd"),
+                                         C_ROTO= paste0(tmp,"/cov_flowli.sgrd"),
+                                         METHOD= method,
+                                         UNIT_SLOPE= units,#0=radians,1=degree
+                                         UNIT_ASPECT=units #0=radians,1=degree
+                                         
+                                         
+                            ),
+                            show.output.on.console = TRUE, invisible = TRUE,
+                            env = env)
+  cat(" ",sep = "\n")
+  cat("### LEGION grows - computing skyview layers ###")
+  cat(" ",sep = "\n")
+  #compute SAGA skyview, save to tmp folder as .sgrd
+  #parameters are taken from the website saga-gis
+  RSAGA::rsaga.geoprocessor(lib = "ta_lighting", module = 3,
+                            param = list(DEM =     paste0(tmp,"/dem.sgrd"),
+                                         VISIBLE = paste0(tmp,"/sv_visi.sgrd"),
+                                         SVF =     paste0(tmp,"/sv_svf.sgrd"),
+                                         SIMPLE=   paste0(tmp,"/sv_simp.sgrd"),
+                                         TERRAIN = paste0(tmp,"/sv_terr.sgrd"),
+                                         DISTANCE= paste0(tmp,"/sv_dist.sgrd"),
+                                         RADIUS=radius,
+                                         NDIRS =8, #default setting
+                                         METHOD=0, #default setting
+                                         DLEVEL=3  #default setting
+                                         
+                                         
+                            ),
+                            show.output.on.console = TRUE, invisible = TRUE,
+                            env = env)
+  
+  ### load sgrd and change projection
+  #load sdat from tmp folder by name, now they are saved in variable, names will still be the names from the sdat
+  slo <- raster::raster(file.path(paste0(tmp, "/slope.sdat")))
+  asp <- raster::raster(file.path(paste0(tmp, "/aspect.sdat")))
+  gen <- raster::raster(file.path(paste0(tmp, "/cov_general.sdat")))
+  pro <- raster::raster(file.path(paste0(tmp, "/cov_profil.sdat")))
+  pla <- raster::raster(file.path(paste0(tmp, "/cov_plan.sdat")))
+  tan <- raster::raster(file.path(paste0(tmp, "/cov_tangen.sdat")))
+  lon <- raster::raster(file.path(paste0(tmp, "/cov_longin.sdat")))
+  cro <- raster::raster(file.path(paste0(tmp, "/cov_cross.sdat")))
+  min <- raster::raster(file.path(paste0(tmp, "/cov_minim.sdat")))
+  max <- raster::raster(file.path(paste0(tmp, "/cov_maxim.sdat")))
+  tol <- raster::raster(file.path(paste0(tmp, "/cov_total.sdat")))
+  rot <- raster::raster(file.path(paste0(tmp, "/cov_flowli.sdat")))
+  vis <- raster::raster(file.path(paste0(tmp, "/sv_visi.sdat")))
+  svf <- raster::raster(file.path(paste0(tmp, "/sv_svf.sdat")))
+  sim <- raster::raster(file.path(paste0(tmp, "/sv_simp.sdat")))
+  ter <- raster::raster(file.path(paste0(tmp, "/sv_terr.sdat")))
+  dis <- raster::raster(file.path(paste0(tmp, "/sv_dist.sdat")))
+  
+  # set projection, predefined in proj
+  pr4 <- proj
+  proj4string(slo) <- pr4
+  proj4string(asp) <- pr4
+  proj4string(gen) <- pr4
+  proj4string(pro) <- pr4
+  proj4string(pla) <- pr4
+  proj4string(tan) <- pr4
+  proj4string(lon) <- pr4
+  proj4string(cro) <- pr4
+  proj4string(min) <- pr4
+  proj4string(max) <- pr4
+  proj4string(tol) <- pr4
+  proj4string(rot) <- pr4
+  proj4string(vis) <- pr4
+  proj4string(svf) <- pr4
+  proj4string(sim) <- pr4
+  proj4string(ter) <- pr4
+  proj4string(dis) <- pr4
+  
+  # brick all layers and return brick, 
+  #sequence can be set here, 
+  #the names will be like the sdat org names not the variable names
+  stk <- raster::stack(slo,asp,gen,pro,pla,tan,lon,cro,min,max,tol,rot,vis,svf,sim,ter,dis)
+  
+  if (filter[1]==0){
+    cat(" ",sep = "\n")
+    cat("### LEGION finished ###")
+    cat(" ",sep = "\n")
+    return(stk)
+  }else{
+  
+  ls <-sf_LEGION_dem(dem,tmp,method,units,radius,proj,filter)
+  
+  
+   
+ for (i in 1:length(filter)){
+   stk <-stack(stk,ls[[i]])
+   
+ }
+  cat(" ",sep = "\n")
+  cat("### LEGION finished ###")
+  cat(" ",sep = "\n")
+   return(stk)
+  }
+}
+
+```
+
+### Subfunction for filters
+
+```{r }
+#' Mandatory: Subfunction for Legion DEM
+#' 
+#' @description Optional: Computes several artificially raster layers from a single DEM. returns a list.
+#' @name Mandatory LEGION  
+#' @export Mandatory LEGION
+
+#' @param Mandatory if function: dem - a digital elevation model in tif format
+#' @param Mandatory if function: output - the path where the som and filled_dem to be saved
+#' predefinition in var is recommended
+#' @param Mandatory if function: tmp - a folder to save several rasterlayers (can be deleted later)
+#' @param Mandatory if function: proj - desired projection for output data, predefinition in var is recommended
+#' @param Mandatory if function: radius - The maximum search radius for skyview [map units]
+#' @param Mandatory if function: units - the unit for slope and aspect,0=radians 1=degree, default is 0
+#' @param Mandatory if function: filter - a vector of at least 2 values for sum filter in f*f for the input dem.
+#' @param Mandatory if function: method - default 9 parameter 2nd order polynom (Zevenbergen & Thorne 1987) 
+#' for others see http://www.saga-gis.org/saga_tool_doc/6.4.0/ta_morphometry_0.html
+
+#Note sf: Subfunction 
+sf_LEGION_dem <- function(dem,tmp,method=6,units=0,radius=100,proj,filter){
+  
+  lapply(filter, function(f){
+
+  
+  # change dem
+  dem <- raster::focal(dem,w=matrix(1/(f*f),nrow=f,ncol=f))
+  raster::writeRaster(dem,filename=paste0(file.path(paste0(tmp,"/dem_f",as.factor(f),".sdat"))),overwrite = TRUE,NAflag = 0)
+  
+  cat(" ",sep = "\n")
+  cat(paste("### LEGION grows - computing morphometric layers for filter ",as.factor(f), "###"))
+  cat(" ",sep = "\n")
+#compute SAGA morphometrics, save to tmp folder as .sgrd
+  #parameters are taken from the website saga-gis
+        RSAGA::rsaga.geoprocessor(lib = "ta_morphometry", module = 0,
+                              param = list(ELEVATION =     paste(tmp,"/dem_f",as.factor(f),".sgrd", sep = ""), 
+                                           SLOPE = paste(tmp,"/slope_f",      as.factor(f),".sgrd", sep = ""),
+                                           ASPECT= paste(tmp,"/aspect_f",     as.factor(f),".sgrd", sep = ""),
+                                           C_GENE= paste(tmp,"/cov_general_f",as.factor(f),".sgrd", sep = ""),
+                                           C_PROF= paste(tmp,"/cov_profil_f", as.factor(f),".sgrd", sep = ""),
+                                           C_PLAN= paste(tmp,"/cov_plan_f",   as.factor(f),".sgrd", sep = ""),
+                                           C_TANG= paste(tmp,"/cov_tangen_f", as.factor(f),".sgrd", sep = ""),
+                                           C_LONG= paste(tmp,"/cov_longin_f", as.factor(f),".sgrd", sep = ""),
+                                           C_CROS= paste(tmp,"/cov_cross_f",  as.factor(f),".sgrd", sep = ""),
+                                           C_MINI= paste(tmp,"/cov_minim_f",  as.factor(f),".sgrd", sep = ""),
+                                           C_MAXI= paste(tmp,"/cov_maxim_f",  as.factor(f),".sgrd", sep = ""),
+                                           C_TOTA= paste(tmp,"/cov_total_f",  as.factor(f),".sgrd", sep = ""),
+                                           C_ROTO= paste(tmp,"/cov_flowli_f", as.factor(f),".sgrd", sep = ""),
+                                           METHOD= method,
+                                           UNIT_SLOPE= units,#0=radians,1=degree
+                                           UNIT_ASPECT=units #0=radians,1=degree
+                                           
+                                           
+                              ),
+                              show.output.on.console = TRUE, invisible = TRUE,
+                              env = env)
+        cat(" ",sep = "\n")
+        cat(paste("### LEGION grows - computing skyview layers for filter ",as.factor(f), "###"))
+        cat(" ",sep = "\n")
+#compute SAGA skyview, save to tmp folder as .sgrd
+    #parameters are taken from the website saga-gis
+    RSAGA::rsaga.geoprocessor(lib = "ta_lighting", module = 3,
+                              param = list(DEM =     paste(tmp,"/dem_f",as.factor(f),".sgrd", sep = ""),
+                                           VISIBLE = paste(tmp,"/sv_visi_f",as.factor(f),".sgrd", sep = ""),
+                                           SVF =     paste(tmp,"/sv_svf_f",as.factor(f),".sgrd", sep = ""),
+                                           SIMPLE=   paste(tmp,"/sv_simp_f",as.factor(f),".sgrd", sep = ""),
+                                           TERRAIN = paste(tmp,"/sv_terr_f",as.factor(f),".sgrd", sep = ""),
+                                           DISTANCE= paste(tmp,"/sv_dist_f",as.factor(f),".sgrd", sep = ""),
+                                           RADIUS=radius,
+                                           NDIRS =8, #default setting
+                                           METHOD=0, #default setting
+                                           DLEVEL=3  #default setting
+                                           
+                                           
+                              ),
+                              show.output.on.console = TRUE, invisible = TRUE,
+                              env = env)
+    
+### load sgrd and change projection
+#load sdat from tmp folder by name, now they are saved in variable, names will still be the names from the sdat
+    slo <- raster::raster(file.path(paste0(tmp, "/slope_f",as.factor(f),".sdat")))
+    asp <- raster::raster(file.path(paste0(tmp, "/aspect_f",as.factor(f),".sdat")))
+    gen <- raster::raster(file.path(paste0(tmp, "/cov_general_f",as.factor(f),".sdat")))
+    pro <- raster::raster(file.path(paste0(tmp, "/cov_profil_f",as.factor(f),".sdat")))
+    pla <- raster::raster(file.path(paste0(tmp, "/cov_plan_f",as.factor(f),".sdat")))
+    tan <- raster::raster(file.path(paste0(tmp, "/cov_tangen_f",as.factor(f),".sdat")))
+    lon <- raster::raster(file.path(paste0(tmp, "/cov_longin_f",as.factor(f),".sdat")))
+    cro <- raster::raster(file.path(paste0(tmp, "/cov_cross_f",as.factor(f),".sdat")))
+    min <- raster::raster(file.path(paste0(tmp, "/cov_minim_f",as.factor(f),".sdat")))
+    max <- raster::raster(file.path(paste0(tmp, "/cov_maxim_f",as.factor(f),".sdat")))
+    tol <- raster::raster(file.path(paste0(tmp, "/cov_total_f",as.factor(f),".sdat")))
+    rot <- raster::raster(file.path(paste0(tmp, "/cov_flowli_f",as.factor(f),".sdat")))
+    vis <- raster::raster(file.path(paste0(tmp, "/sv_visi_f",as.factor(f),".sdat")))
+    svf <- raster::raster(file.path(paste0(tmp, "/sv_svf_f",as.factor(f),".sdat")))
+    sim <- raster::raster(file.path(paste0(tmp, "/sv_simp_f",as.factor(f),".sdat")))
+    ter <- raster::raster(file.path(paste0(tmp, "/sv_terr_f",as.factor(f),".sdat")))
+    dis <- raster::raster(file.path(paste0(tmp, "/sv_dist_f",as.factor(f),".sdat")))
+    
+# set projection, predefined in proj
+    pr4 <- proj
+    proj4string(slo) <- pr4
+    proj4string(asp) <- pr4
+    proj4string(gen) <- pr4
+    proj4string(pro) <- pr4
+    proj4string(pla) <- pr4
+    proj4string(tan) <- pr4
+    proj4string(lon) <- pr4
+    proj4string(cro) <- pr4
+    proj4string(min) <- pr4
+    proj4string(max) <- pr4
+    proj4string(tol) <- pr4
+    proj4string(rot) <- pr4
+    proj4string(vis) <- pr4
+    proj4string(svf) <- pr4
+    proj4string(sim) <- pr4
+    proj4string(ter) <- pr4
+    proj4string(dis) <- pr4
+    
+# brick all layers and return brick, 
+    #sequence can be set here, 
+    #the names will be like the sdat org names not the variable names
+    stk <- raster::stack(slo,asp,gen,pro,pla,tan,lon,cro,min,max,tol,rot,vis,svf,sim,ter,dis)
+
+    return(stk)
+    
+  })
+}
+```
+
+
