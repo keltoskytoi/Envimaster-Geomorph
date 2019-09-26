@@ -164,9 +164,13 @@ tmp <- file.path(envrmt$path_tmp,"tmp1")
 stck12 <- LEGION_dem(dem = dem11,tmp = tmp,proj = utm, units = 0)
 df12<- Reaver_extraction(poly=poly11,multilayer=stck12,set_ID = TRUE,name="test_p")
 
+
+#check extent
 mapview(poly2)+som2
 mapview(poly1)+som1
 mapview(poly11)+som11
+
+
 
 ### add testdat to traindat (optional)
 tmp <- file.path(envrmt$path_tmp,"tmp11")
@@ -205,9 +209,9 @@ write.table(df2,file=file.path(envrmt$path_002_processed,"reaver_csv/bad_driebur
 write.table(df12,file=file.path(envrmt$path_002_processed,"reaver_csv/isabellengrund_test.csv"))
 
 # added testdate named class_d
-write.table(df11,file=file.path(envrmt$path_002_processed,"reaver_csv/lahnberge_test.csv"))
-write.table(df2,file=file.path(envrmt$path_002_processed,"reaver_csv/bad_drieburg_test.csv"))
-write.table(df12,file=file.path(envrmt$path_002_processed,"reaver_csv/isabellengrund_test.csv"))
+write.table(df11,file=file.path(envrmt$path_002_processed,"reaver_csv/lahnberge_b.csv"))
+write.table(df2,file=file.path(envrmt$path_002_processed,"reaver_csv/bad_drieburg_d.csv"))
+write.table(df12,file=file.path(envrmt$path_002_processed,"reaver_csv/isabellengrund_a.csv"))
 
 #read data
 
@@ -229,9 +233,9 @@ dfn2 <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/bad_drieburg_
 dfn12 <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/Isabellengrund_test.csv"))
 
 # added testdate named class_d
-dfn11 <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/lahnberge_test.csv"))
-dfn2 <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/bad_drieburg_test.csv"))
-dfn12 <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/Isabellengrund_test.csv"))
+dfn11 <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/lahnberge_b.csv"))
+dfn2 <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/bad_drieburg_d.csv"))
+dfn12 <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/Isabellengrund_a.csv"))
 
 #save as rds
 
@@ -253,9 +257,9 @@ saveRDS(stck2,file.path(envrmt$path_002_processed,"reaver_rds/bad_drieburg_test.
 saveRDS(stck12,file.path(envrmt$path_002_processed,"reaver_rds/isabellengrund_test.rds"))
 
 # added testdate named class_d
-saveRDS(stck11,file.path(envrmt$path_002_processed,"reaver_rds/lahnberge_test.rds"))
-saveRDS(stck2,file.path(envrmt$path_002_processed,"reaver_rds/bad_drieburg_test.rds"))
-saveRDS(stck12,file.path(envrmt$path_002_processed,"reaver_rds/isabellengrund_test.rds"))
+saveRDS(stck11,file.path(envrmt$path_002_processed,"reaver_rds/lahnberge_b.rds"))
+saveRDS(stck2,file.path(envrmt$path_002_processed,"reaver_rds/bad_drieburg_d.rds"))
+saveRDS(stck12,file.path(envrmt$path_002_processed,"reaver_rds/isabellengrund_a.rds"))
 
 #read rds
 
@@ -277,6 +281,6 @@ rdsstk2 <-readRDS(file.path(envrmt$path_002_processed,"reaver_rds/bad_drieburg_t
 rdsstk12 <-readRDS(file.path(envrmt$path_002_processed,"reaver_rds/isabellengrund_test.rds"))
 
 # added testdate named class_d
-rdsstk11 <-readRDS(file.path(envrmt$path_002_processed,"reaver_rds/lahnberge_test.rds"))
-rdsstk2 <-readRDS(file.path(envrmt$path_002_processed,"reaver_rds/bad_drieburg_test.rds"))
-rdsstk12 <-readRDS(file.path(envrmt$path_002_processed,"reaver_rds/isabellengrund_test.rds"))
+rdsstk11 <-readRDS(file.path(envrmt$path_002_processed,"reaver_rds/lahnberge_b.rds"))
+rdsstk2 <-readRDS(file.path(envrmt$path_002_processed,"reaver_rds/bad_drieburg_d.rds"))
+rdsstk12 <-readRDS(file.path(envrmt$path_002_processed,"reaver_rds/isabellengrund_a.rds"))

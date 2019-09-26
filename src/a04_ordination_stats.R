@@ -39,7 +39,13 @@ df_mb <- read.table(file.path(envrmt$path_002_processed,"mof_big/mof.csv"))
 #test layers
 df_dt <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/bad_drieburg_test.csv"))
 df_bt <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/lahnberge_test.csv"))
-df_pt <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/isabellengrund_new.csv"))
+df_pt <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/isabellengrund_test.csv"))
+
+#additional trian layers
+df_bb <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/lahnberge_b.csv"))
+df_dd <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/bad_drieburg_d.csv"))
+df_pd <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/isabellengrund_a.csv"))
+
 
 #train layers
 df_b <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/lahnberge_a.csv"))
@@ -51,10 +57,9 @@ df_db <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/bad_drieburg
 df_dc <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/bad_drieburg_c.csv"))
 
 
-#df_pd <- read.table(file.path(envrmt$path_002_processed,"reaver_csv/isabellengrund_new.csv"))
-
-
 # merge dfs
+
+#train layers
 df <- rbind(df_b,df_pa)
 df <- rbind (df,df_pb)
 df <- rbind (df,df_pc)
@@ -62,16 +67,18 @@ df <- rbind (df,df_da)
 df <- rbind (df,df_db)
 df <- rbind (df,df_dc)
 
-#df <- rbind (df,df_pd)
-
-
-#mof_layers
-df <- rbind (df,df_mb)
+#additinal train layers
+df <- rbind (df,df_bb)
+df <- rbind (df,df_dd)
+df <- rbind (df,df_pd)
 
 #test layers
 df <- rbind (df,df_bt)
 df <- rbind (df,df_dt)
 df <- rbind (df,df_pt)
+
+#mof_layers
+df <- rbind (df,df_mb)
 
 
 # eliminate negative values and layer column
@@ -79,7 +86,8 @@ df[] <- lapply(df, abs)
 df <- df[,2:length(df)]
 
 
-
+# run Reaver hyperspace
+test <- Reaver_hyperspace(df,indi=T)
 
 
 
