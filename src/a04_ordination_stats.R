@@ -79,6 +79,11 @@ df[] <- lapply(df, abs)
 df <- df[,2:length(df)]
 
 
+
+
+
+
+
 #select col by name
 # only slope
 dfslo <-df[,which(str_count(colnames(df),pattern = "slop")==1)]
