@@ -8,11 +8,9 @@
 #' @param Mandatory if function: df - a data.frame with sites in rows and parameters in columns with numeric values.
 #' @param Mandatory if function: indi - if TRUE the indicator parameters are printed, default = TRUE
 
-#note: v1.1 calculates statistics for cluster quality by
-#           amount of objects per cluster in percent of class in total and n_obj per cluster returns cluster
-
+#note: v1.2 returning improved cluster quality parameters
 # stats for HC only !!!
-cl=3
+
 
 Reaver_hyperspace <-function(df,indi=TRUE){
   cl=3 # set value, desciptiv stats work only for 3

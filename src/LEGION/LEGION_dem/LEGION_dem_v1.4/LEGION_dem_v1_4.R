@@ -1,7 +1,7 @@
 #' Mandatory: Legion DEM
 #' 
-#' @description Optional: CComputes several artificially raster layers from a single DEM and uses
-#' several sum filters.Returns a single RasterStack.
+#' @description Optional: Computes several artificially raster layers from a single DEM and uses
+#' several sum filters .Returns a single RasterStack.
 #' @name Mandatory LEGION  
 #' @export Mandatory LEGION
 
@@ -16,7 +16,7 @@
 #' @param Mandatory if function: method - default 9 parameter 2nd order polynom (Zevenbergen & Thorne 1987) 
 #' for others see http://www.saga-gis.org/saga_tool_doc/6.4.0/ta_morphometry_0.html
 
-#Note sf: Subfunction to avoid list problem with lapply
+#Note v1.4: uses longer names for rasters, generate first rasters witout filter and tag filtersize to raster names
 LEGION_dem <- function(dem,tmp,method=6,units=1,radius=100,proj,filter=0){
   
   cat(" ",sep = "\n")
