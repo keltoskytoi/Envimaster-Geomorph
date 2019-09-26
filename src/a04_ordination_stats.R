@@ -26,7 +26,7 @@ source(file.path(root_folder, paste0(pathdir,"/001_setup_geomorph_v1.R")))
 # test and documentat several ordination runs wit reducing df or selecting high indicator parameters
 
 #source function
-source(file.path(root_folder, file.path(pathdir,"Reaver/REAVER_hyperspace/REAVER_hyperspace_v1.1/000_Reaver_hyperspace_v1_1.R")))
+source(file.path(root_folder, file.path(pathdir,"Reaver/REAVER_hyperspace/REAVER_hyperspace_v1.2/000_Reaver_hyperspace_v1_2.R")))
 
 #############################################################################
 # selcet cols
