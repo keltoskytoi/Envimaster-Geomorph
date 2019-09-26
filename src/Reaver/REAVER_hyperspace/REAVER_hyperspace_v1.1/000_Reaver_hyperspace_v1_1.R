@@ -66,10 +66,13 @@ Reaver_hyperspace <-function(df,indi=TRUE){
   import_hc <-importance(df, cutclust,show=NA)
   hc_ival <- indval(df, cutclust)
   summary(hc_ival)  
+  
+  const_km <-const(df, km_cl$cluster)
+  import_km <-importance(df,km_cl$cluster,show=NA)
+  km_ival <- indval(df, km_cl$cluster)
+  summary(km_ival)
   }
-#  const_km <-const(df, km_cl$cluster)
-#  import_km <-importance(df,km_cl$cluster,show=NA)
-#  km_ival <- indval(df, km_cl$cluster) # summarys indicator
+  # summarys indicator
 #####################################################################
 
 
