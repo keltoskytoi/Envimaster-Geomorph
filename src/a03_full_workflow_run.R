@@ -175,7 +175,7 @@ mapview(poly11)+som11
 ### add testdat to traindat (optional)
 tmp <- file.path(envrmt$path_tmp,"tmp11")
 stck11 <- LEGION_dem(dem = dem1,tmp = tmp,proj = utm, units = 0)
-df11<- Reaver_extraction(poly=poly11,multilayer=stck11,set_ID = TRUE,name="krater_b")
+df11<- Reaver_extraction(poly=poly1,multilayer=stck11,set_ID = TRUE,name="krater_b")
 
 tmp <- file.path(envrmt$path_tmp,"tmp2")
 stck2 <- LEGION_dem(dem = dem2,tmp = tmp,proj = utm, units = 0)
