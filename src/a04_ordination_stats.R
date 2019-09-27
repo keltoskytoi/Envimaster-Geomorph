@@ -121,14 +121,14 @@ test <- Reaver_hyperspace(df,indi=T)
 
 #get col position for multiple cols
 #cluster_1
-asp_min <-which(str_count(colnames(df),pattern = "aspect_min")==1)
-cov_min <-which(str_count(colnames(df),pattern = "cov_total_min")==1)
+asp_min <-which(str_count(colnames(df),pattern = "aspect_min")==1)       #0.8012
+cov_min <-which(str_count(colnames(df),pattern = "cov_total_min")==1)    #0.5814
 #cluster_2
-cov_mean <-which(str_count(colnames(df),pattern = "cov_flowli_mean")==1)
-cov_flo <-which(str_count(colnames(df),pattern = "cov_flowli_sd")==1)
+cov_mean <-which(str_count(colnames(df),pattern = "cov_flowli_mean")==1) #0.6664
+cov_flo <-which(str_count(colnames(df),pattern = "cov_flowli_sd")==1)   #0.6095
 #cluster_3
-sv_dist <-which(str_count(colnames(df),pattern = "sv_dist_sum")==1)
-cov_max <-which(str_count(colnames(df),pattern = "cov_maxim_sum")==1)
+sv_dist <-which(str_count(colnames(df),pattern = "sv_dist_sum")==1)   #0.9435
+cov_max <-which(str_count(colnames(df),pattern = "cov_maxim_sum")==1)  #0.9139
 
 c <- c(asp_min,cov_min,cov_mean,cov_flo,sv_dist,cov_max)
 dfx <-df[,c]
