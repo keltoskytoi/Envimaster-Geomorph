@@ -31,7 +31,7 @@ source(file.path(root_folder, file.path(pathdir,"Reaver/REAVER_hyperspace/000_Re
 #############################################################################
 # selcet cols
 
-test <- Reaver_hyperspace_imgs(df,1.5)
+test <- Reaver_hyperspace_imgs(df,2)
 
 #select col by name
 df_mb <- read.table(file.path(envrmt$path_002_processed,"mof_big/mof.csv"))
