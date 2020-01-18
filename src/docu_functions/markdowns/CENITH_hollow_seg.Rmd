@@ -1,0 +1,136 @@
+---
+title: "CENITH hollow segmentation"
+author: "Andreas Schönberg"
+date: "26 September 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Description
+
+The function CENITH hollow segmentation is a derivate of the CENITH segmentation wrapper for Treesegmentation and shares the same ide to compute Polygons with the area on an elevation model by watershed alogrithm.
+
+Development information:
+The function is a wrapper for the 'ForestTools' package (Plowright 2018) and is based on the CENITH segmentation function an wrapper for Treesegmentation. It computes "Treepositons" based on an elevation model and watershed algortithm an computes poylgons. Due to the minor raster cells in an SOM (compared to a DEM) the sinks could be splittet in several poylgons. Therefore intersecting poylgons are merged.
+
+citation ForestTools:
+
+  Andrew Plowright (2018). ForestTools: Analyzing Remotely Sensed Forest Data. R package version
+  0.2.0. https://CRAN.R-project.org/package=ForestTools
+
+### min and max
+To exclude minimal sinks artifacts (eg from fallen trees) and big sinks (eg a deep vally) the resulting polgons can be clipped by min and max areas.
+
+### Filters
+optional different filter sizes can be used to perform the segmentation on a filtered SOM.
+Filter size will be FxF sum filters.
+
+Requires "ForestTools","uavRst","sf","sp" and "rgeos" packages.
+
+```{r cars}
+#' Mandatory: Cenith Hollow Segmentation
+#'
+#' @description Optional: Segmentation for Sink only models (som), merges intersecting polygons.
+#' not useful for tree segementation on a chm
+#' @name Mandatory Cenith  
+#' @export Mandatory Cenith
+
+#' @param Mandatory if function: som - a sink only model
+#' @param Mandatory if function: a, b - parameters for the moving window
+#' @param Mandatory if function: h - minimum height to detect Objects
+#' @param Mandatory if function: min - minimum area for a polygon
+#' @param Mandatory if function: max - maximum area for a polygon
+#' @param Mandatory if function: f - optional mean filter for som with f*f
+
+#Note v1: uses cleaned sf and added merging intersection polygons, clipping min and max polygons
+
+
+cenith_hollow <- function(som,a,b,h,min,max,f=1){
+  #filter som
+  if (f>1){
+    cat(paste0("### Cenith computes som with mean filter ",as.factor(f)," ###",sep = "\n"))
+    chm <- raster::focal(som,w=matrix(1/(f*f),nrow=f,ncol=f),fun=mean)
+  } else {som = som}   ### filter function seperate
+
+    cat       (" ",sep="\n")
+    cat("### Cenith computes hollow positions ###",sep = "\n")
+
+
+
+    tpos = sf_ft_vwf_clean(som, 
+                            winFun = function(x){x * a + b}, 
+                            minHeight = h, 
+                            verbose = TRUE)
+    cat("### Cenith computes hollow segmentation ###",sep = "\n")
+    seg <- sf_chmseg_clean(chm = som,
+                     treepos = tpos,
+                     format = "polygons",
+                     minTreeAlt = h,
+                     verbose = TRUE)
+    #########################
+    #load function for merging
+    clusterSF <- function(sfpolys){
+      dmat = st_distance(sfpolys)
+      hc = hclust(as.dist(dmat), method="single")
+      groups = cutree(hc, h=0.5)
+      d = st_sf(
+        geom = do.call(c,
+                       lapply(1:max(groups), function(g){
+                         st_union(sfpolys[groups==g,])
+                       })
+        )
+      )
+      d$group = 1:nrow(d)
+      d
+    }
+    #################################
+    # convert sp to sf
+    poly_sf <- st_as_sf(seg)
+    #run merging
+    merc_seg_sf <- clusterSF(poly_sf)
+    #convert sf to sp
+    merc_sp <- sf:::as_Spatial(merc_seg_sf)
+    
+    ########################
+    for (s in 1:length(merc_sp)){
+    merc_sp[s,2] <- gArea(merc_sp[s,])
+    }
+    
+    names(merc_sp) <- c("ID","area")
+    
+    merc_sp
+    merc_min <- merc_sp[merc_sp$area>min,]
+    merc_min
+    
+    merc_seg <- merc_min[merc_min$area<max,]
+    merc_seg
+    
+    
+    
+    
+    ######################## results
+    cat(paste0("### Cenith computed ",as.factor(length(seg))," Polygons in total ###",sep = "\n"))
+    cat(paste0("### after merging ",as.factor(length(merc_sp))," Polygons left ###",sep = "\n"))
+    cat(paste0("### Cenith detected ",as.factor(length(merc_seg))," Objects after clipping to min and max ###",sep = "\n"))
+    cat(" ",sep = "\n")
+    cat       ("################################",sep="\n")
+    cat       ("   CC EEEE N   N  I TTTTT H   H ",sep="\n")
+    cat       ("  C   E    NN  N  I   T   H   H ",sep="\n")
+    cat       (" C    EE   N N N  I   T   HHHHH ",sep="\n")
+    cat       ("  C   E    N  NN  I   T   H   H ",sep="\n")
+    cat       ("   CC EEEE N   N  I   T   H   H ",sep="\n")
+    cat       ("                              ",sep="\n")
+    cat       ("Finished hollow segmentation           ",sep="\n")
+    return(merc_seg)
+  } 
+```
+
+
+
+```{r pressure, echo=FALSE}
+
+```
+

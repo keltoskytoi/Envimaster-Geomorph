@@ -1,0 +1,7 @@
+### REAVER extraction
+
+used to extract values for a polygon layer from a rasterbrick
+
+## V1  returns a df 
+
+##V1.1 adds a name to the objects and has new structur (more easy without unneded switches)

@@ -1,0 +1,19 @@
+Parameter;Formelzeichen;Formel;Bemerkung;Range;verbotene Operatoren;Quelle;;;;;
+Slope (Neigung);S;sqrt((dz/dx)^2 + (dz/dy)^2);Standard;pos bis neg;;Seminar 1. Sitzung;;;Z1;Z2;Z3
+Slope (Neigung);d;(Z3+2*Z6+Z9 - Z1-2*Z4-Z7) / 8*Zellweite;Vertikaldifferenz nach HORN 1981;pos bis neg;;Seminar 1. Sitzung;;;Z4;Z5;Z6
+Slope (Neigung);e;(Z7+2*Z8+Z9 - Z1-2*Z2-Z3) / 8*Zellweite;Horizontaldifferenz nach HORN 1981;pos bis neg;;Seminar 1. Sitzung;;;Z7;Z8;Z9
+Aspect (Streckung);;;;pos;;;;;;;
+Curvature (Wölbung / Krümmung);Wölbung;1/R;R = Radius eines gedachten Kreises;pos  ;;Seminar 1. Sitzung;;;;;
+Topographic Position Index;TPI;h - h´;h´ = mittlere Höhe der Umgebung;pos bis neg;;Seminar 2. Sitzung;;;;;
+Sky View Factor;;;;pos;;Hesse 2016;;;;;
+;;;;;;;;;;;
+General Curvature;C_GENE;;;pos bis neg;;;;;;;
+Profile Curvature;C_PROF;;;pos bis neg;;;;;;;
+Plan Curvature;C_PLAN;;;pos bis neg;;;;;;;
+Tangential Curvature;C_TANG;;;pos bis neg;;;;;;;
+Longitudinal Curvature;C_LONG;;;pos bis neg;;;;;;;
+Cross Sectional Curvature;C_CROS;;;pos bis neg;;;;;;;
+Minimal Curvature;C_MINI;;;pos bis neg;;;;;;;
+Maximal Curvature;C_MAXI;;;pos bis neg;;;;;;;
+Total Curvature;C_TOTA;;;pos  ;;;;;;;
+Flow Line Curvature;C_FLOW;;;pos bis neg;;;;;;;

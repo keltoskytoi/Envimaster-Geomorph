@@ -1,0 +1,10 @@
+### CENITH validation
+
+used to test parameters for best result
+
+## V1 basic validation over a and b
+
+## V2 runs over a,d and height
+
+## V2.1 adds new results
+

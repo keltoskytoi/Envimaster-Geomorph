@@ -1,0 +1,6 @@
+### REAVER hyperspace
+
+performs ordiantion nmds and dca and clusteranalysis hc and km on a data frame
+
+## V1  prints ordination nmds/ dca with hc and km clustering
+##V1.1 calculate descriptiv cluster quality for result hc clustering

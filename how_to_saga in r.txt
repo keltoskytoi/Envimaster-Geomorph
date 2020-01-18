@@ -1,0 +1,19 @@
+### prepare
+
+- check ur SAGA version. the script needs 2.0.4 - 2.2.3
+- i use 2.1.2
+- load the basic head script and use "linkSAGA()"
+- if u can choose a version u have more than one <- check ur system and delete 
+unneeded version and leave only 1. If u have problems try use the OSgeo4shell to 
+identifie installed versions and re/uninstall
+
+### get started
+- use the "with saga" head script to load new environment
+- if u get no question for choosing a version u are rdy to go
+
+- now RSAGA wrapper can be used OR soon coming R Wrapper function by me :)
+
+WICHTIG: wenn ihr mit der OSgeo4shell nachscheut welche installationen ihr habt und da etwas
+ uninstallieren wollt, guck alle möglichen "kästchen" durch, bei mir aktualisiert der dann 
+direkt vieles und installiert u.a. auch wieder en neuerer Version von saga
+
